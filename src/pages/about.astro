@@ -11,14 +11,14 @@ const entries = await contentfulClient.getEntries<Experience>({
 
 const experiences = entries.items
   .map((item) => {
-    const { startDate, endDate, role, company, logo } =
-      item.fields;
+    const { startDate, endDate, role, company, logo, type } = item.fields;
     return {
       startDate,
       endDate,
       role,
       company,
       logo,
+      type,
     };
   })
   .sort(
@@ -39,8 +39,11 @@ const experiences = entries.items
     <p
       class="text-sm leading-6 text-gray-600 dark:text-neutral-400 sm:leading-7 lg:leading-8 sm:text-base lg:text-lg"
     >
-      Front-end cutter 🧑🏻‍💻, back-end amateur 🤷🏻‍♂️, operations digging holes person
-      🤦🏻‍♂️.
+      I’m 17, and I live in East Cobb with my parents and brother. I’ve been
+      interested in technology since an early age and have become very skilled
+      in many areas. Primarily, I've started doing a lot with application and
+      website development. Take a look at my experience and education below, and
+      make sure to check out my projects, too!
     </p>
 
     <h2
@@ -67,6 +70,7 @@ const experiences = entries.items
                     role={experience.role}
                     company={experience.company}
                     logo={(experience.logo as any).fields.file.url}
+                    type={experience.type}
                   />
                 </div>
               ) : (
@@ -76,6 +80,7 @@ const experiences = entries.items
                   role={experience.role}
                   company={experience.company}
                   logo={(experience.logo as any).fields.file.url}
+                  type={experience.type}
                 />
               )}
             </>
@@ -92,14 +97,10 @@ const experiences = entries.items
     <p
       class="text-sm leading-6 text-gray-600 dark:text-neutral-400 sm:leading-7 lg:leading-8 sm:text-base lg:text-lg"
     >
-      If you want to stay up to date with my work be sure to <a
-        href="https://twitter.com/ccikai"
-        target="_blank"
-        class="text-indigo-600 underline">follow me on twitter</a
-      >, or you can send me an <a
-        href="mailto:astro-aria#miantiao.me"
+      Interested in working together or just want to chat? Feel free to <a
+        href="mailto:me@mitchellpeck.com"
         class="text-indigo-600 underline">email</a
-      > and I'll be sure to get back to you.
+      > me.
     </p>
   </section>
 </Layout>
