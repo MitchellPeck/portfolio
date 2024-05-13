@@ -43,5 +43,6 @@ export interface Experience {
     company: EntryFieldTypes.Text;
     logo: EntryFieldTypes.Object;
     type: EntryFieldTypes.Text;
+    typeDescription: EntryFieldTypes.Text;
   };
 }

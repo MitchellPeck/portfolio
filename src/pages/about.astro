@@ -11,7 +11,7 @@ const entries = await contentfulClient.getEntries<Experience>({
 
 const experiences = entries.items
   .map((item) => {
-    const { startDate, endDate, role, company, logo, type } = item.fields;
+    const { startDate, endDate, role, company, logo, type, typeDescription } = item.fields;
     return {
       startDate,
       endDate,
@@ -19,6 +19,7 @@ const experiences = entries.items
       company,
       logo,
       type,
+      typeDescription,
     };
   })
   .sort(
@@ -71,6 +72,7 @@ const experiences = entries.items
                     company={experience.company}
                     logo={(experience.logo as any).fields.file.url}
                     type={experience.type}
+                    typeDescription = {experience.typeDescription}
                   />
                 </div>
               ) : (
@@ -81,6 +83,7 @@ const experiences = entries.items
                   company={experience.company}
                   logo={(experience.logo as any).fields.file.url}
                   type={experience.type}
+                  typeDescription = {experience.typeDescription}
                 />
               )}
             </>
