@@ -1,0 +1,47 @@
+---
+import { contentfulClient } from "../../lib/contentful";
+import { documentToHtmlString } from "@contentful/rich-text-html-renderer";
+import type { Project } from "../../lib/contentful";
+import PageHeading from "../../components/page-heading.astro";
+import Layout from "../../layouts/main.astro";
+import Button from "../../components/button.astro";
+
+export async function getStaticPaths() {
+  const entries = await contentfulClient.getEntries<Project>({
+    content_type: "project",
+  });
+
+  const pages = entries.items.map((item) => ({
+    params: { slug: item.fields.slug },
+    props: {
+      title: item.fields.name,
+      content: documentToHtmlString(item.fields.content),
+      image:
+        (item.fields.fullImage &&
+          (item.fields.fullImage as any).fields.file.url) ||
+        (item.fields.image as any).fields.file.url,
+      url: item.fields.url,
+      hasFull: item.fields.fullImage ? true : false,
+    },
+  }));
+  return pages;
+}
+
+const { content, title, image, url, hasFull } = Astro.props;
+---
+
+<Layout title={title}>
+  <section class="relative z-20 max-w-2xl mx-auto my-12 px-7 lg:px-0">
+    <div style={{ display: "flex", justifyContent: "center" }}>
+      <img src={image} width={hasFull ? "50%" : "25%"} />
+    </div>
+
+    {!hasFull && <PageHeading title={title} />}
+
+    <br />
+
+    <article id="article" set:html={content} style={{ color: "#fff" }} />
+
+    {url && <Button text={`View the ${title} Website`} link={url} />}
+  </section>
+</Layout>
