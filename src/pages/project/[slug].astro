@@ -51,7 +51,7 @@ const { overview, title, image, url, hasFull, techStack, status } = Astro.props;
         <p
             class="text-sm leading-6 dark:text-neutral-400 sm:leading-7 lg:leading-8 sm:text-base lg:text-lg"
             style={{
-                color: status === "In Progress" ? "rgba(255, 165, 0, 0.75)" : status === "Completed" ? "rgba(0, 255, 0, 0.75)" : "rgba(255, 0, 0, 0.75)",
+                color: status === "In Progress" ? "rgba(255, 165, 0, 0.75)" : status === "Completed" ? "rgba(0, 255, 0, 0.75)" : status === "Completed - Actively Maintained" ? "rgba(0, 255, 0, 0.75)" : status === "Completed - Sunset" ? "rgba(230, 144, 104, 0.75)" : "rgba(255, 0, 0, 0.75)",
                 transform: "translateY(-10px)"
             }}
         >
