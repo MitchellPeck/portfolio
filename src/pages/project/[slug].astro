@@ -24,12 +24,13 @@ export async function getStaticPaths() {
       hasFull: item.fields.fullImage ? true : false,
       overview: documentToHtmlString(item.fields.overview),
       techStack: documentToHtmlString(item.fields.techStack),
+      status: item.fields.status,
     },
   }));
   return pages;
 }
 
-const { overview, title, image, url, hasFull, techStack } = Astro.props;
+const { overview, title, image, url, hasFull, techStack, status } = Astro.props;
 ---
 
 <Layout title={title}>
@@ -41,8 +42,24 @@ const { overview, title, image, url, hasFull, techStack } = Astro.props;
     </div>
 
     {!hasFull && <PageHeading title={title} />}
-
-    <br />
+    {
+      status && (
+        <>
+          <p class="text-sm leading-6 dark:text-neutral-400 sm:leading-7 lg:leading-8 sm:text-base lg:text-lg">
+            Status:
+          </p>
+        <p
+            class="text-sm leading-6 dark:text-neutral-400 sm:leading-7 lg:leading-8 sm:text-base lg:text-lg"
+            style={{
+                color: status === "In Progress" ? "rgba(255, 165, 0, 0.75)" : status === "Completed" ? "rgba(0, 255, 0, 0.75)" : "rgba(255, 0, 0, 0.75)",
+                transform: "translateY(-10px)"
+            }}
+        >
+            {status}
+          </p>
+        </>
+      )
+    }
 
     <SectionHeading title="Overview" />
     <article set:html={overview} style={{ color: "#fff" }} />

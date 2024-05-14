@@ -21,6 +21,7 @@ export interface Project {
     priority: EntryFieldTypes.Number;
     overview: EntryFieldTypes.RichText;
     techStack: EntryFieldTypes.RichText;
+    status: EntryFieldTypes.Text;
   };
 }
 
