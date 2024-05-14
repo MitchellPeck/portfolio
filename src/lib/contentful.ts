@@ -19,8 +19,8 @@ export interface Project {
     url: EntryFieldTypes.Text;
     slug: EntryFieldTypes.Text;
     priority: EntryFieldTypes.Number;
-    overview: EntryFieldTypes.Text;
-    techStack: EntryFieldTypes.Text;
+    overview: EntryFieldTypes.RichText;
+    techStack: EntryFieldTypes.RichText;
   };
 }
 

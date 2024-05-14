@@ -6,9 +6,6 @@ import PageHeading from "../../components/page-heading.astro";
 import Layout from "../../layouts/main.astro";
 import Button from "../../components/button.astro";
 import SectionHeading from "../../components/section-heading.astro";
-//@ts-ignore
-import {MarkdownBlock, MarkdownSpan, MarkdownElement} from "md-block";
-
 
 export async function getStaticPaths() {
   const entries = await contentfulClient.getEntries<Project>({
@@ -25,8 +22,8 @@ export async function getStaticPaths() {
         (item.fields.image as any).fields.file.url,
       url: item.fields.url,
       hasFull: item.fields.fullImage ? true : false,
-      overview: item.fields.overview,
-      techStack: item.fields.techStack,
+      overview: documentToHtmlString(item.fields.overview),
+      techStack: documentToHtmlString(item.fields.techStack),
     },
   }));
   return pages;
@@ -48,21 +45,11 @@ const { overview, title, image, url, hasFull, techStack } = Astro.props;
     <br />
 
     <SectionHeading title="Overview" />
-    <p
-      class="text-sm leading-6 text-gray-600 dark:text-neutral-400 sm:leading-7 lg:leading-8 sm:text-base lg:text-lg"
-    >
-      {overview}
-    </p>
+    <article set:html={overview} style={{ color: "#fff" }} />
 
     <br />
     <SectionHeading title="Tech Stack" />
-    <p
-      class="text-sm leading-6 text-gray-600 dark:text-neutral-400 sm:leading-7 lg:leading-8 sm:text-base lg:text-lg"
-    >
-     <md-block>
-      {techStack}
-     </md-block>
-    </p>
+    <article set:html={techStack} class="content" style={{ color: "#fff" }} />
 
     {url && <Button text={`View the ${title} Website`} link={url} />}
   </section>
