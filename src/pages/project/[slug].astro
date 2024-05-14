@@ -5,6 +5,10 @@ import type { Project } from "../../lib/contentful";
 import PageHeading from "../../components/page-heading.astro";
 import Layout from "../../layouts/main.astro";
 import Button from "../../components/button.astro";
+import SectionHeading from "../../components/section-heading.astro";
+//@ts-ignore
+import {MarkdownBlock, MarkdownSpan, MarkdownElement} from "md-block";
+
 
 export async function getStaticPaths() {
   const entries = await contentfulClient.getEntries<Project>({
@@ -15,22 +19,25 @@ export async function getStaticPaths() {
     params: { slug: item.fields.slug },
     props: {
       title: item.fields.name,
-      content: documentToHtmlString(item.fields.content),
       image:
         (item.fields.fullImage &&
           (item.fields.fullImage as any).fields.file.url) ||
         (item.fields.image as any).fields.file.url,
       url: item.fields.url,
       hasFull: item.fields.fullImage ? true : false,
+      overview: item.fields.overview,
+      techStack: item.fields.techStack,
     },
   }));
   return pages;
 }
 
-const { content, title, image, url, hasFull } = Astro.props;
+const { overview, title, image, url, hasFull, techStack } = Astro.props;
 ---
 
 <Layout title={title}>
+  <script type="module" src="https://md-block.verou.me/md-block.js"></script>
+
   <section class="relative z-20 max-w-2xl mx-auto my-12 px-7 lg:px-0">
     <div style={{ display: "flex", justifyContent: "center" }}>
       <img src={image} width={hasFull ? "50%" : "25%"} />
@@ -40,7 +47,22 @@ const { content, title, image, url, hasFull } = Astro.props;
 
     <br />
 
-    <article id="article" set:html={content} style={{ color: "#fff" }} />
+    <SectionHeading title="Overview" />
+    <p
+      class="text-sm leading-6 text-gray-600 dark:text-neutral-400 sm:leading-7 lg:leading-8 sm:text-base lg:text-lg"
+    >
+      {overview}
+    </p>
+
+    <br />
+    <SectionHeading title="Tech Stack" />
+    <p
+      class="text-sm leading-6 text-gray-600 dark:text-neutral-400 sm:leading-7 lg:leading-8 sm:text-base lg:text-lg"
+    >
+     <md-block>
+      {techStack}
+     </md-block>
+    </p>
 
     {url && <Button text={`View the ${title} Website`} link={url} />}
   </section>

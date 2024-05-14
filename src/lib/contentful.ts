@@ -14,12 +14,13 @@ export interface Project {
   fields: {
     name: EntryFieldTypes.Text;
     description: EntryFieldTypes.Text;
-    content: EntryFieldTypes.RichText;
     image: EntryFieldTypes.Object;
     fullImage: EntryFieldTypes.Object;
     url: EntryFieldTypes.Text;
     slug: EntryFieldTypes.Text;
     priority: EntryFieldTypes.Number;
+    overview: EntryFieldTypes.Text;
+    techStack: EntryFieldTypes.Text;
   };
 }
 
