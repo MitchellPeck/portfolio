@@ -10,6 +10,7 @@ const entries = await contentfulClient.getEntries<PContent>({
 
 const projects = entries.items
   .sort((a, b) => b.fields.priority - a.fields.priority)
+  .slice(0, 3)
   .map((item) => {
     const { name, description, image, url, slug } = item.fields;
     return {
