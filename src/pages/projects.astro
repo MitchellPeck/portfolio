@@ -39,7 +39,7 @@ const projects = entries.items
             <Project
               name={project.name}
               description={project.description}
-              image={(project.image as any).fields.file.url}
+              image={project.image && (project.image as any).fields.file.url}
               slug={project.slug}
             />
           )
