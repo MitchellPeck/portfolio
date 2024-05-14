@@ -57,25 +57,13 @@ const experiences = entries.items
         experiences.map((experience, loop) => {
           return (
             <>
-              {loop !== experiences.length - 1 ? (
-                <div
-                  class={
-                    loop == 0 || loop == 1
-                      ? "pb-10 border-l border-gray-200 dark:border-neutral-700"
-                      : ""
-                  }
-                >
-                  <AboutExperience
-                    startDate={experience.startDate}
-                    endDate={experience.endDate}
-                    role={experience.role}
-                    company={experience.company}
-                    logo={(experience.logo as any).fields.file.url}
-                    type={experience.type}
-                    typeDescription = {experience.typeDescription}
-                  />
-                </div>
-              ) : (
+              <div
+                class={
+                  loop !== experiences.length - 1
+                    ? "pb-10 border-l border-gray-200 dark:border-neutral-700"
+                    : ""
+                }
+              >
                 <AboutExperience
                   startDate={experience.startDate}
                   endDate={experience.endDate}
@@ -85,7 +73,7 @@ const experiences = entries.items
                   type={experience.type}
                   typeDescription = {experience.typeDescription}
                 />
-              )}
+              </div>
             </>
           );
         })
