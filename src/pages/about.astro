@@ -4,6 +4,7 @@ import PageHeading from "../components/page-heading.astro";
 import Layout from "../layouts/main.astro";
 import { contentfulClient } from "../lib/contentful.ts";
 import type { Experience } from "../lib/contentful.ts";
+import Button from "../components/button.astro";
 
 const entries = await contentfulClient.getEntries<Experience>({
   content_type: "experience",
@@ -11,7 +12,8 @@ const entries = await contentfulClient.getEntries<Experience>({
 
 const experiences = entries.items
   .map((item) => {
-    const { startDate, endDate, role, company, logo, type, typeDescription } = item.fields;
+    const { startDate, endDate, role, company, logo, type, typeDescription } =
+      item.fields;
     return {
       startDate,
       endDate,
@@ -44,8 +46,14 @@ const experiences = entries.items
       interested in technology since an early age and have become very skilled
       in many areas. Primarily, I've started doing a lot with application and
       website development. Take a look at my experience and education below, and
-      make sure to check out my projects, too!
+      make sure to check out my projects, too! You can view my full resume on
+      indeed to see more about my other skills an interests.
     </p>
+
+    <Button
+      text="View my full resume on Indeed"
+      link="https://profile.indeed.com/p/mitchellp-rq3zc32"
+    />
 
     <h2
       class="mt-5 mb-2 text-2xl font-bold lg:mt-10 sm:mt-6 dark:text-neutral-200"
@@ -71,7 +79,7 @@ const experiences = entries.items
                   company={experience.company}
                   logo={(experience.logo as any).fields.file.url}
                   type={experience.type}
-                  typeDescription = {experience.typeDescription}
+                  typeDescription={experience.typeDescription}
                 />
               </div>
             </>
