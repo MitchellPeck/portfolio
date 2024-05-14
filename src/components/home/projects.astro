@@ -12,13 +12,14 @@ const projects = entries.items
   .sort((a, b) => b.fields.priority - a.fields.priority)
   .slice(0, 3)
   .map((item) => {
-    const { name, description, image, url, slug } = item.fields;
+    const { name, description, image, url, slug, status } = item.fields;
     return {
       name,
       description,
       image,
       url,
-      slug
+      slug,
+      status
     };
   });
 ---
@@ -44,6 +45,7 @@ const projects = entries.items
             description={project.description}
             image={(project.image as any).fields.file.url}
             slug={project.slug}
+            status={project.status}
           />
         )
       })

@@ -40,26 +40,40 @@ const { overview, title, image, url, hasFull, techStack, status } = Astro.props;
     <div style={{ display: "flex", justifyContent: "center" }}>
       <img src={image} width={hasFull ? "50%" : "25%"} />
     </div>
-
-    {!hasFull && <PageHeading title={title} />}
+    
     {
       status && (
-        <>
-          <p class="text-sm leading-6 dark:text-neutral-400 sm:leading-7 lg:leading-8 sm:text-base lg:text-lg">
-            Status:
-          </p>
-        <p
-            class="text-sm leading-6 dark:text-neutral-400 sm:leading-7 lg:leading-8 sm:text-base lg:text-lg"
-            style={{
-                color: status === "In Progress" ? "rgba(255, 165, 0, 0.75)" : status === "Completed" ? "rgba(0, 255, 0, 0.75)" : status === "Completed - Actively Maintained" ? "rgba(0, 255, 0, 0.75)" : status === "Completed - Sunset" ? "rgba(230, 144, 104, 0.75)" : "rgba(255, 0, 0, 0.75)",
-                transform: "translateY(-10px)"
-            }}
+        <div
+          class="inline-block px-2 py-1 mt-2 text-xs font-bold text-white rounded-full border border-neutral-300 dark:border-neutral-600"
+          style={{
+            backgroundColor:
+              status === "In Progress"
+                ? "rgba(255, 165, 0, 0.25)"
+                : status === "Completed"
+                  ? "rgba(0, 255, 0, 0.25)"
+                  : status === "Completed - Actively Maintained"
+                    ? "rgba(0, 255, 0, 0.25)"
+                    : status === "Completed - Sunset"
+                      ? "rgba(230, 144, 104, 0.25)"
+                      : "rgba(255, 0, 0, 0.25)",
+            borderColor:
+              status === "In Progress"
+                ? "rgba(255, 165, 0, 0.75)"
+                : status === "Completed"
+                  ? "rgba(0, 255, 0, 0.75)"
+                  : status === "Completed - Actively Maintained"
+                    ? "rgba(0, 255, 0, 0.75)"
+                    : status === "Completed - Sunset"
+                      ? "rgba(230, 144, 104, 0.75)"
+                      : "rgba(255, 0, 0, 0.75)",
+          }}
         >
-            {status}
-          </p>
-        </>
+          <p style={{ color: "#fff !important" }}>{status}</p>
+        </div>
       )
     }
+
+    {!hasFull && <PageHeading title={title} />}
 
     <SectionHeading title="Overview" />
     <article set:html={overview} style={{ color: "#fff" }} />

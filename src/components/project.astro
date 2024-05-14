@@ -1,6 +1,5 @@
 ---
-const { name, description, slug, image } = Astro.props;
-console.log(image);
+const { name, description, slug, image, status } = Astro.props;
 ---
 
 <a
@@ -57,9 +56,36 @@ console.log(image);
           ></svg
         >
       </span>
-      <span class="text-sm text-neutral-600 dark:text-neutral-400"
-        >{description}</span
+      <span
+        class="inline-block px-2 py-1 mt-2 text-xs font-bold text-white rounded-full border border-neutral-300 dark:border-neutral-600"
+        style={{
+          backgroundColor:
+              status === "In Progress"
+                ? "rgba(255, 165, 0, 0.25)"
+                : status === "Completed"
+                  ? "rgba(0, 255, 0, 0.25)"
+                  : status === "Completed - Actively Maintained"
+                    ? "rgba(0, 255, 0, 0.25)"
+                    : status === "Completed - Sunset"
+                      ? "rgba(230, 144, 104, 0.25)"
+                      : "rgba(255, 0, 0, 0.25)",
+            borderColor:
+              status === "In Progress"
+                ? "rgba(255, 165, 0, 0.75)"
+                : status === "Completed"
+                  ? "rgba(0, 255, 0, 0.75)"
+                  : status === "Completed - Actively Maintained"
+                    ? "rgba(0, 255, 0, 0.75)"
+                    : status === "Completed - Sunset"
+                      ? "rgba(230, 144, 104, 0.75)"
+                      : "rgba(255, 0, 0, 0.75)",
+        }}
       >
+        {status}
+      </span>
+      <div class="mt-2 text-sm text-neutral-600 dark:text-neutral-400">
+        {description}
+      </div>
     </span>
   </span>
 </a>
