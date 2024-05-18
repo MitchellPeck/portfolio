@@ -1,0 +1,41 @@
+---
+import { contentfulClient } from "../../lib/contentful";
+import { documentToHtmlString } from "@contentful/rich-text-html-renderer";
+import type { Post } from "../../lib/contentful";
+import PageHeading from "../../components/page-heading.astro";
+import Layout from "../../layouts/main.astro";
+import Button from "../../components/button.astro";
+import SectionHeading from "../../components/section-heading.astro";
+
+export async function getStaticPaths() {
+  const entries = await contentfulClient.getEntries<Post>({
+    content_type: "post",
+  });
+
+  const pages = entries.items.map((item) => ({
+    params: { slug: item.fields.slug },
+    props: {
+      title: item.fields.title,
+      description: item.fields.description,
+      content: documentToHtmlString(item.fields.content),
+      publishedDate: item.fields.publishedDate,
+    },
+  }));
+  return pages;
+}
+
+const { title, content, publishedDate } = Astro.props;
+---
+
+<Layout title={title}>
+  <script type="module" src="https://md-block.verou.me/md-block.js"></script>
+
+  <section class="relative z-20 max-w-2xl mx-auto my-12 px-7 lg:px-0">
+    <PageHeading title={title} />
+    <p class="text-gray-400 text-sm">Published on {new Date(publishedDate).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}</p>
+
+    <br />
+
+    <article set:html={content} style={{ color: "#fff" }} />
+  </section>
+</Layout>

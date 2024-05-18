@@ -1,0 +1,54 @@
+---
+import Button from "../button.astro";
+import { contentfulClient } from "../../lib/contentful.ts";
+import type { Post as PContent } from "../../lib/contentful.ts";
+import Post from "../post.astro";
+
+const entries = await contentfulClient.getEntries<PContent>({
+  content_type: "post",
+});
+
+const posts = entries.items
+  .sort((a, b) => Number(b.fields.publishedDate) - Number(a.fields.publishedDate))
+  .slice(0, 3)
+  .map((item) => {
+    const { title, description, publishedDate, slug } = item.fields;
+    return {
+      title,
+      description,
+      publishedDate,
+      slug
+    };
+  });
+---
+
+<section class="max-w-4xl mx-auto px-7 lg:px-0">
+  <h2
+    class="text-2xl font-bold leading-10 tracking-tight text-neutral-900 dark:text-neutral-100"
+  >
+    My Posts
+  </h2>
+  <p class="mb-6 text-base text-neutral-600 dark:text-neutral-400">
+    Here are some of my recent posts. I like to write every once in a while about things that interest me. Check them out below!
+  </p>
+  <div
+    class="grid items-stretch w-full sm:grid-cols-2 md:grid-cols-3 gap-7 mt-7"
+  >
+    {
+      posts.map((post) => {
+        return (
+        <Post
+              title = {post.title}
+              description = {post.description}
+              publishedDate = {post.publishedDate}
+              slug = {post.slug}
+            />
+        )
+      })
+    }
+  </div>
+
+  <div class="flex items-center justify-center w-full py-5">
+    <Button text="View All My Posts" link="/posts" />
+  </div>
+</section>
