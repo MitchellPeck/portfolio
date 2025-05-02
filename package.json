@@ -1,39 +1,49 @@
 {
-	"name": "",
-	"type": "module",
-	"version": "0.0.1",
-	"scripts": {
-		"dev": "astro dev",
-		"start": "astro dev",
-		"build": "astro check && astro build",
-		"preview": "astro preview",
-		"astro": "astro",
-		"check": "biome check --apply-unsafe ."
-	},
-	"devDependencies": {
-		"@astrojs/check": "^0.9.3",
-		"@astrojs/tailwind": "^5.1.0",
-		"@biomejs/biome": "1.7.3",
-		"@tailwindcss/typography": "^0.5.13",
-		"astro": "^4.14.5",
-		"tailwindcss": "^3.4.3",
-		"typescript": "^5.4.5"
-	},
-	"dependencies": {
-		"@astrojs/react": "^3.6.2",
-		"@astrojs/vercel": "^7.8.0",
-		"@contentful/live-preview": "^3.3.7",
-		"@contentful/rich-text-html-renderer": "^16.3.5",
-		"@contentful/rich-text-react-renderer": "^15.19.6",
-		"@types/react": "^18.3.2",
-		"@types/react-dom": "^18.3.0",
-		"@vercel/analytics": "^1.2.2",
-		"contentful": "^10.10.0",
-		"marked": "^12.0.2",
-		"md-block": "^0.0.1",
-		"react": "^18.3.1",
-		"react-dom": "^18.3.1",
-		"typescript": "^5.4.5",
-		"vercel": "^34.1.13"
-	}
+  "name": "portfolio",
+  "version": "1.0.0",
+  "description": "A blank template to get started with Payload 3.0",
+  "license": "MIT",
+  "type": "module",
+  "scripts": {
+    "build": "cross-env NODE_OPTIONS=--no-deprecation next build",
+    "dev": "cross-env NODE_OPTIONS=--no-deprecation next dev",
+    "devsafe": "rm -rf .next && cross-env NODE_OPTIONS=--no-deprecation next dev",
+    "generate:importmap": "cross-env NODE_OPTIONS=--no-deprecation payload generate:importmap",
+    "generate:types": "cross-env NODE_OPTIONS=--no-deprecation payload generate:types",
+    "lint": "cross-env NODE_OPTIONS=--no-deprecation next lint",
+    "payload": "cross-env NODE_OPTIONS=--no-deprecation payload",
+    "start": "cross-env NODE_OPTIONS=--no-deprecation next start"
+  },
+  "dependencies": {
+    "@payloadcms/db-postgres": "3.33.0",
+    "@payloadcms/next": "3.33.0",
+    "@payloadcms/payload-cloud": "3.33.0",
+    "@payloadcms/richtext-lexical": "3.33.0",
+    "cross-env": "^7.0.3",
+    "graphql": "^16.8.1",
+    "next": "^15.3.1",
+    "payload": "3.33.0",
+    "react": "19.1.0",
+    "react-dom": "19.1.0",
+    "sharp": "0.32.6"
+  },
+  "devDependencies": {
+    "@eslint/eslintrc": "^3.2.0",
+    "@types/node": "^22.5.4",
+    "@types/react": "19.1.0",
+    "@types/react-dom": "19.1.2",
+    "eslint": "^9.16.0",
+    "eslint-config-next": "15.3.0",
+    "prettier": "^3.4.2",
+    "typescript": "5.7.3"
+  },
+  "engines": {
+    "node": "^18.20.2 || >=20.9.0",
+    "pnpm": "^9 || ^10"
+  },
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "sharp"
+    ]
+  }
 }

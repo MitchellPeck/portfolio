@@ -1,0 +1,60 @@
+/* Consulting page styles */
+.consulting-page {
+  min-height: 100vh;
+  background: transparent;
+}
+
+.consulting-hero {
+  padding: 7rem 0 3rem;
+  background: transparent;
+  text-align: center;
+}
+
+.page-title {
+  font-size: 3rem;
+  font-weight: 800;
+  margin-bottom: 1rem;
+  color: var(--color-foreground);
+}
+
+.page-description {
+  max-width: 700px;
+  margin: 0 auto;
+  color: var(--color-muted);
+  font-size: 1.1rem;
+  line-height: 1.6;
+}
+
+.consulting-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 2rem;
+}
+
+.consulting-item {
+  height: 100%;
+}
+
+@media (max-width: 768px) {
+  .consulting-hero {
+    padding: 6rem 0 2.5rem;
+  }
+  
+  .page-title {
+    font-size: 2.5rem;
+  }
+  
+  .page-description {
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .page-title {
+    font-size: 2rem;
+  }
+  
+  .consulting-grid {
+    grid-template-columns: 1fr;
+  }
+} 

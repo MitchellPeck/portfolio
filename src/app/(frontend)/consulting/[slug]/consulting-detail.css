@@ -1,0 +1,286 @@
+.consulting-detail-page {
+  padding: 2rem 0 4rem;
+  background: transparent;
+}
+
+.breadcrumbs {
+  margin-bottom: 2rem;
+}
+
+.breadcrumbs a {
+  display: inline-flex;
+  align-items: center;
+  color: var(--color-primary);
+  font-size: 0.95rem;
+  font-weight: 500;
+  transition: color 0.2s ease;
+}
+
+.breadcrumbs a:hover {
+  color: var(--color-primary-dark);
+}
+
+.consulting-header {
+  margin-bottom: 2.5rem;
+  position: relative;
+}
+
+.consulting-header-content {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.consulting-title {
+  font-size: 2.5rem;
+  line-height: 1.2;
+  margin-bottom: 2rem;
+}
+
+.consulting-badges-container {
+  display: block;
+  position: relative;
+  margin-bottom: 2rem;
+  height: 2.5rem;
+}
+
+/* Specific styling for client-side rendering */
+.consulting-badges-container.client-rendered .featured-badge {
+  /* Force a repaint during client navigation */
+  transform: translateZ(0);
+}
+
+/* Force repaint on server-rendered badges */
+.consulting-badges-container.server-rendered .featured-badge {
+  opacity: 0.999; /* Trick to avoid flash of incorrect positioning */
+}
+
+.featured-badge {
+  position: absolute;
+  right: 0;
+  top: 0;
+  font-size: 0.7rem;
+  font-weight: 600;
+  padding: 0.4rem 0.8rem;
+  border-radius: 20px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: #ffffff;
+  background: var(--color-primary);
+  z-index: 2;
+  background-color: transparent; /* Reset mark's default yellow background */
+  border: none;
+  text-decoration: none;
+  display: inline-block;
+  background: var(--color-primary); /* Set the actual background color */
+}
+
+.consulting-meta {
+  display: flex;
+  gap: 2rem;
+  margin-bottom: 1.5rem;
+}
+
+.consulting-client h4,
+.consulting-duration h4 {
+  font-size: 1rem;
+  color: var(--color-muted);
+  margin-bottom: 0.25rem;
+}
+
+.consulting-featured-image {
+  margin-bottom: 2rem;
+  overflow: hidden;
+  border-radius: 1rem;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.image-container {
+  position: relative;
+  margin: 0 auto;
+  width: 25%;
+  aspect-ratio: 1/1;
+  overflow: hidden;
+  border-radius: 1rem;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+}
+
+.featured-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  border-radius: 1rem;
+}
+
+.consulting-content {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 3rem;
+}
+
+.consulting-description {
+  margin-top: 2.5rem;
+}
+
+.consulting-description h3 {
+  font-size: 1.5rem;
+  margin-bottom: 1.25rem;
+}
+
+.consulting-date {
+  margin-bottom: 2rem;
+}
+
+.consulting-date h4 {
+  font-size: 1.1rem;
+  margin-bottom: 0.5rem;
+  color: var(--color-muted);
+}
+
+.consulting-date time {
+  font-size: 0.95rem;
+}
+
+.consulting-technologies {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.tech-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.tech-group-title {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--color-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 0.25rem;
+}
+
+.tech-group-items {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.consulting-tech-tag {
+  font-size: 0.85rem;
+  padding: 0.35rem 0.75rem;
+  border-radius: 50px;
+  background-color: rgba(52, 144, 220, 0.15);
+  color: var(--color-primary);
+  display: inline-block;
+  text-decoration: none;
+  transition: background-color 0.2s ease, color 0.2s ease;
+  width: fit-content;
+}
+
+.consulting-tech-tag:hover {
+  background-color: rgba(52, 144, 220, 0.25);
+}
+
+.consulting-overview h2 {
+  font-size: 1.75rem;
+  margin-bottom: 1.5rem;
+}
+
+.consulting-overview-content,
+.consulting-description-content {
+  max-width: 100%;
+}
+
+@media (min-width: 768px) {
+  .consulting-detail-page {
+    padding: 3rem 0 5rem;
+  }
+
+  .consulting-title {
+    font-size: 3rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .consulting-content {
+    grid-template-columns: 2fr 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .consulting-detail-page {
+    padding: 2rem 0 4rem;
+  }
+
+  .consulting-title {
+    font-size: 2.25rem;
+  }
+  
+  .consulting-technologies {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.25rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .consulting-title {
+    font-size: 1.75rem;
+  }
+  
+  .consulting-technologies {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Consulting Badges Styling */
+.consulting-badges {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.badge-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.badge-group-title {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--color-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 0.25rem;
+}
+
+.badge-group-items {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.consulting-badge {
+  font-size: 0.85rem;
+  padding: 0.35rem 0.75rem;
+  border-radius: 50px;
+  background-color: rgba(52, 144, 220, 0.15);
+  color: var(--color-primary);
+  display: inline-block;
+  text-decoration: none;
+  transition: background-color 0.2s ease, color 0.2s ease;
+  width: fit-content;
+}
+
+.consulting-badge.featured {
+  background-color: rgba(52, 144, 220, 0.15);
+  color: var(--color-primary);
+} 

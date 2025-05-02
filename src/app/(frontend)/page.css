@@ -1,0 +1,467 @@
+.hero {
+  padding: 8rem 0 4rem;
+  background: transparent;
+}
+
+.hero .container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+}
+
+.hero-content {
+  flex: 1;
+  max-width: 600px;
+}
+
+.hero-title {
+  font-size: 3.5rem;
+  font-weight: 800;
+  line-height: 1.2;
+  margin-bottom: 1.5rem;
+  background: linear-gradient(to right, var(--color-primary), var(--color-secondary));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.hero-heading {
+  font-size: 1.25rem;
+  background: linear-gradient(to right, var(--color-primary), var(--color-secondary));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 1.5rem;
+}
+
+.hero-subtitle {
+  font-size: 1.25rem;
+  color: var(--color-muted);
+  margin-bottom: 2rem;
+  line-height: 1.6;
+}
+
+.hero-cta {
+  padding: 0.75rem 1.75rem;
+  font-size: 1rem;
+}
+
+.hero-image {
+  flex: 1;
+  display: flex;
+  justify-content: flex-end;
+  position: relative;
+}
+
+.hero-image img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 1rem;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+}
+
+/* Section Styles */
+.section {
+  padding: 5rem 0;
+}
+
+.section-title {
+  text-align: center;
+  margin-bottom: 3rem;
+  font-size: 2.25rem;
+  font-weight: 700;
+}
+
+.section-title::after {
+  content: '';
+  display: block;
+  width: 60px;
+  height: 4px;
+  background: var(--color-primary);
+  margin: 1rem auto 0;
+  border-radius: 4px;
+}
+
+.section-footer {
+  display: flex;
+  justify-content: center;
+  margin-top: 3rem;
+}
+
+/* Projects Grid */
+.projects-grid-wrapper {
+  width: 100%;
+}
+
+.projects-grid {
+  display: grid;
+  gap: 2rem;
+  margin: 2rem auto;
+  justify-content: center;
+  /* Use grid-template-columns with auto-fit to dynamically adjust */
+  grid-template-columns: repeat(auto-fit, 320px);
+  /* Max width for different numbers of items */
+  max-width: calc(320px + 2rem); /* For 1 item */
+}
+
+/* Special handling for exactly 2 items */
+.projects-grid:has(.project-item:nth-child(2):last-child) {
+  max-width: calc(2 * 320px + 2rem); /* For 2 items */
+}
+
+/* Special handling for 3 or more items */
+.projects-grid:has(.project-item:nth-child(3)) {
+  max-width: calc(3 * 320px + 4rem); /* For 3+ items */
+}
+
+.project-item {
+  width: 320px;
+  flex-grow: 0;
+  flex-shrink: 0;
+}
+
+/* Consulting Grid */
+.consulting-grid-wrapper {
+  width: 100%;
+}
+
+.consulting-grid {
+  display: grid;
+  gap: 2rem;
+  margin: 2rem auto;
+  justify-content: center;
+  /* Use grid-template-columns with auto-fit to dynamically adjust */
+  grid-template-columns: repeat(auto-fit, 320px);
+  /* Max width for different numbers of items */
+  max-width: calc(320px + 2rem); /* For 1 item */
+}
+
+/* Special handling for exactly 2 items */
+.consulting-grid:has(.consulting-item:nth-child(2):last-child) {
+  max-width: calc(2 * 320px + 2rem); /* For 2 items */
+}
+
+/* Special handling for 3 or more items */
+.consulting-grid:has(.consulting-item:nth-child(3)) {
+  max-width: calc(3 * 320px + 4rem); /* For 3+ items */
+}
+
+.consulting-item {
+  width: 320px;
+  flex-grow: 0;
+  flex-shrink: 0;
+}
+
+.consulting-section {
+  background: transparent;
+}
+
+/* Featured Section Styles - shared between projects and consulting */
+.featured-section {
+  margin-bottom: 2rem;
+}
+
+.featured-item {
+  position: relative;
+  border-radius: var(--border-radius);
+  overflow: hidden;
+  background-color: var(--color-card);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+  height: 100%;
+}
+
+.featured-badge {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: var(--color-primary);
+  color: white;
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 0.25rem 0.75rem;
+  border-radius: 1rem;
+  z-index: 10;
+}
+
+/* About Section */
+.about-section {
+  background: transparent;
+}
+
+.about-content {
+  max-width: 800px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.about-content .button {
+  margin-top: 2rem;
+}
+
+/* Home page rich text styling */
+.home-about.rich-text {
+  font-size: 1.125rem;
+  line-height: 1.7;
+  color: var(--color-foreground);
+}
+
+.home-about.rich-text p {
+  margin-bottom: 1.5rem;
+}
+
+.home-about.rich-text h3 {
+  font-size: 1.5rem;
+  margin: 1.5rem auto 1rem;
+  max-width: 90%;
+}
+
+.home-about.rich-text h4 {
+  font-size: 1.25rem;
+  margin: 1.5rem auto 1rem;
+  max-width: 90%;
+}
+
+.home-about.rich-text ul,
+.home-about.rich-text ol {
+  margin: 0 auto 1.5rem;
+  padding-left: 2rem;
+  text-align: left;
+  max-width: 80%;
+}
+
+.home-about.rich-text li {
+  margin-bottom: 0.5rem;
+}
+
+.home-about.rich-text blockquote {
+  margin: 1.5rem auto;
+  padding: 1rem 1.5rem;
+  border-left: 3px solid var(--color-primary);
+  font-style: italic;
+  color: var(--color-muted);
+  max-width: 90%;
+  text-align: left;
+  background-color: rgba(255, 255, 255, 0.05);
+  border-radius: 0 4px 4px 0;
+}
+
+.home-about.rich-text code {
+  font-family: monospace;
+  background-color: rgba(255, 255, 255, 0.1);
+  padding: 0.2em 0.4em;
+  border-radius: 3px;
+  font-size: 0.9em;
+}
+
+.home-about.rich-text hr {
+  margin: 2rem auto;
+  width: 60%;
+  border: 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.home-about .rich-text-media {
+  margin: 2rem auto;
+  max-width: 90%;
+}
+
+.home-about .rich-text-media img {
+  max-width: 100%;
+  height: auto;
+  border-radius: var(--border-radius);
+  margin: 0 auto;
+}
+
+.home-about .rich-text-media figcaption {
+  margin-top: 0.75rem;
+  font-size: 0.9rem;
+  color: var(--color-muted);
+  text-align: center;
+}
+
+/* Posts Grid */
+.posts-grid-wrapper {
+  width: 100%;
+}
+
+.posts-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 320px);
+  gap: 2rem;
+  margin: 2rem auto;
+  justify-content: center;
+}
+
+.post-card {
+  width: 350px;
+  flex-grow: 0;
+  flex-shrink: 0;
+  background-color: var(--color-card);
+  backdrop-filter: blur(8px);
+  border-radius: var(--border-radius);
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.post-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+.post-image {
+  display: block;
+  width: 100%;
+  height: 200px;
+  position: relative;
+  overflow: hidden;
+}
+
+.post-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.post-card:hover .post-image img {
+  transform: scale(1.05);
+}
+
+.post-content {
+  padding: 1.5rem;
+}
+
+.post-title {
+  font-size: 1.25rem;
+  margin-bottom: 0.75rem;
+  line-height: 1.3;
+}
+
+.post-title a {
+  color: var(--color-foreground);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.post-title a:hover {
+  color: var(--color-primary);
+}
+
+.post-excerpt {
+  color: var(--color-muted);
+  font-size: 0.95rem;
+  margin-bottom: 1rem;
+}
+
+.post-read-more {
+  display: inline-flex;
+  align-items: center;
+  color: var(--color-primary);
+  font-size: 0.9rem;
+  font-weight: 500;
+  transition: color 0.2s ease;
+}
+
+.post-read-more:hover {
+  color: #2779bd;
+}
+
+.post-read-more::after {
+  content: '→';
+  margin-left: 0.25rem;
+  transition: transform 0.2s ease;
+}
+
+.post-read-more:hover::after {
+  transform: translateX(4px);
+}
+
+/* Media Queries */
+@media (max-width: 1024px) {
+  .hero .container {
+    flex-direction: column;
+    text-align: center;
+  }
+  
+  .hero-content {
+    order: 2;
+    max-width: 100%;
+  }
+  
+  .hero-image {
+    order: 1;
+    justify-content: center;
+    margin-bottom: 2rem;
+  }
+  
+  .hero-title {
+    font-size: 2.75rem;
+  }
+  
+  .home-about.rich-text ul,
+  .home-about.rich-text ol {
+    max-width: 90%;
+  }
+  
+  .projects-grid,
+  .consulting-grid,
+  .posts-grid {
+    grid-template-columns: repeat(2, 320px);
+  }
+}
+
+@media (max-width: 768px) {
+  .hero {
+    padding: 6rem 0 3rem;
+  }
+  
+  .hero-title {
+    font-size: 2.25rem;
+  }
+  
+  .project-item,
+  .consulting-item {
+    width: 100%;
+    max-width: 320px;
+  }
+  
+  .post-card {
+    width: 100%;
+    max-width: 350px;
+  }
+  
+  .section {
+    padding: 4rem 0;
+  }
+  
+  .projects-grid,
+  .consulting-grid,
+  .posts-grid {
+    grid-template-columns: repeat(1, 320px);
+  }
+}
+
+@media (max-width: 480px) {
+  .projects-grid,
+  .consulting-grid,
+  .posts-grid {
+    padding: 0 1rem;
+    width: 100%;
+  }
+  
+  .project-item,
+  .consulting-item,
+  .post-card {
+    width: 100%;
+  }
+  
+  .hero-title {
+    font-size: 1.75rem;
+  }
+}
+
+/* Grid stabilizer */
+.grid-stabilizer {
+  width: 100%;
+} 

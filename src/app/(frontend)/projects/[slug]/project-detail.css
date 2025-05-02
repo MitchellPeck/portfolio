@@ -1,0 +1,465 @@
+.project-detail-page {
+  padding: 2rem 0 4rem;
+  background: transparent;
+}
+
+.breadcrumbs {
+  margin-bottom: 2rem;
+}
+
+.breadcrumbs a {
+  display: inline-flex;
+  align-items: center;
+  color: var(--color-primary);
+  font-size: 0.95rem;
+  font-weight: 500;
+  transition: color 0.2s ease;
+}
+
+.breadcrumbs a:hover {
+  color: var(--color-primary-dark);
+}
+
+.project-header {
+  margin-bottom: 2.5rem;
+  position: relative;
+}
+
+.project-title {
+  font-size: 2.5rem;
+  line-height: 1.2;
+  margin-bottom: 2rem;
+}
+
+/* Add project-badges styling with proper spacing */
+.project-badges {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.project-technologies {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.status-badge {
+  position: absolute;
+  left: 0;
+  top: 0;
+  font-size: 0.7rem;
+  font-weight: 600;
+  padding: 0.4rem 0.8rem;
+  border-radius: 20px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: #ffffff;
+  z-index: 2;
+  background-color: transparent; /* Reset the mark's default yellow background */
+  border: none;
+  text-decoration: none;
+  display: inline-block;
+}
+
+.status-planned {
+  background-color: #3490dc; /* Blue */
+}
+
+.status-in-progress {
+  background-color: #3490dc; /* Blue */
+}
+
+.status-paused {
+  background-color: #f6993f; /* Orange */
+}
+
+.status-completed {
+  background-color: #38c172; /* Green */
+}
+
+.status-maintained {
+  background-color: #4dc0b5; /* Teal */
+}
+
+.status-sunset {
+  background-color: #9561e2; /* Purple */
+}
+
+/* Status text styling in sidebar */
+.status-text {
+  font-size: 0.95rem;
+  font-weight: 500;
+}
+
+.status-text.status-in-progress {
+  color: #3490dc; /* Blue */
+}
+
+.status-text.status-paused {
+  color: #f6993f; /* Orange */
+}
+
+.status-text.status-completed {
+  color: #38c172; /* Green */
+}
+
+.status-text.status-maintained {
+  color: #4dc0b5; /* Teal */
+}
+
+.status-text.status-sunset {
+  color: #9561e2; /* Purple */
+}
+
+.tech-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.tech-group-title {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--color-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 0.25rem;
+}
+
+.tech-group-items {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.badge-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.badge-group-title {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--color-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 0.25rem;
+}
+
+.badge-group-items {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.project-badge {
+  font-size: 0.85rem;
+  padding: 0.35rem 0.75rem;
+  border-radius: 50px;
+  background-color: rgba(52, 144, 220, 0.15);
+  color: var(--color-primary);
+  display: inline-block;
+  text-decoration: none;
+  transition: background-color 0.2s ease, color 0.2s ease;
+  width: fit-content;
+}
+
+.project-badge.status-in-progress {
+  background-color: rgba(52, 144, 220, 0.15);
+  color: #3490dc; /* Blue */
+}
+
+.project-badge.status-planned {
+  background-color: rgba(52, 144, 220, 0.15);
+  color: #3490dc; /* Blue */
+}
+
+.project-badge.status-paused {
+  background-color: rgba(246, 153, 63, 0.15);
+  color: #f6993f; /* Orange */
+}
+
+.project-badge.status-completed {
+  background-color: rgba(56, 193, 114, 0.15);
+  color: #38c172; /* Green */
+}
+
+.project-badge.status-maintained {
+  background-color: rgba(77, 192, 181, 0.15);
+  color: #4dc0b5; /* Teal */
+}
+
+.project-badge.status-sunset {
+  background-color: rgba(149, 97, 226, 0.15);
+  color: #9561e2; /* Purple */
+}
+
+.project-badge.featured {
+  background-color: rgba(52, 144, 220, 0.15);
+  color: var(--color-primary);
+}
+
+.project-tech-tag {
+  font-size: 0.85rem;
+  padding: 0.35rem 0.75rem;
+  border-radius: 50px;
+  background-color: rgba(52, 144, 220, 0.15);
+  color: var(--color-primary);
+  display: inline-block;
+  text-decoration: none;
+  transition: background-color 0.2s ease, color 0.2s ease;
+  width: fit-content;
+}
+
+.project-tech-tag:hover {
+  background-color: rgba(52, 144, 220, 0.25);
+}
+
+.project-featured-image {
+  margin-bottom: 2rem;
+  overflow: hidden;
+  border-radius: 1rem;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.image-container {
+  position: relative;
+  margin: 0 auto;
+  width: 25%;
+  aspect-ratio: 1/1;
+  overflow: hidden;
+  border-radius: 1rem;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+}
+
+.featured-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  border-radius: 1rem;
+}
+
+.project-content {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 3rem;
+}
+
+.project-description {
+  margin-top: 2.5rem;
+}
+
+.project-description h3 {
+  font-size: 1.5rem;
+  margin-bottom: 1.25rem;
+}
+
+.project-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 2.5rem;
+}
+
+.project-date {
+  margin-bottom: 2rem;
+}
+
+.project-date h4 {
+  font-size: 1.1rem;
+  margin-bottom: 0.5rem;
+  color: var(--color-muted);
+}
+
+.project-date time {
+  font-size: 0.95rem;
+}
+
+.project-date p {
+  font-size: 0.95rem;
+}
+
+.project-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.75rem 1.25rem;
+  border-radius: var(--border-radius);
+  background-color: var(--color-primary);
+  color: white;
+  font-weight: 500;
+  text-decoration: none;
+  transition: background-color 0.2s ease;
+}
+
+.project-link:hover {
+  background-color: var(--color-primary-dark);
+}
+
+.project-link.github {
+  background-color: var(--color-card);
+  color: var(--color-foreground);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(8px);
+}
+
+.project-link.github:hover {
+  background-color: var(--color-primary);
+  color: white;
+}
+
+.project-overview h2 {
+  font-size: 1.75rem;
+  margin-bottom: 1.5rem;
+}
+
+/* Rich text styling */
+.rich-text {
+  font-size: 1.125rem;
+  line-height: 1.7;
+  color: var(--color-text);
+}
+
+.rich-text p {
+  margin-bottom: 1.5rem;
+}
+
+.rich-text h3 {
+  font-size: 1.5rem;
+  margin: 1.5rem 0 1rem;
+}
+
+.rich-text h4 {
+  font-size: 1.25rem;
+  margin: 1.5rem 0 1rem;
+}
+
+.rich-text ul, 
+.rich-text ol {
+  margin-bottom: 1.5rem;
+  padding-left: 2rem;
+}
+
+.rich-text li {
+  margin-bottom: 0.5rem;
+}
+
+.rich-text blockquote {
+  margin: 1.5rem 0;
+  padding-left: 1.5rem;
+  border-left: 3px solid var(--color-primary);
+  font-style: italic;
+  color: var(--color-muted);
+}
+
+.rich-text code {
+  font-family: monospace;
+  background-color: rgba(0, 0, 0, 0.05);
+  padding: 0.2em 0.4em;
+  border-radius: 3px;
+  font-size: 0.9em;
+}
+
+.rich-text hr {
+  margin: 2rem 0;
+  border: 0;
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.rich-text-media {
+  margin: 2rem 0;
+}
+
+.rich-text-media img {
+  max-width: 100%;
+  height: auto;
+  border-radius: var(--border-radius);
+}
+
+.rich-text-media figcaption {
+  margin-top: 0.75rem;
+  font-size: 0.9rem;
+  color: var(--color-muted);
+  text-align: center;
+}
+
+.project-overview-content,
+.project-description-content {
+  max-width: 100%;
+}
+
+.code-block {
+  background-color: var(--color-card);
+  backdrop-filter: blur(8px);
+}
+
+@media (min-width: 768px) {
+  .project-detail-page {
+    padding: 3rem 0 5rem;
+  }
+
+  .project-title {
+    font-size: 3rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .project-content {
+    grid-template-columns: 2fr 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .project-detail-page {
+    padding: 2rem 0 4rem;
+  }
+
+  .project-title {
+    font-size: 2.25rem;
+  }
+  
+  .project-badges,
+  .project-technologies {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.25rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .project-title {
+    font-size: 1.75rem;
+  }
+
+  .project-badges {
+    grid-template-columns: 1fr;
+  }
+  
+  .project-technologies {
+    grid-template-columns: 1fr;
+  }
+}
+
+.featured-badge {
+  position: absolute;
+  right: 0;
+  top: 0;
+  background: var(--color-primary);
+  font-size: 0.7rem;
+  font-weight: 600;
+  padding: 0.4rem 0.8rem;
+  border-radius: 20px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: #ffffff;
+  z-index: 2;
+  border: none;
+  text-decoration: none;
+  display: inline-block;
+} 
