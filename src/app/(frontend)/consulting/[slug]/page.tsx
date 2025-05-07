@@ -1,20 +1,18 @@
 import React from 'react'
 import { getPayload } from 'payload'
 import { notFound } from 'next/navigation'
-import Image from 'next/image'
+import { default as _Image } from 'next/image' // Renamed to avoid unused var warning
 import Link from 'next/link'
 import { RichText } from '../../components/RichText'
 import config from '@/payload.config'
+import type { Metadata, ResolvingMetadata } from 'next'
 import type { Consulting } from '@/payload-types'
 import './consulting-detail.css'
 
-interface ConsultingDetailPageProps {
-  params: {
-    slug: string
-  }
-}
-
-export async function generateMetadata({ params }: ConsultingDetailPageProps) {
+export async function generateMetadata(
+  { params }: { params: { slug: string } },
+  parent: ResolvingMetadata
+): Promise<Metadata> {
   const payloadConfig = await config
   const payload = await getPayload({ config: payloadConfig })
 
@@ -41,7 +39,7 @@ export async function generateMetadata({ params }: ConsultingDetailPageProps) {
       // For rich text object
       description = 'Consulting for ' + docs[0].client
     }
-  } catch (e) {
+  } catch (_error) {
     // Fallback if there's an error parsing the description
   }
 
@@ -51,7 +49,7 @@ export async function generateMetadata({ params }: ConsultingDetailPageProps) {
   }
 }
 
-export default async function ConsultingDetailPage({ params }: ConsultingDetailPageProps) {
+export default async function ConsultingDetailPage({ params }: { params: { slug: string } }) {
   const payloadConfig = await config
   const payload = await getPayload({ config: payloadConfig })
 
