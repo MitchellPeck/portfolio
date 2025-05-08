@@ -56,7 +56,7 @@ export const RichText: React.FC<RichTextProps> = ({ content, className = '' }) =
     // Handle paragraph nodes
     if (node.type === 'paragraph') {
       return (
-        <p key={index} className={`${className}-paragraph`}>
+        <p key={index} className={className ? `rich-text-paragraph ${className}` : 'rich-text-paragraph'}>
           {node.children?.map((child, childIndex) => renderNode(child, childIndex))}
         </p>
       )
