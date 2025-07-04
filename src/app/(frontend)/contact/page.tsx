@@ -53,8 +53,8 @@ export default function ContactPage() {
           <div className="contact-cta">
             <h2>Ready to Get Started?</h2>
             <p>
-              Complete our inquiry form to tell me about your project, timeline, and goals. 
-              I'll get back to you within 24 hours to discuss next steps.
+              Complete our inquiry form to tell me about your project, timeline, and goals.
+              I'll get back to you within 48 hours to discuss next steps.
             </p>
             <a 
               href="https://portal.mitchellpeck.com/p/form/jzj9XK7XybACmsJfC" 
