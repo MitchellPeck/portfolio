@@ -21,10 +21,12 @@
     "@payloadcms/plugin-cloud-storage": "^3.37.0",
     "@payloadcms/richtext-lexical": "^3.37.0",
     "@payloadcms/storage-vercel-blob": "^3.37.0",
+    "@vercel/analytics": "^1.5.0",
+    "@vercel/speed-insights": "^1.2.0",
     "cross-env": "^7.0.3",
     "graphql": "^16.8.1",
     "next": "^15.3.1",
-    "payload": "3.33.0",
+    "payload": "3.37.0",
     "react": "19.1.0",
     "react-dom": "19.1.0",
     "sharp": "0.32.6"

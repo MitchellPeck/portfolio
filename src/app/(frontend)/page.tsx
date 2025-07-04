@@ -5,6 +5,7 @@ import { getPayload } from 'payload'
 import { Project, Post, Home as HomePage, Consulting } from '../../payload-types'
 import ProjectCard from './components/ProjectCard'
 import GridStabilizer from './components/GridStabilizer'
+import WordCloud from './components/WordCloud'
 import './page.css'
 import config from '@/payload.config'
 import RichText from '@/app/(frontend)/components/RichText'
@@ -46,6 +47,12 @@ export default async function Home() {
 
   return (
     <>
+      {/* Home page background gradient */}
+      <div className="home-page-background" />
+      
+      {/* Word cloud background */}
+      <WordCloud />
+      
       {/* Hero Section */}
       <section className="hero">
         <div className="container">

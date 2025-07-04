@@ -8,7 +8,7 @@ const nextConfig = {
     // turbo: true
   },
   // Move to the stable turbopack setting
-  turbopack: true,
+  // turbopack: true,
   typescript: {
     // Temporarily ignore type errors during build to allow deployment
     ignoreBuildErrors: true

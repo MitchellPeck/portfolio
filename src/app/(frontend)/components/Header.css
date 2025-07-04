@@ -67,13 +67,15 @@
 .menu-toggle {
   display: none;
   flex-direction: column;
-  justify-content: space-around;
+  justify-content: center;
+  align-items: center;
   width: 24px;
   height: 24px;
   background: transparent;
   border: none;
   cursor: pointer;
   z-index: 10;
+  position: relative;
 }
 
 .hamburger {
@@ -94,14 +96,15 @@
   background-color: var(--color-foreground);
   border-radius: 3px;
   transition: all 0.3s ease-in-out;
+  left: 0;
 }
 
 .hamburger::before {
-  transform: translateY(-8px);
+  top: -8px;
 }
 
 .hamburger::after {
-  transform: translateY(8px);
+  top: 8px;
 }
 
 .menu-toggle.active .hamburger {
@@ -109,10 +112,12 @@
 }
 
 .menu-toggle.active .hamburger::before {
+  top: 0;
   transform: rotate(45deg);
 }
 
 .menu-toggle.active .hamburger::after {
+  top: 0;
   transform: rotate(-45deg);
 }
 
@@ -127,7 +132,8 @@
     right: -100%;
     width: 100%;
     height: 100vh;
-    background-color: var(--color-background);
+    background-color: rgba(30, 41, 59, 0.95);
+    backdrop-filter: blur(10px);
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -148,4 +154,4 @@
   .nav-link {
     font-size: 1.25rem;
   }
-} 
+}

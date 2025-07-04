@@ -279,7 +279,7 @@ export default async function AboutPage() {
             <p className="contact-cta-description">
               Interested in collaborating or have a project in mind?
             </p>
-            <Link href="mailto:me@mitchellpeck.com" className="button button-primary">
+            <Link href="/contact" className="button button-primary">
               Get In Touch
             </Link>
           </div>
