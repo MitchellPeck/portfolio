@@ -9,7 +9,7 @@ import './Header.css'
 export const Header: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [isScrolled, setIsScrolled] = useState(false)
-  const pathname = usePathname()
+  const pathname = usePathname()!;
 
   useEffect(() => {
     const handleScroll = () => {
@@ -96,7 +96,11 @@ export const Header: React.FC = () => {
                 </Link>
               </li>
               <li className="nav-item">
-                <Link href="mailto:me@mitchellpeck.com" className={`nav-link`} onClick={closeMenu}>
+                <Link
+                  href="/contact"
+                  className={`nav-link ${pathname === '/contact' ? 'active' : ''}`}
+                  onClick={closeMenu}
+                >
                   Contact
                 </Link>
               </li>

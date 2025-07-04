@@ -1,11 +1,10 @@
-import React from 'react'
+import RichText from '@/app/(frontend)/components/RichText'
+import type { Media } from '@/payload-types'
+import config from '@/payload.config'
 import Image from 'next/image'
 import Link from 'next/link'
 import { getPayload } from 'payload'
 import './about.css'
-import config from '@/payload.config'
-import type { Media } from '@/payload-types'
-import RichText from '@/app/(frontend)/components/RichText'
 
 export const metadata = {
   title: 'About | Mitchell Peck Development',
@@ -171,10 +170,7 @@ export default async function AboutPage() {
 
                 return (
                   <div key={index} className="timeline-item">
-                    <div className="timeline-marker"></div>
-                    <div className="timeline-date">
-                      {startYear} - {endYear}
-                    </div>
+                    {/* <div className="timeline-marker"></div> */}
                     <div className="timeline-header">
                       {logoUrl ? (
                         <div className="timeline-image">
@@ -194,11 +190,14 @@ export default async function AboutPage() {
                         </div>
                       )}
                       <div className="timeline-company">
-                        <h3 className="timeline-title">{exp.position}</h3>
+                        <h3 className="timeline-title">{exp.company}</h3>
+                        <h4 className="timeline-subtitle">{exp.position}</h4>
                         <h4 className="timeline-subtitle">
                           {exp.type} {exp.name ? `- ${exp.name}` : ''}
                         </h4>
-                        <h4 className="timeline-subtitle">{exp.company}</h4>
+                        <div className="timeline-date">
+                          {startYear} - {endYear}
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -230,10 +229,7 @@ export default async function AboutPage() {
 
                 return (
                   <div key={index} className="timeline-item">
-                    <div className="timeline-marker"></div>
-                    <div className="timeline-date">
-                      {startYear} - {endYear}
-                    </div>
+                    {/* <div className="timeline-marker"></div> */}
                     <div className="timeline-header">
                       {logoUrl ? (
                         <div className="timeline-image">
@@ -253,11 +249,14 @@ export default async function AboutPage() {
                         </div>
                       )}
                       <div className="timeline-company">
-                        <h3 className="timeline-title">{edu.degree}</h3>
-                        <h4 className="timeline-subtitle">{edu.institution}</h4>
+                        <h3 className="timeline-title">{edu.institution}</h3>
                         {edu.fieldOfStudy && (
                           <p className="timeline-subtitle">{edu.fieldOfStudy}</p>
                         )}
+                        <h4 className="timeline-subtitle">{edu.degree}</h4>
+                        <div className="timeline-date">
+                          {startYear} - {endYear}
+                        </div>
                       </div>
                     </div>
                     {edu.description && (

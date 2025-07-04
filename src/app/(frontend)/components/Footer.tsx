@@ -65,7 +65,7 @@ export const Footer: React.FC = () => {
                   </a>
                 </li>
                 <li>
-                  <a href="mailto:me@mitchellpeck.com">Email</a>
+                  <Link href="/contact">Contact</Link>
                 </li>
               </ul>
             </div>
