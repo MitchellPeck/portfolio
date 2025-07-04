@@ -11,7 +11,7 @@
   flex-direction: column;
   background-color: var(--color-card);
   backdrop-filter: blur(8px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(71, 85, 105, 0.1);
   border-radius: var(--border-radius);
   overflow: hidden;
   transition: all 0.3s ease;
@@ -20,8 +20,8 @@
 
 .project-card:hover {
   transform: translateY(-5px);
-  border-color: rgba(255, 255, 255, 0.2);
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  border-color: rgba(71, 85, 105, 0.2);
+  box-shadow: 0 10px 30px rgba(15, 23, 42, 0.1);
 }
 
 .project-card-featured {
@@ -30,7 +30,7 @@
 }
 
 .project-card-featured:hover {
-  box-shadow: 0 10px 30px rgba(52, 144, 220, 0.2);
+  box-shadow: 0 10px 30px rgba(71, 85, 105, 0.2);
 }
 
 .featured-badge {
@@ -63,27 +63,27 @@
 }
 
 .status-planned {
-  background-color: #3490dc; /* Blue */
+  background-color: #3b82f6; /* Blue for planned projects */
 }
 
 .status-in-progress {
-  background-color: #3490dc; /* Blue */
+  background-color: #3b82f6; /* Blue for active projects */
 }
 
 .status-paused {
-  background-color: #f6993f; /* Orange */
+  background-color: #64748b; /* Slate 500 */
 }
 
 .status-completed {
-  background-color: #38c172; /* Green */
+  background-color: #1e293b; /* Slate 800 */
 }
 
 .status-maintained {
-  background-color: #4dc0b5; /* Teal */
+  background-color: #334155; /* Slate 700 */
 }
 
 .status-sunset {
-  background-color: #9561e2; /* Purple */
+  background-color: #64748b; /* Slate 500 */
 }
 
 .project-card-image {
@@ -91,7 +91,7 @@
   width: 100%;
   height: 200px;
   overflow: hidden;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  border-bottom: 1px solid rgba(71, 85, 105, 0.1);
 }
 
 .project-card-content {
@@ -196,4 +196,4 @@
   .project-card-content {
     padding: 1.25rem;
   }
-} 
+}

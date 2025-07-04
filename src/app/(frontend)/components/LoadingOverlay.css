@@ -4,7 +4,7 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background: linear-gradient(135deg, #1e293b, #0f172a);
+  background: linear-gradient(135deg, #0f172a, #020617);
   z-index: 9999;
   display: flex;
   align-items: center;
@@ -23,7 +23,7 @@
 
 .loading-content {
   text-align: center;
-  color: white;
+  color: var(--color-foreground);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -39,10 +39,11 @@
 .spinner {
   width: 40px;
   height: 40px;
-  border: 3px solid rgba(255, 255, 255, 0.2);
-  border-top: 3px solid #60a5fa;
+  border: 3px solid rgba(100, 116, 139, 0.3);
+  border-top: 3px solid #3b82f6;
   border-radius: 50%;
   animation: spin 1s linear infinite;
+  margin-bottom: 1rem;
 }
 
 @keyframes spin {
@@ -54,7 +55,10 @@
   font-size: 2rem;
   font-weight: bold;
   margin: 0 0 0.5rem 0;
-  background: linear-gradient(135deg, #60a5fa, #93c5fd);
+}
+
+.loading-text.gradient-text {
+  background: linear-gradient(135deg, #3b82f6, #94a3b8);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;

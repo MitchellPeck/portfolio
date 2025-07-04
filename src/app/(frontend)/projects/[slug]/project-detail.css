@@ -65,27 +65,27 @@
 }
 
 .status-planned {
-  background-color: #3490dc; /* Blue */
+  background-color: #3b82f6; /* Blue for planned projects */
 }
 
 .status-in-progress {
-  background-color: #3490dc; /* Blue */
+  background-color: #3b82f6; /* Blue for active projects */
 }
 
 .status-paused {
-  background-color: #f6993f; /* Orange */
+  background-color: #64748b; /* Slate 500 */
 }
 
 .status-completed {
-  background-color: #38c172; /* Green */
+  background-color: #1e293b; /* Slate 800 */
 }
 
 .status-maintained {
-  background-color: #4dc0b5; /* Teal */
+  background-color: #334155; /* Slate 700 */
 }
 
 .status-sunset {
-  background-color: #9561e2; /* Purple */
+  background-color: #64748b; /* Slate 500 */
 }
 
 /* Status text styling in sidebar */
@@ -95,23 +95,27 @@
 }
 
 .status-text.status-in-progress {
-  color: #3490dc; /* Blue */
+  color: #3b82f6; /* Blue for active projects */
 }
 
 .status-text.status-paused {
-  color: #f6993f; /* Orange */
+  color: #64748b; /* Slate 500 */
 }
 
 .status-text.status-completed {
-  color: #38c172; /* Green */
+  color: #1e293b; /* Slate 800 */
 }
 
 .status-text.status-maintained {
-  color: #4dc0b5; /* Teal */
+  color: #334155; /* Slate 700 */
 }
 
 .status-text.status-sunset {
-  color: #9561e2; /* Purple */
+  color: #64748b; /* Slate 500 */
+}
+
+.status-text.status-planned {
+  color: #3b82f6; /* Blue for planned projects */
 }
 
 .tech-group {
@@ -169,33 +173,33 @@
 }
 
 .project-badge.status-in-progress {
-  background-color: rgba(52, 144, 220, 0.15);
-  color: #3490dc; /* Blue */
+  background-color: rgba(59, 130, 246, 0.15);
+  color: #3b82f6; /* Blue for active projects */
 }
 
 .project-badge.status-planned {
-  background-color: rgba(52, 144, 220, 0.15);
-  color: #3490dc; /* Blue */
+  background-color: rgba(59, 130, 246, 0.15);
+  color: #3b82f6; /* Blue for planned projects */
 }
 
 .project-badge.status-paused {
   background-color: rgba(246, 153, 63, 0.15);
-  color: #f6993f; /* Orange */
+  color: #64748b; /* Slate 500 */
 }
 
 .project-badge.status-completed {
   background-color: rgba(56, 193, 114, 0.15);
-  color: #38c172; /* Green */
+  color: #1e293b; /* Slate 800 */
 }
 
 .project-badge.status-maintained {
   background-color: rgba(77, 192, 181, 0.15);
-  color: #4dc0b5; /* Teal */
+  color: #334155; /* Slate 700 */
 }
 
 .project-badge.status-sunset {
   background-color: rgba(149, 97, 226, 0.15);
-  color: #9561e2; /* Purple */
+  color: #64748b; /* Slate 500 */
 }
 
 .project-badge.featured {

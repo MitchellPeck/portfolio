@@ -12,7 +12,7 @@
 }
 
 .word-cloud-item {
-  color: rgba(255, 255, 255, 0.12);
+  color: rgba(100, 116, 139, 0.12);
   font-weight: 500;
   font-family: inherit;
   white-space: nowrap;
@@ -90,15 +90,15 @@
 @media (max-width: 768px) {
   .word-cloud-item {
     font-size: 0.8rem !important;
-    color: rgba(255, 255, 255, 0.1);
+    color: rgba(100, 116, 139, 0.1);
   }
   
   .word-cloud::before {
     background: radial-gradient(
       ellipse at center,
       transparent 20%,
-      rgba(30, 41, 59, 0.4) 60%,
-      rgba(30, 41, 59, 0.7) 100%
+      rgba(15, 23, 42, 0.4) 60%,
+      rgba(15, 23, 42, 0.7) 100%
     );
   }
 }
@@ -106,6 +106,6 @@
 @media (max-width: 480px) {
   .word-cloud-item {
     font-size: 0.6rem !important;
-    color: rgba(255, 255, 255, 0.08);
+    color: rgba(100, 116, 139, 0.08);
   }
 }
