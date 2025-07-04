@@ -132,8 +132,8 @@ export default async function PostPage({ params }: PostPageProps) {
             <Image
               src={imageUrl}
               alt={post.title}
-              width={500}
-              height={500}
+              width={250}
+              height={250}
               priority
               className="featured-image"
             />

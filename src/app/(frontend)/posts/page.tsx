@@ -46,8 +46,8 @@ export default async function PostsPage() {
                       <Image
                         src={post.featuredImage.url}
                         alt={post.title}
-                        width={400}
-                        height={225}
+                        width={500}
+                        height={500}
                       />
                     </Link>
                   </div>
