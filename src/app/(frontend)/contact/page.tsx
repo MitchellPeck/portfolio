@@ -42,9 +42,9 @@ export default function ContactPage() {
                 </div>
                 <div className="contact-details-text">
                   <h3>Phone</h3>
-                  <a href="tel:4045281122" className="contact-link">
-                    (404) 528-1122
-                  </a>
+                  {/*<a href="tel:4045281122" className="contact-link">*/}
+                  {/*  (404) 528-1122*/}
+                  {/*</a>*/}
                 </div>
               </div>
             </div>
