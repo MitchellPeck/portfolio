@@ -74,7 +74,7 @@ export const Footer: React.FC = () => {
 
         <div className="footer-bottom">
           <p className="copyright">
-            &copy; {currentYear} Mitchell Peck Development. All rights reserved.
+            &copy; {currentYear} Mitchell Peck Development. All rights reserved. Designed by MPD.
           </p>
           {/* <div className="footer-legal">
             <Link href="/privacy">Privacy Policy</Link>
