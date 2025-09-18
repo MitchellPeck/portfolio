@@ -79,11 +79,11 @@ export const Header: React.FC = () => {
               </li>
               <li className="nav-item">
                 <Link
-                  href="/posts"
-                  className={`nav-link ${pathname.startsWith('/posts') ? 'active' : ''}`}
+                  href="/prosystems"
+                  className={`nav-link ${pathname.startsWith('/prosystems') ? 'active' : ''}`}
                   onClick={closeMenu}
                 >
-                  Blog
+                  ProSystems
                 </Link>
               </li>
               <li className="nav-item">

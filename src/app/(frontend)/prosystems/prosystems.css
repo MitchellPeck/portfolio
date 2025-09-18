@@ -1,0 +1,91 @@
+.prosystems-page {
+  position: relative;
+}
+
+.prosystems-hero {
+  padding: 6rem 0 3rem;
+  text-align: center;
+}
+
+.prosystems-hero .page-title {
+  font-size: 2.5rem;
+  margin-bottom: 0.75rem;
+}
+
+.prosystems-hero .hero-sub {
+  color: var(--color-muted);
+  max-width: 56rem;
+  margin: 0 auto 1.5rem;
+  line-height: 1.6;
+}
+
+.prosystems-hero .hero-cta {
+  display: flex;
+  gap: 0.75rem;
+  justify-content: center;
+}
+
+.prosystems-services .services-grid {
+  display: grid;
+  grid-template-columns: repeat(1, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+@media (min-width: 700px) {
+  .prosystems-services .services-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 1024px) {
+  .prosystems-services .services-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+.service-card {
+  background: var(--color-card);
+  border: 1px solid rgba(71, 85, 105, 0.1);
+  border-radius: 12px;
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.service-card h3 {
+  margin: 0.5rem 0 0.25rem;
+}
+
+.service-card p {
+  color: var(--color-muted);
+}
+
+.service-icon {
+  width: 48px;
+  height: 48px;
+  display: grid;
+  place-items: center;
+  color: var(--color-primary);
+}
+
+.feature-list {
+  margin: 0.5rem 0 0;
+  padding-left: 1rem;
+}
+
+.prosystems-process .process-steps {
+  counter-reset: step;
+  list-style: none;
+  padding: 0;
+  margin: 1rem 0 2rem;
+  display: grid;
+  gap: 0.5rem;
+}
+
+.prosystems-process .process-steps li {
+  background: var(--color-card);
+  border: 1px solid rgba(71, 85, 105, 0.1);
+  border-radius: 12px;
+  padding: 0.75rem 1rem;
+}

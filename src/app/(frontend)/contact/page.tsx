@@ -57,7 +57,7 @@ export default function ContactPage() {
               I'll get back to you within 48 hours to discuss next steps.
             </p>
             <a 
-              href="https://portal.mitchellpeck.com/p/form/jzj9XK7XybACmsJfC" 
+              href="https://portal.mitchellpeck.com/survey/start/b7f82f16-fbfb-491b-b9aa-8d5722ebb576"
               target="_blank" 
               rel="noopener noreferrer" 
               className="inquiry-button"
