@@ -12,17 +12,46 @@ export const Header: React.FC = () => {
   const pathname = usePathname()!;
 
   useEffect(() => {
+    const setHeaderHeightVar = () => {
+      const headerEl = document.querySelector('.header') as HTMLElement | null
+      if (headerEl) {
+        const h = headerEl.offsetHeight
+        document.documentElement.style.setProperty('--site-header-height', `${h}px`)
+      }
+    }
+
     const handleScroll = () => {
       if (window.scrollY > 50) {
         setIsScrolled(true)
       } else {
         setIsScrolled(false)
       }
+      setHeaderHeightVar()
     }
 
+    const handleResize = () => {
+      setHeaderHeightVar()
+    }
+
+    // Initialize and bind
+    setHeaderHeightVar()
     window.addEventListener('scroll', handleScroll)
-    return () => window.removeEventListener('scroll', handleScroll)
+    window.addEventListener('resize', handleResize)
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll)
+      window.removeEventListener('resize', handleResize)
+    }
   }, [])
+
+  // Update header height var when menu state changes (mobile menu can alter header size)
+  useEffect(() => {
+    const headerEl = document.querySelector('.header') as HTMLElement | null
+    if (headerEl) {
+      const h = headerEl.offsetHeight
+      document.documentElement.style.setProperty('--site-header-height', `${h}px`)
+    }
+  }, [isMenuOpen])
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen)

@@ -101,6 +101,8 @@ html, body, #__next, .site-wrapper {
   background: var(--color-background);
 }
 
+html { scroll-behavior: smooth; }
+
 body {
   font-family: var(--font-sans);
   color: var(--color-foreground);

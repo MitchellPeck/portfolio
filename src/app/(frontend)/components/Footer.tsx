@@ -32,7 +32,7 @@ export const Footer: React.FC = () => {
                   <Link href="/consulting">Consulting</Link>
                 </li>
                 <li>
-                  <Link href="/posts">Blog</Link>
+                  <Link href="/prosystems">ProSystems</Link>
                 </li>
                 <li>
                   <Link href="/about">About</Link>
