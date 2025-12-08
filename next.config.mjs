@@ -12,7 +12,8 @@ const nextConfig = {
   typescript: {
     // Temporarily ignore type errors during build to allow deployment
     ignoreBuildErrors: true
-  }
+  },
+  turbopack: {}
 }
 
 export default withPayload(nextConfig, { devBundleServerPackages: false })
