@@ -1,10 +1,19 @@
-import { CollectionConfig } from 'payload'
+import type { CollectionConfig } from 'payload'
 
 const Projects: CollectionConfig = {
   slug: 'projects',
-  admin: { useAsTitle: 'title' },
+  admin: { useAsTitle: 'title', group: 'Content' },
   access: { read: () => true },
   fields: [
+    {
+      name: 'published',
+      type: 'checkbox',
+      defaultValue: false,
+      admin: {
+        position: 'sidebar',
+        description: 'Must be checked for the project to appear on the site',
+      },
+    },
     { name: 'title', type: 'text', required: true },
     { name: 'slug', type: 'text', required: true, unique: true },
     { name: 'featuredImage', type: 'upload', relationTo: 'media', required: true },
@@ -23,6 +32,7 @@ const Projects: CollectionConfig = {
       ],
       defaultValue: 'In Progress',
       required: true,
+      admin: { position: 'sidebar' },
     },
     {
       name: 'technologies',
@@ -35,7 +45,54 @@ const Projects: CollectionConfig = {
     },
     { name: 'projectUrl', type: 'text', admin: { description: 'Link to the live project' } },
     { name: 'githubUrl', type: 'text', admin: { description: 'Link to GitHub repository' } },
-    { name: 'featured', type: 'checkbox', defaultValue: false },
+    {
+      name: 'featured',
+      type: 'checkbox',
+      defaultValue: false,
+      admin: { position: 'sidebar' },
+    },
+
+    // Relationships - uncomment after enabling collections in payload.config.ts
+    // {
+    //   name: 'relatedService',
+    //   type: 'relationship',
+    //   relationTo: 'services',
+    // },
+    // {
+    //   name: 'industry',
+    //   type: 'relationship',
+    //   relationTo: 'industries',
+    // },
+    // {
+    //   name: 'testimonial',
+    //   type: 'relationship',
+    //   relationTo: 'testimonials',
+    // },
+
+    // Gallery
+    {
+      name: 'gallery',
+      type: 'array',
+      fields: [
+        { name: 'image', type: 'upload', relationTo: 'media', required: true },
+        { name: 'caption', type: 'text' },
+      ],
+    },
+
+    // Dates
+    { name: 'startDate', type: 'date' },
+    { name: 'completedDate', type: 'date' },
+
+    // SEO
+    {
+      name: 'seo',
+      type: 'group',
+      fields: [
+        { name: 'metaTitle', type: 'text' },
+        { name: 'metaDescription', type: 'textarea' },
+        { name: 'ogImage', type: 'upload', relationTo: 'media' },
+      ],
+    },
   ],
 }
 

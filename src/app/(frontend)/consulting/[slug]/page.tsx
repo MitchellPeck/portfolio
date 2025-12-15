@@ -24,14 +24,14 @@ export async function generateMetadata(
   const payloadConfig = await config
   const payload = await getPayload({ config: payloadConfig })
 
-  // Find the consulting project by slug
+  // Find the published consulting project by slug
   const { docs } = await payload.find({
     collection: 'consulting',
     where: {
-      slug: {
-        equals: slug,
-      },
+      slug: { equals: slug },
+      published: { equals: true },
     },
+    limit: 1,
   })
 
   if (!docs || docs.length === 0) {
@@ -62,14 +62,14 @@ export default async function ConsultingDetailPage({ params }: ConsultingPagePro
   const payloadConfig = await config
   const payload = await getPayload({ config: payloadConfig })
 
-  // Find the consulting project by slug
+  // Find the published consulting project by slug
   const { docs } = await payload.find({
     collection: 'consulting',
     where: {
-      slug: {
-        equals: slug,
-      },
+      slug: { equals: slug },
+      published: { equals: true },
     },
+    limit: 1,
   })
 
   if (!docs || docs.length === 0) {

@@ -2,9 +2,18 @@ import { CollectionConfig } from 'payload'
 
 const Posts: CollectionConfig = {
   slug: 'posts',
-  admin: { useAsTitle: 'title' },
+  admin: { useAsTitle: 'title', group: 'Content' },
   access: { read: () => true },
   fields: [
+    {
+      name: 'published',
+      type: 'checkbox',
+      defaultValue: false,
+      admin: {
+        position: 'sidebar',
+        description: 'Must be checked for the post to appear on the site',
+      },
+    },
     { name: 'title', type: 'text', required: true },
     { name: 'slug', type: 'text', required: true, unique: true },
     { name: 'featuredImage', type: 'upload', relationTo: 'media', required: true },

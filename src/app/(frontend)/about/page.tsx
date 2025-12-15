@@ -1,290 +1,201 @@
-import RichText from '@/app/(frontend)/components/RichText'
-import type { Media } from '@/payload-types'
-import config from '@/payload.config'
 import Image from 'next/image'
 import Link from 'next/link'
-import { getPayload } from 'payload'
 import './about.css'
+import image from "../../../public/me.png"
 
-// Enable ISR - revalidate every 60 seconds
 export const revalidate = 60
 
 export const metadata = {
   title: 'About | Mitchell Peck Development',
-  description: 'Learn about my background, skills, and experience',
+  description:
+    'Learn about Mitchell Peck Development, our mission, values, and the team behind our software and installation services.',
 }
 
-// Add interface definitions for experience and education with logoImage
-interface ExperienceItem {
-  company: string
-  position: string
-  type: string
-  name?: string | null
-  logoImage?: Media | string | number | null
-  startDate: string
-  endDate?: string | null
-  current?: boolean | null
-  id?: string | null
-}
+const stats = [
+  { value: '5+', label: 'Years Experience' },
+  { value: '50+', label: 'Projects Completed' },
+  { value: '100%', label: 'Client Satisfaction' },
+  { value: '2', label: 'Service Lines' },
+]
 
-interface EducationItem {
-  institution: string
-  degree: string
-  fieldOfStudy?: string | null
-  logoImage?: Media | string | number | null
-  startDate: string
-  endDate?: string | null
-  current?: boolean | null
-  description?: string | null
-  id?: string | null
-}
+const values = [
+  {
+    title: 'Quality First',
+    description: 'We never cut corners. Every project is built with care, attention to detail, and a commitment to excellence.',
+    icon: 'check',
+  },
+  {
+    title: 'Transparency',
+    description: "Open communication and honest feedback. You'll always know where your project stands.",
+    icon: 'eye',
+  },
+  {
+    title: 'Reliability',
+    description: 'We deliver on time, every time. Our clients count on us, and we take that responsibility seriously.',
+    icon: 'clock',
+  },
+  {
+    title: 'Innovation',
+    description: 'We stay current with the latest technologies and best practices to deliver modern, future-proof solutions.',
+    icon: 'layers',
+  },
+]
 
-export default async function AboutPage() {
-  const payloadConfig = await config
-  const payload = await getPayload({ config: payloadConfig })
-
-  // Fetch about page content
-  const { docs: aboutPages } = await payload.find({ collection: 'about', limit: 1 })
-
-  const aboutPage = aboutPages[0]
-
-  // Get image URL safely
-  const profileImageUrl =
-    aboutPage.profileImage &&
-    typeof aboutPage.profileImage === 'object' &&
-    'url' in aboutPage.profileImage
-      ? aboutPage.profileImage.url
-      : '/placeholder-profile.jpg' // Use a placeholder image as fallback
-
-  // Get resume URL safely
-  const resumeUrl =
-    aboutPage.resumeFile &&
-    typeof aboutPage.resumeFile === 'object' &&
-    'url' in aboutPage.resumeFile
-      ? aboutPage.resumeFile.url
-      : ''
-
+export default function AboutPage() {
   return (
     <div className="about-page">
+      {/* Hero Section */}
       <section className="about-hero">
         <div className="container">
-          <h1 className="page-title">About Me</h1>
-        </div>
-      </section>
-
-      <section className="section profile-section">
-        <div className="container">
-          <div className="profile-content">
-            <div className="profile-image-container">
-              {profileImageUrl && (
-                <Image
-                  src={profileImageUrl}
-                  alt={aboutPage.name}
-                  width={400}
-                  height={400}
-                  className="profile-image"
-                />
-              )}
-            </div>
-
-            <div className="profile-info">
-              <h2 className="profile-name">{aboutPage.name}</h2>
-              <p className="profile-title">{aboutPage.title}</p>
-
-              <div className="profile-bio">
-                <RichText content={aboutPage.biography} className="biography" />
-              </div>
-
-              {aboutPage.socialLinks && aboutPage.socialLinks.length > 0 && (
-                <div className="profile-social">
-                  {aboutPage.socialLinks.map((link, index) => (
-                    <a
-                      key={index}
-                      href={link.url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className={`social-link ${link.platform}`}
-                    >
-                      {link.platform}
-                    </a>
-                  ))}
-                </div>
-              )}
-
-              {resumeUrl && (
-                <div className="profile-resume">
-                  <a
-                    href={resumeUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="button button-primary"
-                  >
-                    Download Resume
-                  </a>
-                </div>
-              )}
-            </div>
+          <div className="about-hero-content">
+            <span className="about-hero-badge">About Us</span>
+            <h1 className="about-hero-title">
+              Building Technology That <span className="text-gradient">Makes a Difference</span>
+            </h1>
+            <p className="about-hero-description">
+              We're a development agency and installation services company dedicated to delivering
+              intelligent solutions that help businesses grow and succeed.
+            </p>
           </div>
         </div>
+        <div className="about-hero-bg" />
       </section>
 
-      {aboutPage.skills && aboutPage.skills.length > 0 && (
-        <section className="section skills-section">
-          <div className="container">
-            <h2 className="section-title">Skills</h2>
-
-            <div className="skills-container">
-              {aboutPage.skills.map((skillCategory, index) => (
-                <div key={index} className="skill-category">
-                  <h3 className="skill-category-title">{skillCategory.category}</h3>
-                  <ul className="skill-list">
-                    {(skillCategory as any).skillItems &&
-                      (skillCategory as any).skillItems.map((skill: any, skillIndex: number) => (
-                        <li key={skillIndex} className="skill-item">
-                          {skill.skill}
-                        </li>
-                      ))}
-                  </ul>
+      {/* Company Overview Section */}
+      <section className="section company-section">
+        <div className="container">
+          <div className="company-grid">
+            <div className="company-content">
+              <span className="section-badge">Our Mission</span>
+              <h2 className="company-title">Smarter Tech, Smarter Outcomes</h2>
+              <p className="company-description">
+                Mitchell Peck Development was founded with a simple mission: to help businesses
+                leverage technology to achieve their goals. We believe that great software should be
+                accessible, reliable, and built to last.
+              </p>
+              <p className="company-description">
+                Whether you need a custom web application, mobile app, or professional installation
+                services, we bring the same commitment to quality and attention to detail to every
+                project.
+              </p>
+            </div>
+            <div className="company-stats">
+              {stats.map((stat, index) => (
+                <div key={index} className="company-stat">
+                  <span className="stat-number">{stat.value}</span>
+                  <span className="stat-label">{stat.label}</span>
                 </div>
               ))}
             </div>
           </div>
-        </section>
-      )}
+        </div>
+      </section>
 
-      {aboutPage.experience && aboutPage.experience.length > 0 && (
-        <section className="section experience-section">
-          <div className="container">
-            <h2 className="section-title">Experience</h2>
-
-            <div className="timeline">
-              {aboutPage.experience.map((exp: ExperienceItem, index) => {
-                const startDate = new Date(exp.startDate)
-                const endDate = exp.endDate ? new Date(exp.endDate) : null
-
-                const startYear = startDate.getFullYear()
-                const endYear = endDate ? endDate.getFullYear() : 'Present'
-
-                // Get logo image URL safely
-                const logoUrl =
-                  exp.logoImage && typeof exp.logoImage === 'object' && 'url' in exp.logoImage
-                    ? exp.logoImage.url
-                    : ''
-
-                return (
-                  <div key={index} className="timeline-item">
-                    {/* <div className="timeline-marker"></div> */}
-                    <div className="timeline-header">
-                      {logoUrl ? (
-                        <div className="timeline-image">
-                          <Image
-                            src={logoUrl}
-                            alt={exp.company}
-                            style={{ objectFit: 'cover' }}
-                            fill={true}
-                            sizes="60px"
-                          />
-                        </div>
-                      ) : (
-                        <div className="timeline-image">
-                          <div className="timeline-image-placeholder">
-                            {exp.company.substring(0, 2).toUpperCase()}
-                          </div>
-                        </div>
-                      )}
-                      <div className="timeline-company">
-                        <h3 className="timeline-title">{exp.company}</h3>
-                        <h4 className="timeline-subtitle">{exp.position}</h4>
-                        <h4 className="timeline-subtitle">
-                          {exp.type} {exp.name ? `- ${exp.name}` : ''}
-                        </h4>
-                        <div className="timeline-date">
-                          {startYear} - {endYear}
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                )
-              })}
-            </div>
-          </div>
-        </section>
-      )}
-
-      {aboutPage.education && aboutPage.education.length > 0 && (
-        <section className="section education-section">
-          <div className="container">
-            <h2 className="section-title">Education</h2>
-
-            <div className="timeline">
-              {aboutPage.education.map((edu: EducationItem, index) => {
-                const startDate = new Date(edu.startDate)
-                const endDate = edu.endDate ? new Date(edu.endDate) : null
-
-                const startYear = startDate.getFullYear()
-                const endYear = endDate ? endDate.getFullYear() : 'Present'
-
-                // Get logo image URL safely
-                const logoUrl =
-                  edu.logoImage && typeof edu.logoImage === 'object' && 'url' in edu.logoImage
-                    ? edu.logoImage.url
-                    : ''
-
-                return (
-                  <div key={index} className="timeline-item">
-                    {/* <div className="timeline-marker"></div> */}
-                    <div className="timeline-header">
-                      {logoUrl ? (
-                        <div className="timeline-image">
-                          <Image
-                            src={logoUrl}
-                            alt={edu.institution}
-                            style={{ objectFit: 'cover' }}
-                            fill={true}
-                            sizes="60px"
-                          />
-                        </div>
-                      ) : (
-                        <div className="timeline-image">
-                          <div className="timeline-image-placeholder">
-                            {edu.institution.substring(0, 2).toUpperCase()}
-                          </div>
-                        </div>
-                      )}
-                      <div className="timeline-company">
-                        <h3 className="timeline-title">{edu.institution}</h3>
-                        {edu.fieldOfStudy && (
-                          <p className="timeline-subtitle">{edu.fieldOfStudy}</p>
-                        )}
-                        <h4 className="timeline-subtitle">{edu.degree}</h4>
-                        <div className="timeline-date">
-                          {startYear} - {endYear}
-                        </div>
-                      </div>
-                    </div>
-                    {edu.description && (
-                      <div className="timeline-description">
-                        <RichText content={edu.description} className="education-description" />
-                      </div>
-                    )}
-                  </div>
-                )
-              })}
-            </div>
-          </div>
-        </section>
-      )}
-
-      <section className="section contact-cta-section">
+      {/* Values Section */}
+      <section className="section values-section">
         <div className="container">
-          <div className="contact-cta">
-            <h2 className="contact-cta-title">Let's Work Together</h2>
-            <p className="contact-cta-description">
-              Interested in collaborating or have a project in mind?
-            </p>
-            <Link href="/contact" className="button button-primary">
-              Get In Touch
-            </Link>
+          <div className="section-header">
+            <span className="section-badge">Our Values</span>
+            <h2 className="section-title">What Drives Us</h2>
+          </div>
+
+          <div className="values-grid">
+            {values.map((value, index) => (
+              <div key={index} className="value-card">
+                <div className="value-icon">
+                  {value.icon === 'check' && (
+                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                      <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
+                      <polyline points="22 4 12 14.01 9 11.01" />
+                    </svg>
+                  )}
+                  {value.icon === 'eye' && (
+                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                      <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
+                      <circle cx="12" cy="12" r="3" />
+                    </svg>
+                  )}
+                  {value.icon === 'clock' && (
+                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                      <circle cx="12" cy="12" r="10" />
+                      <polyline points="12 6 12 12 16 14" />
+                    </svg>
+                  )}
+                  {value.icon === 'layers' && (
+                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                      <path d="M12 2L2 7l10 5 10-5-10-5z" />
+                      <path d="M2 17l10 5 10-5" />
+                      <path d="M2 12l10 5 10-5" />
+                    </svg>
+                  )}
+                </div>
+                <h3>{value.title}</h3>
+                <p>{value.description}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Meet the Founder Section */}
+      <section className="section founder-section">
+        <div className="container">
+          <div className="section-header">
+            <span className="section-badge">Leadership</span>
+            <h2 className="section-title">Meet the Founder</h2>
+          </div>
+
+          <div className="founder-content">
+            <div className="founder-image-container">
+              <Image
+                src={image}
+                alt="Mitchell Peck"
+                width={400}
+                height={400}
+                className="founder-image"
+              />
+            </div>
+
+            <div className="founder-info">
+              <h3 className="founder-name">Mitchell Peck</h3>
+              <p className="founder-title">Founder & Lead Developer</p>
+
+              <div className="founder-bio">
+                <p>
+                  Mitchell is a full-stack developer with over 5 years of experience building
+                  web applications, mobile apps, and custom software solutions. His background
+                  spans education technology, small business solutions, and consumer applications.
+                </p>
+                <p>
+                  With expertise in both software development and hardware installation,
+                  Mitchell brings a unique perspective to every project, ensuring solutions
+                  are not only technically sound but also practical and user-friendly.
+                </p>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* CTA Section */}
+      <section className="section cta-section">
+        <div className="container">
+          <div className="cta-card">
+            <div className="cta-content">
+              <h2 className="cta-title">Ready to Work Together?</h2>
+              <p className="cta-description">
+                Let's discuss how we can help bring your ideas to life.
+              </p>
+              <div className="cta-buttons">
+                <Link href="/contact" className="btn btn-primary">
+                  Get in Touch
+                </Link>
+                <Link href="/work" className="btn btn-secondary">
+                  View Our Work
+                </Link>
+              </div>
+            </div>
           </div>
         </div>
       </section>

@@ -17,10 +17,11 @@ export default async function ConsultingPage() {
   const payloadConfig = await config
   const payload = await getPayload({ config: payloadConfig })
 
-  // Fetch all consulting projects
+  // Fetch all published consulting projects
   const { docs: allConsultingProjects } = await payload.find({
     collection: 'consulting',
-    sort: '-publishedDate',
+    where: { published: { equals: true } },
+    sort: '-createdAt',
     limit: 100,
   })
 

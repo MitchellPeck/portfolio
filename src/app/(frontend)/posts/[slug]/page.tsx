@@ -21,10 +21,13 @@ export async function generateMetadata({ params }: PostPageProps): Promise<Metad
   const payloadConfig = await config
   const payload = await getPayload({ config: payloadConfig })
 
-  // Fetch the post by slug
+  // Fetch the published post by slug
   const { docs: posts } = await payload.find({
     collection: 'posts',
-    where: { slug: { equals: slug } },
+    where: {
+      slug: { equals: slug },
+      published: { equals: true },
+    },
     limit: 1,
   })
 
@@ -74,10 +77,13 @@ export default async function PostPage({ params }: PostPageProps) {
   const payloadConfig = await config
   const payload = await getPayload({ config: payloadConfig })
 
-  // Fetch the post by slug
+  // Fetch the published post by slug
   const { docs: posts } = await payload.find({
     collection: 'posts',
-    where: { slug: { equals: slug } },
+    where: {
+      slug: { equals: slug },
+      published: { equals: true },
+    },
     limit: 1,
   })
 

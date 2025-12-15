@@ -26,10 +26,13 @@ export async function generateMetadata(
   const payloadConfig = await config
   const payload = await getPayload({ config: payloadConfig })
 
-  // Fetch project by slug
+  // Fetch published project by slug
   const { docs } = await payload.find({
     collection: 'projects',
-    where: { slug: { equals: slug } },
+    where: {
+      slug: { equals: slug },
+      published: { equals: true },
+    },
     limit: 1,
   })
 
@@ -39,13 +42,28 @@ export async function generateMetadata(
     return { title: 'Project Not Found' }
   }
 
-  // Extract description for meta description
-  const description =
+  // Use SEO fields if available, otherwise fall back to description
+  const metaTitle = project.seo?.metaTitle || `${project.title} | Mitchell Peck`
+  const metaDescription = project.seo?.metaDescription || (
     typeof project.description === 'string'
       ? project.description
       : extractTextFromRichText(project.description)
+  ).substring(0, 160)
 
-  return { title: `${project.title} | Mitchell Peck`, description: description.substring(0, 160) }
+  // Get OG image URL if available
+  const ogImage = project.seo?.ogImage && typeof project.seo.ogImage === 'object' && 'url' in project.seo.ogImage
+    ? project.seo.ogImage.url
+    : undefined
+
+  return {
+    title: metaTitle,
+    description: metaDescription,
+    ...(ogImage && {
+      openGraph: {
+        images: [{ url: ogImage }],
+      },
+    }),
+  }
 }
 
 export default async function ProjectPage({ params }: ProjectPageProps) {
@@ -53,10 +71,13 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
   const payloadConfig = await config
   const payload = await getPayload({ config: payloadConfig })
 
-  // Fetch project by slug
+  // Fetch published project by slug
   const { docs } = await payload.find({
     collection: 'projects',
-    where: { slug: { equals: slug } },
+    where: {
+      slug: { equals: slug },
+      published: { equals: true },
+    },
     limit: 1,
   })
 
@@ -168,6 +189,33 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
           </div>
 
           <div className="project-info">
+            {(project.startDate || project.completedDate) && (
+              <div className="project-dates">
+                {project.startDate && (
+                  <div className="project-date">
+                    <span className="date-label">Started</span>
+                    <span className="date-value">
+                      {new Date(project.startDate).toLocaleDateString('en-US', {
+                        month: 'long',
+                        year: 'numeric',
+                      })}
+                    </span>
+                  </div>
+                )}
+                {project.completedDate && (
+                  <div className="project-date">
+                    <span className="date-label">Completed</span>
+                    <span className="date-value">
+                      {new Date(project.completedDate).toLocaleDateString('en-US', {
+                        month: 'long',
+                        year: 'numeric',
+                      })}
+                    </span>
+                  </div>
+                )}
+              </div>
+            )}
+
             <div className="project-links">
               {project.projectUrl && (
                 <a
@@ -193,6 +241,33 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
             </div>
           </div>
         </div>
+
+        {/* Project Gallery */}
+        {project.gallery && project.gallery.length > 0 && (
+          <div className="project-gallery">
+            <h2>Gallery</h2>
+            <div className="gallery-grid">
+              {project.gallery.map((item, index) => {
+                const galleryImage = item.image as Media
+                const galleryImageUrl =
+                  typeof galleryImage === 'object' && 'url' in galleryImage ? galleryImage.url : ''
+
+                return galleryImageUrl ? (
+                  <div key={index} className="gallery-item">
+                    <Image
+                      src={galleryImageUrl}
+                      alt={item.caption || `${project.title} gallery image ${index + 1}`}
+                      width={600}
+                      height={400}
+                      className="gallery-image"
+                    />
+                    {item.caption && <p className="gallery-caption">{item.caption}</p>}
+                  </div>
+                ) : null
+              })}
+            </div>
+          </div>
+        )}
       </div>
     </div>
   )
