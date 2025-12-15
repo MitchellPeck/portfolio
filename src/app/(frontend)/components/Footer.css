@@ -230,6 +230,11 @@
     padding: var(--spacing-16) 0 var(--spacing-6);
   }
 
+  .footer-logo {
+    flex-direction: column;
+    text-align: center;
+  }
+
   .footer-links {
     grid-template-columns: repeat(2, 1fr);
     gap: var(--spacing-8);

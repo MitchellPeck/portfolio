@@ -45,6 +45,7 @@ export const Header: React.FC<HeaderProps> = ({ logoUrl, logoAltUrl }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [isScrolled, setIsScrolled] = useState(false)
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null)
+  const [mobileSubmenu, setMobileSubmenu] = useState<NavItem | null>(null)
   const pathname = usePathname()!
   const dropdownTimeoutRef = useRef<NodeJS.Timeout | null>(null)
 
@@ -86,14 +87,18 @@ export const Header: React.FC<HeaderProps> = ({ logoUrl, logoAltUrl }) => {
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen)
+    setMobileSubmenu(null)
   }
 
   const closeMenu = () => {
     setIsMenuOpen(false)
     setActiveDropdown(null)
+    setMobileSubmenu(null)
   }
 
   const handleDropdownEnter = (label: string) => {
+    // Only use hover on desktop
+    if (window.innerWidth <= 768) return
     if (dropdownTimeoutRef.current) {
       clearTimeout(dropdownTimeoutRef.current)
     }
@@ -101,6 +106,8 @@ export const Header: React.FC<HeaderProps> = ({ logoUrl, logoAltUrl }) => {
   }
 
   const handleDropdownLeave = () => {
+    // Only use hover on desktop
+    if (window.innerWidth <= 768) return
     dropdownTimeoutRef.current = setTimeout(() => {
       setActiveDropdown(null)
     }, 150)
@@ -161,14 +168,22 @@ export const Header: React.FC<HeaderProps> = ({ logoUrl, logoAltUrl }) => {
               {navItems.map((item) => (
                 <li
                   key={item.label}
-                  className={`nav-item ${item.dropdown ? 'has-dropdown' : ''}`}
+                  className={`nav-item ${item.dropdown ? 'has-dropdown' : ''} ${item.dropdown && activeDropdown === item.label ? 'dropdown-open' : ''}`}
                   onMouseEnter={() => item.dropdown && handleDropdownEnter(item.label)}
                   onMouseLeave={handleDropdownLeave}
                 >
                   <Link
                     href={item.href}
                     className={`nav-link ${isActiveLink(item.href, item.dropdown) ? 'active' : ''}`}
-                    onClick={closeMenu}
+                    onClick={(e) => {
+                      // On mobile, open submenu instead of navigating
+                      if (item.dropdown && window.innerWidth <= 768) {
+                        e.preventDefault()
+                        setMobileSubmenu(item)
+                      } else {
+                        closeMenu()
+                      }
+                    }}
                   >
                     {item.label}
                     {item.dropdown && (
@@ -229,6 +244,40 @@ export const Header: React.FC<HeaderProps> = ({ logoUrl, logoAltUrl }) => {
               </Link>
             </div>
           </nav>
+
+          {/* Mobile Submenu */}
+          <div className={`mobile-submenu ${mobileSubmenu ? 'active' : ''}`}>
+            <button
+              className="mobile-submenu-back"
+              onClick={() => setMobileSubmenu(null)}
+            >
+              <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                <path d="M12 4L6 10L12 16" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+              </svg>
+              Back
+            </button>
+            {mobileSubmenu && (
+              <>
+                <h2 className="mobile-submenu-title">{mobileSubmenu.label}</h2>
+                <ul className="mobile-submenu-list">
+                  {mobileSubmenu.dropdown?.map((item) => (
+                    <li key={item.href}>
+                      <Link
+                        href={item.href}
+                        className="mobile-submenu-link"
+                        onClick={closeMenu}
+                      >
+                        <span className="mobile-submenu-link-label">{item.label}</span>
+                        {item.description && (
+                          <span className="mobile-submenu-link-desc">{item.description}</span>
+                        )}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </>
+            )}
+          </div>
         </div>
       </div>
     </header>
