@@ -5,6 +5,9 @@ import Image from 'next/image'
 import './posts.css'
 import config from '@/payload.config'
 
+// Enable ISR - revalidate every 60 seconds
+export const revalidate = 60
+
 export const metadata = {
   title: 'Blog | Mitchell Peck',
   description: 'Thoughts, tutorials, and insights about web development and technology',
@@ -14,8 +17,12 @@ export default async function PostsPage() {
   const payloadConfig = await config
   const payload = await getPayload({ config: payloadConfig })
 
-  // Fetch all posts
-  const { docs: posts } = await payload.find({ collection: 'posts', sort: '-publishedDate' })
+  // Fetch all published posts
+  const { docs: posts } = await payload.find({
+    collection: 'posts',
+    where: { published: { equals: true } },
+    sort: '-publishedDate',
+  })
 
   return (
     <div className="posts-page">
@@ -46,8 +53,8 @@ export default async function PostsPage() {
                       <Image
                         src={post.featuredImage.url}
                         alt={post.title}
-                        width={400}
-                        height={225}
+                        width={500}
+                        height={500}
                       />
                     </Link>
                   </div>

@@ -2,9 +2,18 @@ import { CollectionConfig } from 'payload'
 
 const Consulting: CollectionConfig = {
   slug: 'consulting',
-  admin: { useAsTitle: 'title' },
+  admin: { useAsTitle: 'title', group: 'Content' },
   access: { read: () => true },
   fields: [
+    {
+      name: 'published',
+      type: 'checkbox',
+      defaultValue: false,
+      admin: {
+        position: 'sidebar',
+        description: 'Must be checked for the project to appear on the site',
+      },
+    },
     { name: 'title', type: 'text', required: true },
     { name: 'slug', type: 'text', required: true, unique: true },
     { name: 'featuredImage', type: 'upload', relationTo: 'media', required: true },
@@ -20,7 +29,12 @@ const Consulting: CollectionConfig = {
       ],
     },
     { name: 'client', type: 'text', required: true },
-    { name: 'featured', type: 'checkbox', defaultValue: false },
+    {
+      name: 'featured',
+      type: 'checkbox',
+      defaultValue: false,
+      admin: { position: 'sidebar' },
+    },
   ],
 }
 

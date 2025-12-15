@@ -5,6 +5,9 @@ import './projects.css'
 import config from '@/payload.config'
 import type { Project } from '@/payload-types'
 
+// Enable ISR - revalidate every 60 seconds
+export const revalidate = 60
+
 export const metadata = {
   title: 'Projects | Mitchell Peck Development',
   description: 'Browse through our development projects and case studies',
@@ -14,10 +17,11 @@ export default async function ProjectsPage() {
   const payloadConfig = await config
   const payload = await getPayload({ config: payloadConfig })
 
-  // Fetch all projects
+  // Fetch all published projects
   const { docs: allProjects } = await payload.find({
     collection: 'projects',
-    sort: '-publishedDate',
+    where: { published: { equals: true } },
+    sort: '-createdAt',
     limit: 100,
   })
 

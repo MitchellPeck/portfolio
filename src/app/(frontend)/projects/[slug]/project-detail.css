@@ -65,27 +65,27 @@
 }
 
 .status-planned {
-  background-color: #3490dc; /* Blue */
+  background-color: #3b82f6; /* Blue for planned projects */
 }
 
 .status-in-progress {
-  background-color: #3490dc; /* Blue */
+  background-color: #3b82f6; /* Blue for active projects */
 }
 
 .status-paused {
-  background-color: #f6993f; /* Orange */
+  background-color: #64748b; /* Slate 500 */
 }
 
 .status-completed {
-  background-color: #38c172; /* Green */
+  background-color: #1e293b; /* Slate 800 */
 }
 
 .status-maintained {
-  background-color: #4dc0b5; /* Teal */
+  background-color: #334155; /* Slate 700 */
 }
 
 .status-sunset {
-  background-color: #9561e2; /* Purple */
+  background-color: #64748b; /* Slate 500 */
 }
 
 /* Status text styling in sidebar */
@@ -95,23 +95,27 @@
 }
 
 .status-text.status-in-progress {
-  color: #3490dc; /* Blue */
+  color: #3b82f6; /* Blue for active projects */
 }
 
 .status-text.status-paused {
-  color: #f6993f; /* Orange */
+  color: #64748b; /* Slate 500 */
 }
 
 .status-text.status-completed {
-  color: #38c172; /* Green */
+  color: #1e293b; /* Slate 800 */
 }
 
 .status-text.status-maintained {
-  color: #4dc0b5; /* Teal */
+  color: #334155; /* Slate 700 */
 }
 
 .status-text.status-sunset {
-  color: #9561e2; /* Purple */
+  color: #64748b; /* Slate 500 */
+}
+
+.status-text.status-planned {
+  color: #3b82f6; /* Blue for planned projects */
 }
 
 .tech-group {
@@ -169,33 +173,33 @@
 }
 
 .project-badge.status-in-progress {
-  background-color: rgba(52, 144, 220, 0.15);
-  color: #3490dc; /* Blue */
+  background-color: rgba(59, 130, 246, 0.15);
+  color: #3b82f6; /* Blue for active projects */
 }
 
 .project-badge.status-planned {
-  background-color: rgba(52, 144, 220, 0.15);
-  color: #3490dc; /* Blue */
+  background-color: rgba(59, 130, 246, 0.15);
+  color: #3b82f6; /* Blue for planned projects */
 }
 
 .project-badge.status-paused {
   background-color: rgba(246, 153, 63, 0.15);
-  color: #f6993f; /* Orange */
+  color: #64748b; /* Slate 500 */
 }
 
 .project-badge.status-completed {
   background-color: rgba(56, 193, 114, 0.15);
-  color: #38c172; /* Green */
+  color: #1e293b; /* Slate 800 */
 }
 
 .project-badge.status-maintained {
   background-color: rgba(77, 192, 181, 0.15);
-  color: #4dc0b5; /* Teal */
+  color: #334155; /* Slate 700 */
 }
 
 .project-badge.status-sunset {
   background-color: rgba(149, 97, 226, 0.15);
-  color: #9561e2; /* Purple */
+  color: #64748b; /* Slate 500 */
 }
 
 .project-badge.featured {
@@ -268,22 +272,74 @@
   margin-bottom: 2.5rem;
 }
 
+/* Project Dates */
+.project-dates {
+  display: flex;
+  gap: 2rem;
+  margin-bottom: 1.5rem;
+  padding: 1rem 1.5rem;
+  background: var(--color-card);
+  border: 1px solid var(--color-card-border);
+  border-radius: var(--radius-lg);
+}
+
 .project-date {
-  margin-bottom: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
 }
 
-.project-date h4 {
-  font-size: 1.1rem;
-  margin-bottom: 0.5rem;
+.project-date .date-label {
+  font-size: 0.8rem;
+  font-weight: 600;
   color: var(--color-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
 }
 
-.project-date time {
+.project-date .date-value {
   font-size: 0.95rem;
+  color: var(--color-foreground);
 }
 
-.project-date p {
-  font-size: 0.95rem;
+/* Project Gallery */
+.project-gallery {
+  margin-top: 3rem;
+  padding-top: 2rem;
+  border-top: 1px solid var(--color-card-border);
+}
+
+.project-gallery h2 {
+  font-size: 1.75rem;
+  margin-bottom: 1.5rem;
+}
+
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1.5rem;
+}
+
+.gallery-item {
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  background: var(--color-card);
+  border: 1px solid var(--color-card-border);
+}
+
+.gallery-image {
+  width: 100%;
+  height: auto;
+  display: block;
+  object-fit: cover;
+  aspect-ratio: 3/2;
+}
+
+.gallery-caption {
+  padding: 0.75rem 1rem;
+  font-size: 0.9rem;
+  color: var(--color-muted);
+  margin: 0;
 }
 
 .project-link {
@@ -424,11 +480,15 @@
   .project-title {
     font-size: 2.25rem;
   }
-  
+
   .project-badges,
   .project-technologies {
     grid-template-columns: repeat(2, 1fr);
     gap: 1.25rem;
+  }
+
+  .gallery-grid {
+    grid-template-columns: 1fr;
   }
 }
 
@@ -440,9 +500,14 @@
   .project-badges {
     grid-template-columns: 1fr;
   }
-  
+
   .project-technologies {
     grid-template-columns: 1fr;
+  }
+
+  .project-dates {
+    flex-direction: column;
+    gap: 1rem;
   }
 }
 

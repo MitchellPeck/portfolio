@@ -9,21 +9,29 @@ import type { Metadata, ResolvingMetadata } from 'next'
 import type { Consulting } from '@/payload-types'
 import './consulting-detail.css'
 
+interface ConsultingPageProps {
+  params: Promise<{ slug: string }>
+}
+
+// Enable ISR - revalidate every 60 seconds
+export const revalidate = 60
+
 export async function generateMetadata(
-  { params }: { params: { slug: string } },
+  { params }: ConsultingPageProps,
   parent: ResolvingMetadata
 ): Promise<Metadata> {
+  const { slug } = await params
   const payloadConfig = await config
   const payload = await getPayload({ config: payloadConfig })
 
-  // Find the consulting project by slug
+  // Find the published consulting project by slug
   const { docs } = await payload.find({
     collection: 'consulting',
     where: {
-      slug: {
-        equals: params.slug,
-      },
+      slug: { equals: slug },
+      published: { equals: true },
     },
+    limit: 1,
   })
 
   if (!docs || docs.length === 0) {
@@ -49,18 +57,19 @@ export async function generateMetadata(
   }
 }
 
-export default async function ConsultingDetailPage({ params }: { params: { slug: string } }) {
+export default async function ConsultingDetailPage({ params }: ConsultingPageProps) {
+  const { slug } = await params
   const payloadConfig = await config
   const payload = await getPayload({ config: payloadConfig })
 
-  // Find the consulting project by slug
+  // Find the published consulting project by slug
   const { docs } = await payload.find({
     collection: 'consulting',
     where: {
-      slug: {
-        equals: params.slug,
-      },
+      slug: { equals: slug },
+      published: { equals: true },
     },
+    limit: 1,
   })
 
   if (!docs || docs.length === 0) {

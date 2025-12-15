@@ -5,6 +5,9 @@ import './consulting.css'
 import config from '@/payload.config'
 import type { Consulting } from '@/payload-types'
 
+// Enable ISR - revalidate every 60 seconds
+export const revalidate = 60
+
 export const metadata = {
   title: 'Consulting | Mitchell Peck Development',
   description: 'Browse through our consulting and professional services',
@@ -14,10 +17,11 @@ export default async function ConsultingPage() {
   const payloadConfig = await config
   const payload = await getPayload({ config: payloadConfig })
 
-  // Fetch all consulting projects
+  // Fetch all published consulting projects
   const { docs: allConsultingProjects } = await payload.find({
     collection: 'consulting',
-    sort: '-publishedDate',
+    where: { published: { equals: true } },
+    sort: '-createdAt',
     limit: 100,
   })
 

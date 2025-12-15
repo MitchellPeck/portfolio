@@ -1,0 +1,472 @@
+/* ============================================
+   ProSystems Page - Blue Theme
+   ============================================ */
+
+.prosystems-page {
+  position: relative;
+}
+
+/* Blue gradient for ProSystems */
+.text-gradient-blue {
+  background: linear-gradient(135deg, #0ea5e9, #14b8a6);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Hero Section */
+.prosystems-hero {
+  position: relative;
+  padding: var(--spacing-32) 0 var(--spacing-16);
+  text-align: center;
+  overflow: hidden;
+}
+
+.prosystems-hero-bg {
+  display: none;
+}
+
+.prosystems-hero-content {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.prosystems-hero-logo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: var(--spacing-6);
+}
+
+.prosystems-hero-logo img {
+  height: auto;
+  max-height: 80px;
+  width: auto;
+  max-width: 280px;
+  object-fit: contain;
+}
+
+/* Dark mode logo (default - site is dark mode) */
+.prosystems-logo-dark {
+  display: block !important;
+}
+
+.prosystems-logo-light {
+  display: none !important;
+}
+
+/* Show light logo when user prefers light mode */
+@media (prefers-color-scheme: light) {
+  .prosystems-logo-dark {
+    display: none !important;
+  }
+
+  .prosystems-logo-light {
+    display: block !important;
+  }
+}
+
+.prosystems-hero-badge {
+  display: inline-block;
+  padding: var(--spacing-2) var(--spacing-4);
+  background: rgba(14, 165, 233, 0.1);
+  border: 1px solid rgba(14, 165, 233, 0.2);
+  border-radius: var(--radius-full);
+  font-size: var(--text-sm);
+  font-weight: var(--font-medium);
+  color: var(--color-brand-secondary);
+  margin-bottom: var(--spacing-6);
+}
+
+.prosystems-hero-title {
+  font-size: var(--text-5xl);
+  font-weight: var(--font-extrabold);
+  line-height: 1.1;
+  margin-bottom: var(--spacing-6);
+  color: var(--color-foreground);
+}
+
+.prosystems-hero-description {
+  font-size: var(--text-lg);
+  color: var(--color-muted);
+  line-height: var(--leading-relaxed);
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+/* Section Styles */
+.prosystems-section {
+  padding: var(--spacing-24) 0;
+}
+
+.prosystems-section-alt {
+  background: var(--color-background-alt);
+}
+
+/* Blue Badge */
+.section-badge-blue {
+  background: rgba(14, 165, 233, 0.1);
+  border-color: rgba(14, 165, 233, 0.2);
+  color: var(--color-brand-secondary);
+}
+
+/* Service Categories */
+.prosystems-categories {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-12);
+}
+
+.prosystems-category {
+  background: var(--color-card);
+  border: 1px solid var(--color-card-border);
+  border-radius: var(--radius-2xl);
+  padding: var(--spacing-8);
+  position: relative;
+  overflow: hidden;
+}
+
+.prosystems-category::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(135deg, #0ea5e9, #14b8a6);
+}
+
+.category-header-blue {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-4);
+  margin-bottom: var(--spacing-6);
+}
+
+.category-icon-blue {
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(14, 165, 233, 0.1);
+  border-radius: var(--radius-lg);
+  color: var(--color-brand-secondary);
+}
+
+.category-title {
+  font-size: var(--text-xl);
+  font-weight: var(--font-bold);
+  color: var(--color-foreground);
+  margin: 0;
+}
+
+/* Service Cards Grid */
+.prosystems-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--spacing-4);
+}
+
+.prosystems-card {
+  background: rgba(14, 165, 233, 0.03);
+  border: 1px solid rgba(14, 165, 233, 0.1);
+  border-radius: var(--radius-lg);
+  padding: var(--spacing-5);
+  transition: all 0.2s ease;
+}
+
+.prosystems-card:hover {
+  background: rgba(14, 165, 233, 0.06);
+  border-color: rgba(14, 165, 233, 0.2);
+}
+
+.prosystems-card-content {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-2);
+}
+
+.prosystems-card-title {
+  font-size: var(--text-base);
+  font-weight: var(--font-semibold);
+  color: var(--color-foreground);
+  margin: 0;
+}
+
+.prosystems-card-description {
+  font-size: var(--text-sm);
+  color: var(--color-muted);
+  line-height: var(--leading-relaxed);
+  margin: 0;
+}
+
+/* Process Steps */
+.prosystems-process-steps {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 0;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.prosystems-process-step {
+  flex: 1;
+  text-align: center;
+  padding: var(--spacing-6);
+  background: var(--color-card);
+  border: 1px solid var(--color-card-border);
+  border-radius: var(--radius-xl);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.prosystems-process-number {
+  width: 56px;
+  height: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: var(--text-xl);
+  font-weight: var(--font-bold);
+  background: linear-gradient(135deg, #0ea5e9, #14b8a6);
+  color: white;
+  border-radius: 50%;
+  margin-bottom: var(--spacing-4);
+}
+
+.prosystems-process-step h3 {
+  font-size: var(--text-lg);
+  font-weight: var(--font-semibold);
+  color: var(--color-foreground);
+  margin-bottom: var(--spacing-2);
+}
+
+.prosystems-process-step p {
+  font-size: var(--text-sm);
+  color: var(--color-muted);
+  line-height: var(--leading-relaxed);
+  margin: 0;
+}
+
+.prosystems-process-connector {
+  width: 40px;
+  height: 2px;
+  background: linear-gradient(90deg, #0ea5e9, rgba(14, 165, 233, 0.2));
+  align-self: center;
+  flex-shrink: 0;
+}
+
+/* About Grid */
+.prosystems-about-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--spacing-6);
+}
+
+.prosystems-about-card {
+  background: var(--color-card);
+  border: 1px solid var(--color-card-border);
+  border-radius: var(--radius-xl);
+  padding: var(--spacing-6);
+  text-align: center;
+  transition: all 0.2s ease;
+}
+
+.prosystems-about-card:hover {
+  border-color: rgba(14, 165, 233, 0.3);
+  transform: translateY(-2px);
+}
+
+.prosystems-about-icon {
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(14, 165, 233, 0.1);
+  border-radius: var(--radius-lg);
+  color: var(--color-brand-secondary);
+  margin: 0 auto var(--spacing-4);
+}
+
+.prosystems-about-card h4 {
+  font-size: var(--text-base);
+  font-weight: var(--font-semibold);
+  color: var(--color-foreground);
+  margin-bottom: var(--spacing-2);
+}
+
+.prosystems-about-card p {
+  font-size: var(--text-sm);
+  color: var(--color-muted);
+  line-height: var(--leading-relaxed);
+  margin: 0;
+}
+
+/* CTA Section */
+.prosystems-cta {
+  padding: var(--spacing-24) 0 var(--spacing-32);
+}
+
+.prosystems-cta .cta-content {
+  background: radial-gradient(
+      ellipse 80% 50% at 50% 100%,
+      rgba(14, 165, 233, 0.15),
+      transparent
+    ),
+    var(--color-card);
+  border: 1px solid var(--color-card-border);
+  border-radius: var(--radius-2xl);
+  padding: var(--spacing-16);
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.prosystems-cta .cta-content::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(135deg, #0ea5e9, #14b8a6);
+}
+
+.prosystems-cta .cta-title {
+  font-size: var(--text-3xl);
+  font-weight: var(--font-bold);
+  margin-bottom: var(--spacing-4);
+  color: var(--color-foreground);
+}
+
+.prosystems-cta .cta-description {
+  font-size: var(--text-lg);
+  color: var(--color-muted);
+  margin-bottom: var(--spacing-8);
+}
+
+.prosystems-cta .cta-buttons {
+  display: flex;
+  gap: var(--spacing-4);
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-bottom: var(--spacing-6);
+}
+
+.btn-prosystems {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-2);
+  padding: var(--spacing-3) var(--spacing-6);
+  background: linear-gradient(135deg, #0ea5e9, #14b8a6);
+  color: white;
+  font-weight: var(--font-semibold);
+  border-radius: var(--radius-md);
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+.btn-prosystems:hover {
+  filter: brightness(1.1);
+  transform: translateY(-2px);
+}
+
+.cta-contact-info {
+  display: flex;
+  justify-content: center;
+  gap: var(--spacing-8);
+  flex-wrap: wrap;
+}
+
+.cta-contact-link {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-2);
+  color: var(--color-muted);
+  font-size: var(--text-sm);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.cta-contact-link:hover {
+  color: var(--color-brand-secondary);
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+  .prosystems-hero-title {
+    font-size: var(--text-4xl);
+  }
+
+  .prosystems-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .prosystems-about-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .prosystems-hero {
+    padding: var(--spacing-24) 0 var(--spacing-12);
+  }
+
+  .prosystems-hero-title {
+    font-size: var(--text-3xl);
+  }
+
+  .prosystems-section {
+    padding: var(--spacing-16) 0;
+  }
+
+  .prosystems-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .prosystems-about-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .prosystems-process-steps {
+    flex-direction: column;
+    gap: var(--spacing-4);
+  }
+
+  .prosystems-process-connector {
+    width: 2px;
+    height: 30px;
+    margin: 0 auto;
+    background: linear-gradient(180deg, #0ea5e9, rgba(14, 165, 233, 0.2));
+  }
+
+  .prosystems-process-step {
+    padding: var(--spacing-5);
+  }
+
+  .prosystems-cta .cta-content {
+    padding: var(--spacing-10);
+  }
+
+  .cta-contact-info {
+    flex-direction: column;
+    align-items: center;
+    gap: var(--spacing-4);
+  }
+}
+
+@media (max-width: 480px) {
+  .prosystems-hero-title {
+    font-size: var(--text-2xl);
+  }
+
+  .prosystems-category {
+    padding: var(--spacing-5);
+  }
+}
