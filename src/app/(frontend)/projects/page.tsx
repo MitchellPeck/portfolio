@@ -5,6 +5,9 @@ import './projects.css'
 import config from '@/payload.config'
 import type { Project } from '@/payload-types'
 
+// Enable ISR - revalidate every 60 seconds
+export const revalidate = 60
+
 export const metadata = {
   title: 'Projects | Mitchell Peck Development',
   description: 'Browse through our development projects and case studies',

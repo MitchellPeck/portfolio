@@ -10,6 +10,9 @@ import './page.css'
 import config from '@/payload.config'
 import RichText from '@/app/(frontend)/components/RichText'
 
+// Enable ISR - revalidate every 60 seconds
+export const revalidate = 60
+
 export default async function Home() {
   const payloadConfig = await config
   const payload = await getPayload({ config: payloadConfig })

@@ -6,6 +6,9 @@ import Link from 'next/link'
 import { getPayload } from 'payload'
 import './about.css'
 
+// Enable ISR - revalidate every 60 seconds
+export const revalidate = 60
+
 export const metadata = {
   title: 'About | Mitchell Peck Development',
   description: 'Learn about my background, skills, and experience',

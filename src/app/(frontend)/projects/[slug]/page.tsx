@@ -11,21 +11,25 @@ import type { Media, Project } from '../../../../payload-types'
 import './project-detail.css'
 
 interface ProjectPageProps {
-  params: { slug: string }
+  params: Promise<{ slug: string }>
 }
+
+// Enable ISR - revalidate every 60 seconds
+export const revalidate = 60
 
 // Generate metadata for the page dynamically
 export async function generateMetadata(
   { params }: ProjectPageProps,
   parent: ResolvingMetadata,
 ): Promise<Metadata> {
+  const { slug } = await params
   const payloadConfig = await config
   const payload = await getPayload({ config: payloadConfig })
 
   // Fetch project by slug
   const { docs } = await payload.find({
     collection: 'projects',
-    where: { slug: { equals: params.slug } },
+    where: { slug: { equals: slug } },
     limit: 1,
   })
 
@@ -45,13 +49,14 @@ export async function generateMetadata(
 }
 
 export default async function ProjectPage({ params }: ProjectPageProps) {
+  const { slug } = await params
   const payloadConfig = await config
   const payload = await getPayload({ config: payloadConfig })
 
   // Fetch project by slug
   const { docs } = await payload.find({
     collection: 'projects',
-    where: { slug: { equals: params.slug } },
+    where: { slug: { equals: slug } },
     limit: 1,
   })
 

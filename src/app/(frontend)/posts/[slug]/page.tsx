@@ -9,20 +9,22 @@ import RichText from '@/app/(frontend)/components/RichText'
 import './post-detail.css'
 
 interface PostPageProps {
-  params: {
-    slug: string
-  }
+  params: Promise<{ slug: string }>
 }
+
+// Enable ISR - revalidate every 60 seconds
+export const revalidate = 60
 
 // Generate metadata for the page
 export async function generateMetadata({ params }: PostPageProps): Promise<Metadata> {
+  const { slug } = await params
   const payloadConfig = await config
   const payload = await getPayload({ config: payloadConfig })
 
   // Fetch the post by slug
   const { docs: posts } = await payload.find({
     collection: 'posts',
-    where: { slug: { equals: params.slug } },
+    where: { slug: { equals: slug } },
     limit: 1,
   })
 
@@ -68,13 +70,14 @@ export async function generateMetadata({ params }: PostPageProps): Promise<Metad
 }
 
 export default async function PostPage({ params }: PostPageProps) {
+  const { slug } = await params
   const payloadConfig = await config
   const payload = await getPayload({ config: payloadConfig })
 
   // Fetch the post by slug
   const { docs: posts } = await payload.find({
     collection: 'posts',
-    where: { slug: { equals: params.slug } },
+    where: { slug: { equals: slug } },
     limit: 1,
   })
 

@@ -9,10 +9,18 @@ import type { Metadata, ResolvingMetadata } from 'next'
 import type { Consulting } from '@/payload-types'
 import './consulting-detail.css'
 
+interface ConsultingPageProps {
+  params: Promise<{ slug: string }>
+}
+
+// Enable ISR - revalidate every 60 seconds
+export const revalidate = 60
+
 export async function generateMetadata(
-  { params }: { params: { slug: string } },
+  { params }: ConsultingPageProps,
   parent: ResolvingMetadata
 ): Promise<Metadata> {
+  const { slug } = await params
   const payloadConfig = await config
   const payload = await getPayload({ config: payloadConfig })
 
@@ -21,7 +29,7 @@ export async function generateMetadata(
     collection: 'consulting',
     where: {
       slug: {
-        equals: params.slug,
+        equals: slug,
       },
     },
   })
@@ -49,7 +57,8 @@ export async function generateMetadata(
   }
 }
 
-export default async function ConsultingDetailPage({ params }: { params: { slug: string } }) {
+export default async function ConsultingDetailPage({ params }: ConsultingPageProps) {
+  const { slug } = await params
   const payloadConfig = await config
   const payload = await getPayload({ config: payloadConfig })
 
@@ -58,7 +67,7 @@ export default async function ConsultingDetailPage({ params }: { params: { slug:
     collection: 'consulting',
     where: {
       slug: {
-        equals: params.slug,
+        equals: slug,
       },
     },
   })

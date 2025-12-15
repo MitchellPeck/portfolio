@@ -5,6 +5,9 @@ import Image from 'next/image'
 import './posts.css'
 import config from '@/payload.config'
 
+// Enable ISR - revalidate every 60 seconds
+export const revalidate = 60
+
 export const metadata = {
   title: 'Blog | Mitchell Peck',
   description: 'Thoughts, tutorials, and insights about web development and technology',

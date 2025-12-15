@@ -5,6 +5,9 @@ import './consulting.css'
 import config from '@/payload.config'
 import type { Consulting } from '@/payload-types'
 
+// Enable ISR - revalidate every 60 seconds
+export const revalidate = 60
+
 export const metadata = {
   title: 'Consulting | Mitchell Peck Development',
   description: 'Browse through our consulting and professional services',
