@@ -99,7 +99,7 @@ export default async function Home() {
                 <span className="stat-label">Years Experience</span>
               </div>
               <div className="stat">
-                <span className="stat-number">50+</span>
+                <span className="stat-number">20+</span>
                 <span className="stat-label">Projects Delivered</span>
               </div>
               <div className="stat">
