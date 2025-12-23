@@ -65,7 +65,7 @@ export default async function WorkPage() {
         <div className="container">
           <div className="stats-grid">
             <div className="stat-item">
-              <span className="stat-number">50+</span>
+              <span className="stat-number">20+</span>
               <span className="stat-label">Projects Completed</span>
             </div>
             <div className="stat-item">

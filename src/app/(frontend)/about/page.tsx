@@ -13,7 +13,7 @@ export const metadata = {
 
 const stats = [
   { value: '5+', label: 'Years Experience' },
-  { value: '50+', label: 'Projects Completed' },
+  { value: '20+', label: 'Projects Completed' },
   { value: '100%', label: 'Client Satisfaction' },
   { value: '2', label: 'Service Lines' },
 ]
