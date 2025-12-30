@@ -70,7 +70,7 @@ export default async function WorkPage() {
             </div>
             <div className="stat-item">
               <span className="stat-number">{projects.length + consultingProjects.length}+</span>
-              <span className="stat-label">Client Projects Completed</span>
+            <span className="stat-label">Client Projects Completed</span>
             </div>
             <div className="stat-item">
               <span className="stat-number">5+</span>

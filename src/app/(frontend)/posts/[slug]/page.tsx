@@ -12,6 +12,8 @@ interface PostPageProps {
   params: Promise<{ slug: string }>
 }
 
+// Force dynamic rendering - required for dynamic routes without generateStaticParams
+export const dynamic = 'force-dynamic'
 // Enable ISR - revalidate every 60 seconds
 export const revalidate = 60
 
