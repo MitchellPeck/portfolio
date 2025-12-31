@@ -10,11 +10,29 @@ export const revalidate = 60
 export const metadata = {
   title: 'ProSystems | Mitchell Peck Development',
   description:
-    'MPD ProSystems provides professional, clean, and reliable design and installation services for homes, offices, and vehicles.',
+    'MPD ProSystems provides professional home automation, networking, security, audio/video, and automotive installation services using open-source platforms like Home Assistant.',
 }
 
 // Static service data for ProSystems
 const prosystemsServices = [
+  {
+    category: 'Home Automation',
+    icon: (
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+        <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
+        <polyline points="9 22 9 12 15 12 15 22" />
+      </svg>
+    ),
+    description: 'Smart home solutions using open-source platforms—designed for existing homes with minimal or no new wiring.',
+    services: [
+      { title: 'Home Assistant Setup', description: 'Local-first smart home hub with powerful automations, dashboards, and no cloud dependency.' },
+      { title: 'Zigbee & Z-Wave Networks', description: 'Wireless mesh networks for sensors, switches, and smart devices—no new wiring required.' },
+      { title: 'MQTT & Local Integration', description: 'Connect DIY devices, ESPHome sensors, and third-party gear through local protocols.' },
+      { title: 'Lighting Control', description: 'Smart switches, dimmers, and bulbs with scene control and voice integration.' },
+      { title: 'Climate Automation', description: 'Smart thermostats, sensors, and automated HVAC control for comfort and efficiency.' },
+      { title: 'Voice & App Control', description: 'Integration with Apple HomeKit, Google Home, and Alexa—all controlled locally.' },
+    ],
+  },
   {
     category: 'Internet & Networking',
     icon: (
@@ -124,8 +142,8 @@ export default async function ProSystemsPage() {
               Professional <span className="text-gradient-blue">Installation Services</span>
             </h1>
             <p className="prosystems-hero-description">
-              Expert installation for networking, security, audio/video, and automotive systems.
-              Clean installs, reliable results.
+              Expert installation for home automation, networking, security, audio/video, and automotive systems.
+              Open-source solutions, clean installs, reliable results.
             </p>
           </div>
         </div>
@@ -141,7 +159,12 @@ export default async function ProSystemsPage() {
               <div key={idx} className="prosystems-category">
                 <div className="category-header category-header-blue">
                   <div className="category-icon category-icon-blue">{category.icon}</div>
-                  <h3 className="category-title">{category.category}</h3>
+                  <div className="category-header-text">
+                    <h3 className="category-title">{category.category}</h3>
+                    {'description' in category && category.description && (
+                      <p className="category-description">{category.description}</p>
+                    )}
+                  </div>
                 </div>
 
                 <div className="prosystems-grid">

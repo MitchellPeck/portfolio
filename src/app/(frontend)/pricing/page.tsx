@@ -6,53 +6,62 @@ export const revalidate = 60
 
 export const metadata = {
   title: 'Pricing | Mitchell Peck Development',
-  description: 'Transparent pricing for software development services.',
+  description: 'Custom project-based pricing for software development services.',
 }
 
-// Static pricing data until CMS collections are set up
-const mpdPricing = [
+// What's included in every project
+const projectInclusions = [
+  'Custom design tailored to your brand',
+  'Mobile responsive development',
+  'SEO optimization',
+  'Testing and quality assurance',
+  'Deployment and launch support',
+  'Post-launch support period',
+]
+
+// Project types we work on
+const projectTypes = [
   {
-    name: 'Starter',
-    subtitle: 'Perfect for small projects',
-    pricing: { amount: 2500, unit: 'project', displayText: 'Starting at $2,500' },
-    features: [
-      { feature: 'Single page website or landing page', included: true },
-      { feature: 'Mobile responsive design', included: true },
-      { feature: 'Basic SEO setup', included: true },
-      { feature: 'Contact form integration', included: true },
-      { feature: '2 rounds of revisions', included: true },
-      { feature: '30-day support', included: true },
-    ],
-    highlighted: false,
+    name: 'Websites & Landing Pages',
+    description: 'Marketing sites, portfolios, landing pages, and business websites.',
+    icon: (
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+        <rect x="3" y="3" width="18" height="18" rx="2" />
+        <path d="M3 9h18" />
+        <path d="M9 21V9" />
+      </svg>
+    ),
   },
   {
-    name: 'Professional',
-    subtitle: 'Best for growing businesses',
-    pricing: { amount: 7500, unit: 'project', displayText: 'Starting at $7,500' },
-    features: [
-      { feature: 'Multi-page website or web app', included: true },
-      { feature: 'Custom design and branding', included: true },
-      { feature: 'Advanced SEO optimization', included: true },
-      { feature: 'CMS integration', included: true },
-      { feature: 'API integrations', included: true },
-      { feature: '90-day support', included: true },
-    ],
-    highlighted: true,
-    highlightText: 'Most Popular',
+    name: 'Web Applications',
+    description: 'Custom web apps, dashboards, portals, and SaaS platforms.',
+    icon: (
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+        <polyline points="16 18 22 12 16 6" />
+        <polyline points="8 6 2 12 8 18" />
+      </svg>
+    ),
   },
   {
-    name: 'Enterprise',
-    subtitle: 'For complex solutions',
-    pricing: { displayText: 'Custom Quote' },
-    features: [
-      { feature: 'Full-stack custom development', included: true },
-      { feature: 'Scalable architecture', included: true },
-      { feature: 'Third-party integrations', included: true },
-      { feature: 'Database design & optimization', included: true },
-      { feature: 'Dedicated project manager', included: true },
-      { feature: '12-month support', included: true },
-    ],
-    highlighted: false,
+    name: 'Mobile Applications',
+    description: 'iOS, Android, and cross-platform mobile app development.',
+    icon: (
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+        <rect x="5" y="2" width="14" height="20" rx="2" />
+        <path d="M12 18h.01" />
+      </svg>
+    ),
+  },
+  {
+    name: 'Custom Software',
+    description: 'API development, integrations, automation, and enterprise solutions.',
+    icon: (
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+        <path d="M12 2L2 7l10 5 10-5-10-5z" />
+        <path d="M2 17l10 5 10-5" />
+        <path d="M2 12l10 5 10-5" />
+      </svg>
+    ),
   },
 ]
 
@@ -65,62 +74,114 @@ export default function PricingPage() {
           <div className="pricing-hero-content">
             <span className="pricing-hero-badge">Pricing</span>
             <h1 className="pricing-hero-title">
-              Transparent <span className="text-gradient">Pricing</span>
+              Project-Based <span className="text-gradient">Pricing</span>
             </h1>
             <p className="pricing-hero-description">
-              Clear, upfront pricing with no hidden fees. Choose a package that fits your needs
-              or contact us for a custom quote.
+              Every project is unique. We provide custom quotes based on your specific requirements,
+              scope, and timeline—ensuring you only pay for what you need.
             </p>
           </div>
         </div>
         <div className="pricing-hero-bg" />
       </section>
 
-      {/* MPD Pricing Section */}
+      {/* Custom Pricing Section */}
       <section className="pricing-section">
         <div className="container">
           <div className="section-header">
             <span className="section-badge">Mitchell Peck Development</span>
-            <h2 className="section-title">Development Packages</h2>
+            <h2 className="section-title">Custom Project Quotes</h2>
             <p className="section-description">
-              Flexible pricing options for websites, web applications, and custom software.
+              All development pricing is per-project, tailored to your specific specs and requirements.
             </p>
           </div>
 
-          <div className="pricing-grid">
-            {mpdPricing.map((plan, idx) => (
-              <div
-                key={idx}
-                className={`pricing-card ${plan.highlighted ? 'pricing-card-highlighted' : ''}`}
-              >
-                {plan.highlighted && plan.highlightText && (
-                  <div className="pricing-badge">{plan.highlightText}</div>
-                )}
-                <h3 className="pricing-name">{plan.name}</h3>
-                <p className="pricing-subtitle">{plan.subtitle}</p>
-                <div className="pricing-amount">
-                  {plan.pricing.displayText || `$${plan.pricing.amount}`}
-                </div>
+          {/* Main Quote Card */}
+          <div className="custom-pricing-card">
+            <div className="custom-pricing-header">
+              <div className="custom-pricing-icon">
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                  <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+                  <polyline points="14 2 14 8 20 8" />
+                  <line x1="16" y1="13" x2="8" y2="13" />
+                  <line x1="16" y1="17" x2="8" y2="17" />
+                  <polyline points="10 9 9 9 8 9" />
+                </svg>
+              </div>
+              <div className="custom-pricing-title">
+                <h3>Custom Quote</h3>
+                <p>Based on your project specifications</p>
+              </div>
+            </div>
 
-                <ul className="pricing-features">
-                  {plan.features.map((feature, fIdx) => (
-                    <li key={fIdx} className={feature.included ? 'included' : 'not-included'}>
+            <div className="custom-pricing-body">
+              <div className="pricing-factors">
+                <h4>What determines your quote:</h4>
+                <ul>
+                  <li>
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                      <circle cx="12" cy="12" r="10" />
+                      <polyline points="12 6 12 12 16 14" />
+                    </svg>
+                    Project scope and complexity
+                  </li>
+                  <li>
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                      <path d="M12 2L2 7l10 5 10-5-10-5z" />
+                      <path d="M2 17l10 5 10-5" />
+                      <path d="M2 12l10 5 10-5" />
+                    </svg>
+                    Features and functionality required
+                  </li>
+                  <li>
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                      <rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
+                      <line x1="16" y1="2" x2="16" y2="6" />
+                      <line x1="8" y1="2" x2="8" y2="6" />
+                      <line x1="3" y1="10" x2="21" y2="10" />
+                    </svg>
+                    Timeline and delivery schedule
+                  </li>
+                  <li>
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                      <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
+                      <circle cx="9" cy="7" r="4" />
+                      <path d="M23 21v-2a4 4 0 0 0-3-3.87" />
+                      <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+                    </svg>
+                    Integration and third-party requirements
+                  </li>
+                  <li>
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                      <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20" />
+                      <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z" />
+                    </svg>
+                    Ongoing support and maintenance needs
+                  </li>
+                </ul>
+              </div>
+
+              <div className="pricing-inclusions">
+                <h4>Every project includes:</h4>
+                <ul>
+                  {projectInclusions.map((item, idx) => (
+                    <li key={idx}>
                       <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
                         <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z" />
                       </svg>
-                      {feature.feature}
+                      {item}
                     </li>
                   ))}
                 </ul>
-
-                <Link
-                  href="/contact"
-                  className={`btn ${plan.highlighted ? 'btn-primary' : 'btn-secondary'} pricing-cta`}
-                >
-                  Get Started
-                </Link>
               </div>
-            ))}
+            </div>
+
+            <div className="custom-pricing-footer">
+              <Link href="/contact" className="btn btn-primary btn-lg">
+                Request a Quote
+              </Link>
+              <p className="pricing-note">Free consultation • No obligation • Response within 24 hours</p>
+            </div>
           </div>
         </div>
       </section>
@@ -133,7 +194,7 @@ export default function PricingPage() {
               <span className="section-badge section-badge-alt">ProSystems</span>
               <h2 className="section-title">Installation Services</h2>
               <p className="section-description">
-                Professional installation for networking, security, audio/video, and automotive
+                Professional installation for home automation, networking, security, audio/video, and automotive
                 systems. Pricing varies based on project scope and requirements.
               </p>
               <div className="prosystems-pricing-info">
@@ -172,31 +233,32 @@ export default function PricingPage() {
 
           <div className="faq-grid">
             <div className="faq-item">
-              <h3>What's included in the project price?</h3>
+              <h3>How do you determine project pricing?</h3>
               <p>
-                All packages include design, development, testing, and deployment. We provide
-                detailed quotes so you know exactly what you're paying for.
+                We assess each project individually based on scope, complexity, required features,
+                timeline, and any integrations needed. After a discovery call, we provide a detailed
+                quote with a full breakdown.
               </p>
             </div>
             <div className="faq-item">
               <h3>Do you offer payment plans?</h3>
               <p>
                 Yes! We typically structure payments as 50% upfront and 50% upon completion.
-                Custom arrangements are available for larger projects.
+                For larger projects, we can arrange milestone-based payments.
               </p>
             </div>
             <div className="faq-item">
-              <h3>What if my project doesn't fit a package?</h3>
+              <h3>What happens if the scope changes?</h3>
               <p>
-                No problem! Contact us for a custom quote. We'll assess your needs and provide
-                transparent pricing tailored to your specific requirements.
+                We understand projects evolve. Any scope changes are discussed transparently,
+                and we provide updated quotes before proceeding with additional work.
               </p>
             </div>
             <div className="faq-item">
               <h3>Do you offer ongoing support?</h3>
               <p>
-                Absolutely. All packages include initial support, and we offer monthly retainer
-                options for ongoing maintenance, updates, and enhancements.
+                Every project includes a post-launch support period. We also offer monthly
+                retainer options for ongoing maintenance, updates, and enhancements.
               </p>
             </div>
           </div>
@@ -204,21 +266,16 @@ export default function PricingPage() {
       </section>
 
       {/* CTA Section */}
-      <section className="pricing-cta">
+      <section className="pricing-cta-section">
         <div className="container">
           <div className="cta-content">
-            <h2 className="cta-title">Ready to Get Started?</h2>
+            <h2 className="cta-title">Ready to Discuss Your Project?</h2>
             <p className="cta-description">
-              Let's discuss your project and find the perfect solution for your needs.
+              Tell us about your project and we'll provide a custom quote within 24 hours.
             </p>
-            <div className="cta-buttons">
-              <Link href="/contact" className="btn btn-primary">
-                Start a Project
-              </Link>
-              <Link href="/pricing" className="btn btn-secondary">
-                View Pricing
-              </Link>
-            </div>
+            <Link href="/contact" className="btn btn-primary btn-lg">
+              Get Your Free Quote
+            </Link>
           </div>
         </div>
       </section>

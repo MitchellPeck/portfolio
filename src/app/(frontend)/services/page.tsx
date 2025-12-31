@@ -149,7 +149,7 @@ export default async function ServicesPage() {
               )}
               <h2 className="section-title">Installation Services</h2>
               <p className="section-description">
-                Professional installation for networking, security, audio/video, and automotive
+                Professional installation for home automation, networking, security, audio/video, and automotive
                 systems. Clean installs, expert setup, and ongoing support.
               </p>
               <div className="prosystems-services-preview">
@@ -157,13 +157,19 @@ export default async function ServicesPage() {
                   <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                     <polyline points="20 6 9 17 4 12" />
                   </svg>
-                  Internet & Networking
+                  Home Automation
                 </div>
                 <div className="preview-item">
                   <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                     <polyline points="20 6 9 17 4 12" />
                   </svg>
-                  Security Systems
+                  Networking
+                </div>
+                <div className="preview-item">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                    <polyline points="20 6 9 17 4 12" />
+                  </svg>
+                  Security
                 </div>
                 <div className="preview-item">
                   <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
@@ -175,7 +181,7 @@ export default async function ServicesPage() {
                   <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                     <polyline points="20 6 9 17 4 12" />
                   </svg>
-                  Car Installations
+                  Automotive
                 </div>
               </div>
               <Link href="/prosystems" className="btn btn-prosystems">
