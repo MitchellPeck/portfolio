@@ -261,7 +261,7 @@ export default async function Home() {
                           imageUrl={imageUrl || placeholderImage}
                           technologies={technologies}
                           subtitle={`Client: ${project.client}`}
-                          linkPath="/work"
+                          linkPath="/consulting"
                           overview={project.overview}
                         />
                       </div>
