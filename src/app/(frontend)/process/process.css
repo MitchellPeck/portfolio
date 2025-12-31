@@ -26,8 +26,8 @@
 .process-hero-badge {
   display: inline-block;
   padding: var(--spacing-2) var(--spacing-4);
-  background: rgba(245, 158, 11, 0.1);
-  border: 1px solid rgba(245, 158, 11, 0.2);
+  background: rgba(212, 175, 55, 0.1);
+  border: 1px solid rgba(212, 175, 55, 0.2);
   border-radius: var(--radius-full);
   font-size: var(--text-sm);
   font-weight: var(--font-medium);
@@ -151,7 +151,7 @@
   align-items: center;
   gap: var(--spacing-2);
   padding: var(--spacing-1) var(--spacing-3);
-  background: rgba(245, 158, 11, 0.1);
+  background: rgba(212, 175, 55, 0.1);
   border-radius: var(--radius-full);
   font-size: var(--text-sm);
   color: var(--color-brand-primary);
@@ -174,8 +174,8 @@
 }
 
 .step-deliverables {
-  background: rgba(245, 158, 11, 0.05);
-  border: 1px solid rgba(245, 158, 11, 0.1);
+  background: rgba(212, 175, 55, 0.05);
+  border: 1px solid rgba(212, 175, 55, 0.1);
   border-radius: var(--radius-lg);
   padding: var(--spacing-4);
 }
@@ -263,7 +263,7 @@
 }
 
 .benefit-card:hover {
-  border-color: rgba(245, 158, 11, 0.3);
+  border-color: rgba(212, 175, 55, 0.3);
   transform: translateY(-2px);
 }
 
@@ -273,7 +273,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: rgba(245, 158, 11, 0.1);
+  background: rgba(212, 175, 55, 0.1);
   border-radius: var(--radius-lg);
   color: var(--color-brand-primary);
   margin: 0 auto var(--spacing-4);
@@ -297,7 +297,7 @@
   padding: var(--spacing-20) 0;
   background: radial-gradient(
     ellipse 80% 50% at 50% 100%,
-    rgba(245, 158, 11, 0.1),
+    rgba(212, 175, 55, 0.1),
     transparent
   );
 }

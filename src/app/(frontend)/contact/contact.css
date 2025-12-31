@@ -26,8 +26,8 @@
 .contact-hero-badge {
   display: inline-block;
   padding: var(--spacing-2) var(--spacing-4);
-  background: rgba(245, 158, 11, 0.1);
-  border: 1px solid rgba(245, 158, 11, 0.2);
+  background: rgba(212, 175, 55, 0.1);
+  border: 1px solid rgba(212, 175, 55, 0.2);
   border-radius: var(--radius-full);
   font-size: var(--text-sm);
   font-weight: var(--font-medium);
@@ -71,8 +71,8 @@
 .section-badge {
   display: inline-block;
   padding: var(--spacing-1-5) var(--spacing-4);
-  background: rgba(245, 158, 11, 0.1);
-  border: 1px solid rgba(245, 158, 11, 0.2);
+  background: rgba(212, 175, 55, 0.1);
+  border: 1px solid rgba(212, 175, 55, 0.2);
   border-radius: var(--radius-full);
   font-size: var(--text-xs);
   font-weight: var(--font-semibold);
@@ -132,7 +132,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: rgba(245, 158, 11, 0.1);
+  background: rgba(212, 175, 55, 0.1);
   border-radius: var(--radius-lg);
   color: var(--color-brand-primary);
 }
@@ -161,7 +161,7 @@
 }
 
 .contact-item:hover {
-  border-color: rgba(245, 158, 11, 0.2);
+  border-color: rgba(212, 175, 55, 0.2);
   transform: translateX(4px);
 }
 
@@ -216,7 +216,7 @@
 .contact-cta-card {
   position: relative;
   background: var(--color-card);
-  border: 2px solid rgba(245, 158, 11, 0.3);
+  border: 2px solid rgba(212, 175, 55, 0.3);
   border-radius: var(--radius-2xl);
   padding: var(--spacing-8);
   text-align: center;
@@ -313,7 +313,7 @@
 
 .expect-card:hover {
   transform: translateY(-4px);
-  border-color: rgba(245, 158, 11, 0.3);
+  border-color: rgba(212, 175, 55, 0.3);
   box-shadow: var(--shadow-glow);
 }
 
@@ -380,7 +380,7 @@
 
 .service-link-card:hover {
   transform: translateY(-4px);
-  border-color: rgba(245, 158, 11, 0.3);
+  border-color: rgba(212, 175, 55, 0.3);
   box-shadow: var(--shadow-glow);
 }
 
@@ -403,7 +403,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: rgba(245, 158, 11, 0.1);
+  background: rgba(212, 175, 55, 0.1);
   border-radius: var(--radius-lg);
   color: var(--color-brand-primary);
   margin-bottom: var(--spacing-4);

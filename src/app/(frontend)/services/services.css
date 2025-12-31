@@ -26,8 +26,8 @@
 .services-hero-badge {
   display: inline-block;
   padding: var(--spacing-2) var(--spacing-4);
-  background: rgba(245, 158, 11, 0.1);
-  border: 1px solid rgba(245, 158, 11, 0.2);
+  background: rgba(212, 175, 55, 0.1);
+  border: 1px solid rgba(212, 175, 55, 0.2);
   border-radius: var(--radius-full);
   font-size: var(--text-sm);
   font-weight: var(--font-medium);
@@ -142,7 +142,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: rgba(245, 158, 11, 0.1);
+  background: rgba(212, 175, 55, 0.1);
   border-radius: var(--radius-lg);
   color: var(--color-brand-primary);
 }
@@ -168,16 +168,16 @@
 
 /* Service Card */
 .service-card {
-  background: rgba(245, 158, 11, 0.03);
-  border: 1px solid rgba(245, 158, 11, 0.1);
+  background: rgba(212, 175, 55, 0.03);
+  border: 1px solid rgba(212, 175, 55, 0.1);
   border-radius: var(--radius-lg);
   padding: var(--spacing-5);
   transition: all 0.2s ease;
 }
 
 .service-card:hover {
-  background: rgba(245, 158, 11, 0.06);
-  border-color: rgba(245, 158, 11, 0.2);
+  background: rgba(212, 175, 55, 0.06);
+  border-color: rgba(212, 175, 55, 0.2);
 }
 
 .service-card-prosystems:hover {
@@ -396,7 +396,7 @@
   padding: var(--spacing-20) 0;
   background: radial-gradient(
     ellipse 80% 50% at 50% 100%,
-    rgba(245, 158, 11, 0.1),
+    rgba(212, 175, 55, 0.1),
     transparent
   );
 }

@@ -138,7 +138,7 @@
 
 .category-header-blue {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   gap: var(--spacing-4);
   margin-bottom: var(--spacing-6);
 }
@@ -152,6 +152,12 @@
   background: rgba(14, 165, 233, 0.1);
   border-radius: var(--radius-lg);
   color: var(--color-brand-secondary);
+  flex-shrink: 0;
+  margin-top: var(--spacing-1);
+}
+
+.category-header-text {
+  flex: 1;
 }
 
 .category-title {
@@ -159,6 +165,13 @@
   font-weight: var(--font-bold);
   color: var(--color-foreground);
   margin: 0;
+}
+
+.category-description {
+  font-size: var(--text-sm);
+  color: var(--color-muted);
+  margin: var(--spacing-2) 0 0;
+  line-height: var(--leading-relaxed);
 }
 
 /* Service Cards Grid */
