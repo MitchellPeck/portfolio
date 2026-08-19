@@ -25,20 +25,23 @@ import SiteSettings from './globals/SiteSettings'
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
 
-const serverURL =
+const siteURL =
   process.env.NEXT_PUBLIC_SITE_URL ||
   (process.env.NODE_ENV === 'production' ? 'https://mitchellpeck.com' : 'http://localhost:3000')
 
 // Origins allowed to use cookie auth against the API (prod domain, Vercel
 // preview deployments, and localhost during development)
 const allowedOrigins = [
-  serverURL,
+  siteURL,
   ...(process.env.VERCEL_URL ? [`https://${process.env.VERCEL_URL}`] : []),
   ...(process.env.NODE_ENV !== 'production' ? ['http://localhost:3000'] : []),
 ]
 
 export default buildConfig({
-  serverURL,
+  // No `serverURL` on purpose: with it set, Payload emits absolute media URLs,
+  // which next/image rejects without an images.remotePatterns allowlist.
+  // Relative /api/media/file/... URLs work everywhere (metadataBase makes
+  // them absolute in OG tags).
   cors: allowedOrigins,
   csrf: allowedOrigins,
   admin: {
