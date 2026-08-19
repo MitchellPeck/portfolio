@@ -1,67 +1,55 @@
-# Payload Blank Template
+# mitchellpeck.com
 
-This template comes configured with the bare minimum to get started on anything you need.
+Portfolio and business site for Mitchell Peck Development, built with:
 
-## Quick start
+- **Next.js 16** (App Router) + **React 19**
+- **Payload CMS 3** — content lives in Postgres, editable at `/admin`
+- **Vercel Blob** for media storage; deployed on Vercel
+- **pnpm** as the package manager
 
-This template can be deployed directly from our Cloud hosting and it will setup MongoDB and cloud S3 object storage for media.
+## Local development
 
-## Quick Start - local setup
+1. Create `.env` with:
+   - `DATABASE_URI` — Postgres connection string
+   - `PAYLOAD_SECRET` — random secret for Payload auth
+   - `BLOB_READ_WRITE_TOKEN` — Vercel Blob token
+   - `NEXT_PUBLIC_SITE_URL` — optional; defaults to `https://mitchellpeck.com` in production and `http://localhost:3000` in dev
+2. `pnpm install`
+3. `pnpm dev` and open <http://localhost:3000> (admin at `/admin`)
 
-To spin up this template locally, follow these steps:
+In development, Payload syncs the Postgres schema automatically (push mode).
 
-### Clone
+## Database migrations
 
-After you click the `Deploy` button above, you'll want to have standalone copy of this repo on your machine. If you've already cloned this repo, skip to [Development](#development).
+Production schema changes go through migrations, not dev push:
 
-### Development
+```sh
+pnpm migrate:create   # generate a migration after changing collections
+pnpm migrate          # apply pending migrations (run against the target DB)
+```
 
-1. First [clone the repo](#clone) if you have not done so already
-2. `cd my-project && cp .env.example .env` to copy the example environment variables. You'll need to add the `MONGODB_URI` from your Cloud project to your `.env` if you want to use S3 storage and the MongoDB database that was created for you.
+Commit generated files in `src/migrations/`.
 
-3. `pnpm install && pnpm dev` to install dependencies and start the dev server
-4. open `http://localhost:3000` to open the app in your browser
+> **One-time note:** the production database was originally created by dev push
+> mode, so its tables already exist. Before the first `pnpm migrate` against
+> production, mark the initial migration as applied instead of running it:
+> insert a row into `payload_migrations` with `name =
+> '20260819_140531_initial'` and `batch = 1`. Every migration after that runs
+> normally.
 
-That's it! Changes made in `./src` will be reflected in your app. Follow the on-screen instructions to login and create your first admin user. Then check out [Production](#production) once you're ready to build and serve your app, and [Deployment](#deployment) when you're ready to go live.
+## Useful scripts
 
-#### Docker (Optional)
+| Script | Purpose |
+| --- | --- |
+| `pnpm dev` | Start the dev server |
+| `pnpm build` / `pnpm start` | Production build / serve |
+| `pnpm lint` | ESLint over `src` |
+| `pnpm generate:types` | Regenerate `src/payload-types.ts` after schema changes |
+| `pnpm generate:importmap` | Regenerate the Payload admin import map |
 
-If you prefer to use Docker for local development instead of a local MongoDB instance, the provided docker-compose.yml file can be used.
+## Project layout
 
-To do so, follow these steps:
-
-- Modify the `MONGODB_URI` in your `.env` file to `mongodb://127.0.0.1/<dbname>`
-- Modify the `docker-compose.yml` file's `MONGODB_URI` to match the above `<dbname>`
-- Run `docker-compose up` to start the database, optionally pass `-d` to run in the background.
-
-## How it works
-
-The Payload config is tailored specifically to the needs of most websites. It is pre-configured in the following ways:
-
-### Collections
-
-See the [Collections](https://payloadcms.com/docs/configuration/collections) docs for details on how to extend this functionality.
-
-- #### Users (Authentication)
-
-  Users are auth-enabled collections that have access to the admin panel.
-
-  For additional help, see the official [Auth Example](https://github.com/payloadcms/payload/tree/main/examples/auth) or the [Authentication](https://payloadcms.com/docs/authentication/overview#authentication-overview) docs.
-
-- #### Media
-
-  This is the uploads enabled collection. It features pre-configured sizes, focal point and manual resizing to help you manage your pictures.
-
-### Docker
-
-Alternatively, you can use [Docker](https://www.docker.com) to spin up this template locally. To do so, follow these steps:
-
-1. Follow [steps 1 and 2 from above](#development), the docker-compose file will automatically use the `.env` file in your project root
-1. Next run `docker-compose up`
-1. Follow [steps 4 and 5 from above](#development) to login and create your first admin user
-
-That's it! The Docker instance will help you get up and running quickly while also standardizing the development environment across your teams.
-
-## Questions
-
-If you have any issues or questions, reach out to us on [Discord](https://discord.com/invite/payload) or start a [GitHub discussion](https://github.com/payloadcms/payload/discussions).
+- `src/app/(frontend)` — public site routes and components
+- `src/app/(payload)` — Payload admin and API routes (generated)
+- `src/collections` — active Payload collections (`unmounted/` holds future scaffolding)
+- `src/globals` — site-wide settings editable in the CMS
