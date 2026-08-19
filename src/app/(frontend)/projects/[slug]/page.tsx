@@ -1,34 +1,27 @@
-import React from 'react'
+import React, { cache } from 'react'
 import { getPayload } from 'payload'
 import { notFound } from 'next/navigation'
 import Link from 'next/link'
 import Image from 'next/image'
 import config from '@/payload.config'
-import type { Metadata, ResolvingMetadata } from 'next'
+import type { Metadata } from 'next'
 import { extractTextFromRichText } from '@/app/(frontend)/components/richTextUtils'
 import RichText from '@/app/(frontend)/components/RichText'
-import type { Media, Project } from '../../../../payload-types'
+import type { Project } from '../../../../payload-types'
 import './project-detail.css'
 
 interface ProjectPageProps {
   params: Promise<{ slug: string }>
 }
 
-// Force dynamic rendering - required for dynamic routes without generateStaticParams
-export const dynamic = 'force-dynamic'
 // Enable ISR - revalidate every 60 seconds
 export const revalidate = 60
 
-// Generate metadata for the page dynamically
-export async function generateMetadata(
-  { params }: ProjectPageProps,
-  parent: ResolvingMetadata,
-): Promise<Metadata> {
-  const { slug } = await params
+// Fetch once per request — shared by generateMetadata and the page
+const getProject = cache(async (slug: string): Promise<Project | null> => {
   const payloadConfig = await config
   const payload = await getPayload({ config: payloadConfig })
 
-  // Fetch published project by slug
   const { docs } = await payload.find({
     collection: 'projects',
     where: {
@@ -38,31 +31,43 @@ export async function generateMetadata(
     limit: 1,
   })
 
-  const project = docs[0] as Project | undefined
+  return docs[0] ?? null
+})
+
+// Generate metadata for the page dynamically
+export async function generateMetadata({ params }: ProjectPageProps): Promise<Metadata> {
+  const { slug } = await params
+  const project = await getProject(slug)
 
   if (!project) {
     return { title: 'Project Not Found' }
   }
 
   // Use SEO fields if available, otherwise fall back to description
-  const metaTitle = project.seo?.metaTitle || `${project.title} | Mitchell Peck`
+  const metaTitle = project.seo?.metaTitle || project.title
   const metaDescription = project.seo?.metaDescription || (
     typeof project.description === 'string'
       ? project.description
       : extractTextFromRichText(project.description)
   ).substring(0, 160)
 
-  // Get OG image URL if available
-  const ogImage = project.seo?.ogImage && typeof project.seo.ogImage === 'object' && 'url' in project.seo.ogImage
-    ? project.seo.ogImage.url
-    : undefined
+  // OG image: explicit SEO image first, then the featured image
+  const ogImageSource =
+    project.seo?.ogImage && typeof project.seo.ogImage === 'object'
+      ? project.seo.ogImage
+      : project.featuredImage && typeof project.featuredImage === 'object'
+        ? project.featuredImage
+        : null
+  const ogImage = ogImageSource?.url || undefined
 
   return {
     title: metaTitle,
     description: metaDescription,
     ...(ogImage && {
       openGraph: {
-        images: [{ url: ogImage }],
+        title: metaTitle,
+        description: metaDescription,
+        images: [{ url: ogImage, alt: ogImageSource?.alt || project.title }],
       },
     }),
   }
@@ -70,29 +75,18 @@ export async function generateMetadata(
 
 export default async function ProjectPage({ params }: ProjectPageProps) {
   const { slug } = await params
-  const payloadConfig = await config
-  const payload = await getPayload({ config: payloadConfig })
-
-  // Fetch published project by slug
-  const { docs } = await payload.find({
-    collection: 'projects',
-    where: {
-      slug: { equals: slug },
-      published: { equals: true },
-    },
-    limit: 1,
-  })
-
-  const project = docs[0] as Project | undefined
+  const project = await getProject(slug)
 
   if (!project) {
     notFound()
   }
 
-  // Get image URL
-  const featuredImage = project.featuredImage as Media
-  const imageUrl =
-    typeof featuredImage === 'object' && 'url' in featuredImage ? featuredImage.url : ''
+  // Get image URL (featuredImage may be an unpopulated ID or null)
+  const featuredImage =
+    project.featuredImage && typeof project.featuredImage === 'object'
+      ? project.featuredImage
+      : null
+  const imageUrl = featuredImage?.url || ''
 
   return (
     <div className="project-detail-page">
@@ -106,7 +100,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
 
           <div className="project-badges">
             <div className="badge-group">
-              <h3 className="badge-group-title">Project Info</h3>
+              <h2 className="badge-group-title">Project Info</h2>
               <div className="badge-group-items">
                 {project.status && (
                   <span className={`project-badge ${getStatusColorClass(project.status)}`}>
@@ -138,7 +132,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
                 // Render each group as a column
                 return Object.entries(techGroups).map(([techType, techs]) => (
                   <div key={techType} className="tech-group">
-                    <h3 className="tech-group-title">{techType}</h3>
+                    <h2 className="tech-group-title">{techType}</h2>
                     <div className="tech-group-items">
                       {techs.map((tech, index) =>
                         tech.link ? (
@@ -170,7 +164,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
             <div className="image-container">
               <Image
                 src={imageUrl}
-                alt={project.title}
+                alt={featuredImage?.alt || project.title}
                 width={500}
                 height={500}
                 className="featured-image"
@@ -250,15 +244,19 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
             <h2>Gallery</h2>
             <div className="gallery-grid">
               {project.gallery.map((item, index) => {
-                const galleryImage = item.image as Media
-                const galleryImageUrl =
-                  typeof galleryImage === 'object' && 'url' in galleryImage ? galleryImage.url : ''
+                const galleryImage =
+                  item.image && typeof item.image === 'object' ? item.image : null
+                const galleryImageUrl = galleryImage?.url || ''
 
                 return galleryImageUrl ? (
                   <div key={index} className="gallery-item">
                     <Image
                       src={galleryImageUrl}
-                      alt={item.caption || `${project.title} gallery image ${index + 1}`}
+                      alt={
+                        galleryImage?.alt ||
+                        item.caption ||
+                        `${project.title} gallery image ${index + 1}`
+                      }
                       width={600}
                       height={400}
                       className="gallery-image"

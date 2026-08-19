@@ -8,7 +8,7 @@ import './services.css'
 export const revalidate = 60
 
 export const metadata = {
-  title: 'Services | Mitchell Peck Development',
+  title: 'Services',
   description:
     'Custom software development, web applications, mobile apps, and digital solutions built with modern technologies.',
 }
@@ -99,14 +99,14 @@ export default async function ServicesPage() {
               <div key={idx} className="service-category">
                 <div className="category-header">
                   <div className="category-icon">{category.icon}</div>
-                  <h3 className="category-title">{category.category}</h3>
+                  <h2 className="category-title">{category.category}</h2>
                 </div>
 
                 <div className="services-grid">
                   {category.services.map((service, serviceIdx) => (
                     <div key={serviceIdx} className="service-card">
                       <div className="service-card-content">
-                        <h4 className="service-card-title">{service.title}</h4>
+                        <h3 className="service-card-title">{service.title}</h3>
                         <p className="service-card-description">{service.description}</p>
                       </div>
                     </div>

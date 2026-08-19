@@ -5,7 +5,7 @@ import './team.css'
 export const revalidate = 60
 
 export const metadata = {
-  title: 'Our Team | Mitchell Peck Development',
+  title: 'Our Team',
   description:
     'Meet the team behind Mitchell Peck Development and ProSystems. We bring expertise in software development and professional installation services.',
 }

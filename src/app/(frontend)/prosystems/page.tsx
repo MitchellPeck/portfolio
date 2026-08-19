@@ -8,7 +8,7 @@ import './prosystems.css'
 export const revalidate = 60
 
 export const metadata = {
-  title: 'ProSystems | Mitchell Peck Development',
+  title: 'ProSystems',
   description:
     'MPD ProSystems provides professional home automation, networking, security, audio/video, and automotive installation services using open-source platforms like Home Assistant.',
 }
@@ -160,7 +160,7 @@ export default async function ProSystemsPage() {
                 <div className="category-header category-header-blue">
                   <div className="category-icon category-icon-blue">{category.icon}</div>
                   <div className="category-header-text">
-                    <h3 className="category-title">{category.category}</h3>
+                    <h2 className="category-title">{category.category}</h2>
                     {'description' in category && category.description && (
                       <p className="category-description">{category.description}</p>
                     )}
@@ -171,7 +171,7 @@ export default async function ProSystemsPage() {
                   {category.services.map((service, serviceIdx) => (
                     <div key={serviceIdx} className="prosystems-card">
                       <div className="prosystems-card-content">
-                        <h4 className="prosystems-card-title">{service.title}</h4>
+                        <h3 className="prosystems-card-title">{service.title}</h3>
                         <p className="prosystems-card-description">{service.description}</p>
                       </div>
                     </div>
@@ -241,7 +241,7 @@ export default async function ProSystemsPage() {
                   <polyline points="22 4 12 14.01 9 11.01" />
                 </svg>
               </div>
-              <h4>Clean Installs</h4>
+              <h3>Clean Installs</h3>
               <p>Neat cable management, labeled terminations, and professional finish on every job.</p>
             </div>
             <div className="prosystems-about-card">
@@ -251,7 +251,7 @@ export default async function ProSystemsPage() {
                   <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
                 </svg>
               </div>
-              <h4>Upfront Pricing</h4>
+              <h3>Upfront Pricing</h3>
               <p>Consultative scoping with straightforward, honest pricing before work begins.</p>
             </div>
             <div className="prosystems-about-card">
@@ -261,7 +261,7 @@ export default async function ProSystemsPage() {
                   <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z" />
                 </svg>
               </div>
-              <h4>Vendor Agnostic</h4>
+              <h3>Vendor Agnostic</h3>
               <p>We recommend the right gear for your needs, not tied to any single brand.</p>
             </div>
             <div className="prosystems-about-card">
@@ -274,7 +274,7 @@ export default async function ProSystemsPage() {
                   <line x1="14" y1="1" x2="14" y2="4" />
                 </svg>
               </div>
-              <h4>Ongoing Support</h4>
+              <h3>Ongoing Support</h3>
               <p>Post-install support and tuning to ensure everything works perfectly long-term.</p>
             </div>
           </div>
@@ -297,6 +297,7 @@ export default async function ProSystemsPage() {
                 className="btn btn-prosystems"
               >
                 Start Your Project
+                <span className="visually-hidden"> (opens in new tab)</span>
               </a>
               <Link href="/contact" className="btn btn-secondary">
                 Contact Us

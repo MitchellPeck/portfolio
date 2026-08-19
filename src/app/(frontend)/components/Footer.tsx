@@ -14,6 +14,7 @@ interface FooterProps {
   logoUrl?: string | null
   logoAltUrl?: string | null
   socialLinks?: SocialLink[]
+  currentYear?: number
 }
 
 const socialIcons: Record<string, React.ReactNode> = {
@@ -58,22 +59,26 @@ const platformLabels: Record<string, string> = {
   youtube: 'YouTube',
 }
 
-export const Footer: React.FC<FooterProps> = ({ logoUrl, logoAltUrl, socialLinks = [] }) => {
-  const currentYear = new Date().getFullYear()
-
+export const Footer: React.FC<FooterProps> = ({
+  logoUrl,
+  logoAltUrl,
+  socialLinks = [],
+  // Computed in the server layout so cached HTML and hydration agree
+  currentYear = new Date().getFullYear(),
+}) => {
   return (
     <footer className="footer">
       <div className="container">
         <div className="footer-content">
           {/* Brand Section */}
           <div className="footer-brand">
-            <Link href="/" className="footer-logo">
+            <Link href="/" className="footer-logo" aria-label="Mitchell Peck Development — home">
               {(logoAltUrl || logoUrl) ? (
                 <span className="footer-logo-images">
                   {/* Dark mode logo */}
                   <Image
                     src={logoAltUrl || logoUrl || ''}
-                    alt="Mitchell Peck Development"
+                    alt=""
                     width={44}
                     height={44}
                     className="footer-logo-image footer-logo-dark"
@@ -82,7 +87,7 @@ export const Footer: React.FC<FooterProps> = ({ logoUrl, logoAltUrl, socialLinks
                   {logoUrl && logoAltUrl && (
                     <Image
                       src={logoUrl}
-                      alt="Mitchell Peck Development"
+                      alt=""
                       width={44}
                       height={44}
                       className="footer-logo-image footer-logo-light"
@@ -90,9 +95,9 @@ export const Footer: React.FC<FooterProps> = ({ logoUrl, logoAltUrl, socialLinks
                   )}
                 </span>
               ) : (
-                <span className="footer-logo-mark">MP</span>
+                <span className="footer-logo-mark" aria-hidden="true">MP</span>
               )}
-              <span className="footer-logo-text">Mitchell Peck Development</span>
+              <span className="footer-logo-text" aria-hidden="true">Mitchell Peck Development</span>
             </Link>
             <p className="footer-tagline">
               Delivering intelligent solutions—smarter tech, smarter timing, smarter outcomes.
@@ -125,6 +130,9 @@ export const Footer: React.FC<FooterProps> = ({ logoUrl, logoAltUrl, socialLinks
                 </li>
                 <li>
                   <Link href="/work">Our Work</Link>
+                </li>
+                <li>
+                  <Link href="/team">Team</Link>
                 </li>
                 <li>
                   <Link href="/process">Process</Link>
@@ -167,6 +175,7 @@ export const Footer: React.FC<FooterProps> = ({ logoUrl, logoAltUrl, socialLinks
                       rel="noopener noreferrer"
                     >
                       {platformLabels[link.platform] || link.platform}
+                      <span className="visually-hidden"> (opens in new tab)</span>
                     </a>
                   </li>
                 ))}

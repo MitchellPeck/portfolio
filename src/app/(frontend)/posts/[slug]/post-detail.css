@@ -16,7 +16,7 @@
 }
 
 .post-breadcrumbs a {
-    color: var(--color-primary);
+    color: var(--color-brand-primary);
     text-decoration: none;
     transition: color 0.2s ease;
 }
@@ -128,7 +128,7 @@
 }
 
 .post-body.rich-text a {
-    color: var(--color-primary);
+    color: var(--color-brand-primary);
     text-decoration: underline;
     text-underline-offset: 2px;
     transition: color 0.2s ease;
@@ -198,7 +198,7 @@
 .back-to-posts {
     display: inline-flex;
     align-items: center;
-    color: var(--color-primary);
+    color: var(--color-brand-primary);
     font-size: 1.1rem;
     font-weight: 500;
     transition: color 0.2s ease;

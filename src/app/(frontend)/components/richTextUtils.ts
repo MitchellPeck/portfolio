@@ -3,11 +3,13 @@ export interface RichTextNode {
   type: string
   children?: RichTextNode[]
   text?: string
+  // Lexical stores a bitmask on text nodes and an alignment string on element nodes
+  format?: number | string
 }
 
 export interface PayloadRichText {
-  root: { children: RichTextNode[]; [key: string]: any }
-  [key: string]: any
+  root: { children: RichTextNode[]; [key: string]: unknown }
+  [key: string]: unknown
 }
 
 // Function to extract plain text from rich text structure

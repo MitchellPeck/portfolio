@@ -1,11 +1,12 @@
-import React from 'react'
+import React, { cache } from 'react'
 import { getPayload } from 'payload'
 import { notFound } from 'next/navigation'
-import { default as _Image } from 'next/image' // Renamed to avoid unused var warning
+import Image from 'next/image'
 import Link from 'next/link'
 import { RichText } from '../../components/RichText'
+import { extractTextFromRichText } from '../../components/richTextUtils'
 import config from '@/payload.config'
-import type { Metadata, ResolvingMetadata } from 'next'
+import type { Metadata } from 'next'
 import type { Consulting } from '@/payload-types'
 import './consulting-detail.css'
 
@@ -13,20 +14,14 @@ interface ConsultingPageProps {
   params: Promise<{ slug: string }>
 }
 
-// Force dynamic rendering - required for dynamic routes without generateStaticParams
-export const dynamic = 'force-dynamic'
 // Enable ISR - revalidate every 60 seconds
 export const revalidate = 60
 
-export async function generateMetadata(
-  { params }: ConsultingPageProps,
-  parent: ResolvingMetadata
-): Promise<Metadata> {
-  const { slug } = await params
+// Fetch once per request — shared by generateMetadata and the page
+const getConsultingProject = cache(async (slug: string): Promise<Consulting | null> => {
   const payloadConfig = await config
   const payload = await getPayload({ config: payloadConfig })
 
-  // Find the published consulting project by slug
   const { docs } = await payload.find({
     collection: 'consulting',
     where: {
@@ -36,58 +31,60 @@ export async function generateMetadata(
     limit: 1,
   })
 
-  if (!docs || docs.length === 0) {
+  return docs[0] ?? null
+})
+
+export async function generateMetadata({ params }: ConsultingPageProps): Promise<Metadata> {
+  const { slug } = await params
+  const project = await getConsultingProject(slug)
+
+  if (!project) {
     return {
       title: 'Consulting Project Not Found',
     }
   }
 
-  // Get a plain text description for meta
-  let description = 'Consulting project details'
-  try {
-    if (docs[0].description && typeof docs[0].description === 'object') {
-      // For rich text object
-      description = 'Consulting for ' + docs[0].client
+  // Build a plain-text description from the overview, falling back to the client name
+  let description = `Consulting for ${project.client}`
+  if (project.overview && typeof project.overview === 'object') {
+    const text = extractTextFromRichText(project.overview).trim()
+    if (text) {
+      description = text.substring(0, 160)
     }
-  } catch (_error) {
-    // Fallback if there's an error parsing the description
   }
 
+  const featuredImage =
+    project.featuredImage && typeof project.featuredImage === 'object'
+      ? project.featuredImage
+      : null
+
   return {
-    title: `${docs[0].title} | Consulting | Mitchell Peck`,
+    title: project.title,
     description,
+    ...(featuredImage?.url && {
+      openGraph: {
+        title: project.title,
+        description,
+        images: [{ url: featuredImage.url, alt: featuredImage.alt || project.title }],
+      },
+    }),
   }
 }
 
 export default async function ConsultingDetailPage({ params }: ConsultingPageProps) {
   const { slug } = await params
-  const payloadConfig = await config
-  const payload = await getPayload({ config: payloadConfig })
+  const project = await getConsultingProject(slug)
 
-  // Find the published consulting project by slug
-  const { docs } = await payload.find({
-    collection: 'consulting',
-    where: {
-      slug: { equals: slug },
-      published: { equals: true },
-    },
-    limit: 1,
-  })
-
-  if (!docs || docs.length === 0) {
+  if (!project) {
     return notFound()
   }
 
-  const project: Consulting = docs[0]
-
-  // Safely extract the image URL
-  const imageUrl =
-    project.featuredImage &&
-    typeof project.featuredImage === 'object' &&
-    'url' in project.featuredImage &&
-    project.featuredImage.url
-      ? project.featuredImage.url
-      : '/placeholder-image.jpg'
+  // Safely extract the featured image (may be an unpopulated ID or null)
+  const featuredImage =
+    project.featuredImage && typeof project.featuredImage === 'object'
+      ? project.featuredImage
+      : null
+  const imageUrl = featuredImage?.url || '/placeholder-image.jpg'
 
   return (
     <div className="consulting-detail-page">
@@ -102,7 +99,7 @@ export default async function ConsultingDetailPage({ params }: ConsultingPagePro
           {project.featured && (
             <div className="consulting-badges">
               <div className="badge-group">
-                <h3 className="badge-group-title">Project Info</h3>
+                <h2 className="badge-group-title">Project Info</h2>
                 <div className="badge-group-items">
                   <span className="consulting-badge featured">Featured</span>
                 </div>
@@ -131,7 +128,7 @@ export default async function ConsultingDetailPage({ params }: ConsultingPagePro
                 // Render each group as a column
                 return Object.entries(techGroups).map(([techType, techs]) => (
                   <div key={techType} className="tech-group">
-                    <h3 className="tech-group-title">{techType}</h3>
+                    <h2 className="tech-group-title">{techType}</h2>
                     <div className="tech-group-items">
                       {techs.map((tech, index) =>
                         tech.link ? (
@@ -143,6 +140,7 @@ export default async function ConsultingDetailPage({ params }: ConsultingPagePro
                             className="consulting-tech-tag"
                           >
                             {tech.technology}
+                            <span className="visually-hidden"> (opens in new tab)</span>
                           </a>
                         ) : (
                           <span key={index} className="consulting-tech-tag">
@@ -159,7 +157,7 @@ export default async function ConsultingDetailPage({ params }: ConsultingPagePro
 
           <div className="consulting-meta">
             <div className="consulting-client">
-              <h4>Client</h4>
+              <h3>Client</h3>
               <p>{project.client}</p>
             </div>
           </div>
@@ -167,7 +165,13 @@ export default async function ConsultingDetailPage({ params }: ConsultingPagePro
 
         <div className="consulting-featured-image">
           <div className="image-container">
-            <img src={imageUrl} alt={project.title} className="featured-image" />
+            <Image
+              src={imageUrl}
+              alt={featuredImage?.alt || project.title}
+              width={500}
+              height={500}
+              className="featured-image"
+            />
           </div>
         </div>
 

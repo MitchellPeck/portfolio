@@ -18,26 +18,33 @@ interface ProjectCardProps {
   title: string
   slug: string
   imageUrl: string
+  /** Alt text for the card image; falls back to the title */
+  imageAlt?: string
   technologies: string[]
   featured?: boolean
   subtitle?: string
   linkPath?: string
   status?: ProjectStatus
-  overview?: any
+  overview?: PayloadRichText | string | null
+  /** Heading level for the card title — pass 'h2' on listing pages whose h1 has no intervening h2 */
+  headingLevel?: 'h2' | 'h3'
 }
 
 export const ProjectCard: React.FC<ProjectCardProps> = ({
   title,
   slug,
   imageUrl,
+  imageAlt,
   technologies,
   featured = false,
   subtitle,
   linkPath = '/projects',
   status,
   overview,
+  headingLevel = 'h3',
 }) => {
   const projectUrl = `${linkPath}/${slug}`
+  const TitleTag = headingLevel
 
   const overviewText = overview
     ? typeof overview === 'string'
@@ -70,7 +77,7 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({
         <div className="project-card-image">
           <Image
             src={imageUrl}
-            alt={title}
+            alt={imageAlt || title}
             fill
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
             style={{ objectFit: 'cover' }}
@@ -79,7 +86,7 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({
           {featured && <span className="featured-badge">Featured</span>}
         </div>
         <div className="project-card-content">
-          <h3 className="project-card-title">{title}</h3>
+          <TitleTag className="project-card-title">{title}</TitleTag>
           {subtitle && <p className="project-card-subtitle">{subtitle}</p>}
           {overviewText && <p className="project-card-overview">{overviewText}</p>}
           <div className="project-card-technologies">

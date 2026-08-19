@@ -9,7 +9,7 @@ import config from '@/payload.config'
 export const revalidate = 60
 
 export const metadata = {
-  title: 'Blog | Mitchell Peck',
+  title: 'Blog',
   description: 'Thoughts, tutorials, and insights about web development and technology',
 }
 
@@ -17,11 +17,12 @@ export default async function PostsPage() {
   const payloadConfig = await config
   const payload = await getPayload({ config: payloadConfig })
 
-  // Fetch all published posts
+  // Fetch all published posts (explicit limit — Payload defaults to 10)
   const { docs: posts } = await payload.find({
     collection: 'posts',
     where: { published: { equals: true } },
     sort: '-publishedDate',
+    limit: 100,
   })
 
   return (
@@ -46,13 +47,18 @@ export default async function PostsPage() {
                 day: 'numeric',
               }).format(date)
 
+              const featuredImage =
+                post.featuredImage && typeof post.featuredImage === 'object'
+                  ? post.featuredImage
+                  : null
+
               return (
                 <article key={post.id} className="post-item">
                   <div className="post-image-container">
                     <Link href={`/posts/${post.slug}`} className="post-image">
                       <Image
-                        src={post.featuredImage.url}
-                        alt={post.title}
+                        src={featuredImage?.url || '/placeholder-image.jpg'}
+                        alt={featuredImage?.alt || post.title}
                         width={500}
                         height={500}
                       />

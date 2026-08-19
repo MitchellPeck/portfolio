@@ -9,7 +9,7 @@ import './work.css'
 export const revalidate = 60
 
 export const metadata = {
-  title: 'Our Work | Mitchell Peck Development',
+  title: 'Our Work',
   description:
     'Browse our portfolio of software projects, client work, and case studies showcasing our expertise.',
 }
@@ -69,8 +69,8 @@ export default async function WorkPage() {
               <span className="stat-label">Projects Completed</span>
             </div>
             <div className="stat-item">
-              <span className="stat-number">{projects.length + consultingProjects.length}+</span>
-            <span className="stat-label">Client Projects Completed</span>
+              <span className="stat-number">{projects.length + consultingProjects.length}</span>
+              <span className="stat-label">Case Studies Published</span>
             </div>
             <div className="stat-item">
               <span className="stat-number">5+</span>
@@ -98,12 +98,11 @@ export default async function WorkPage() {
             <div className="work-grid">
               {/* Featured Projects first */}
               {featuredProjects.map((project: Project) => {
-                const imageUrl =
-                  project.featuredImage &&
-                  typeof project.featuredImage === 'object' &&
-                  'url' in project.featuredImage
-                    ? project.featuredImage.url
-                    : placeholderImage
+                const media =
+                  project.featuredImage && typeof project.featuredImage === 'object'
+                    ? project.featuredImage
+                    : null
+                const imageUrl = media?.url || placeholderImage
 
                 const technologies = project.technologies
                   ? project.technologies
@@ -120,6 +119,7 @@ export default async function WorkPage() {
                     title={project.title}
                     slug={project.slug}
                     imageUrl={imageUrl || placeholderImage}
+                    imageAlt={media?.alt || undefined}
                     technologies={technologies}
                     featured={true}
                     status={project.status}
@@ -131,12 +131,11 @@ export default async function WorkPage() {
 
               {/* Featured Consulting second */}
               {featuredConsulting.map((project: Consulting) => {
-                const imageUrl =
-                  project.featuredImage &&
-                  typeof project.featuredImage === 'object' &&
-                  'url' in project.featuredImage
-                    ? project.featuredImage.url
-                    : placeholderImage
+                const media =
+                  project.featuredImage && typeof project.featuredImage === 'object'
+                    ? project.featuredImage
+                    : null
+                const imageUrl = media?.url || placeholderImage
 
                 const technologies = project.technologies
                   ? project.technologies
@@ -153,6 +152,7 @@ export default async function WorkPage() {
                     title={project.title}
                     slug={project.slug}
                     imageUrl={imageUrl || placeholderImage}
+                    imageAlt={media?.alt || undefined}
                     technologies={technologies}
                     featured={true}
                     subtitle={`Client: ${project.client}`}
@@ -181,12 +181,11 @@ export default async function WorkPage() {
               {projects
                 .filter((p: Project) => !p.featured)
                 .map((project: Project) => {
-                  const imageUrl =
-                    project.featuredImage &&
-                    typeof project.featuredImage === 'object' &&
-                    'url' in project.featuredImage
-                      ? project.featuredImage.url
-                      : placeholderImage
+                  const media =
+                    project.featuredImage && typeof project.featuredImage === 'object'
+                      ? project.featuredImage
+                      : null
+                  const imageUrl = media?.url || placeholderImage
 
                   const technologies = project.technologies
                     ? project.technologies
@@ -206,6 +205,7 @@ export default async function WorkPage() {
                       title={project.title}
                       slug={project.slug}
                       imageUrl={imageUrl || placeholderImage}
+                      imageAlt={media?.alt || undefined}
                       technologies={technologies}
                       status={project.status}
                       linkPath="/projects"
@@ -213,6 +213,12 @@ export default async function WorkPage() {
                     />
                   )
                 })}
+            </div>
+
+            <div className="section-footer">
+              <Link href="/projects" className="btn btn-secondary">
+                View All Projects
+              </Link>
             </div>
           </div>
         </section>
@@ -233,12 +239,11 @@ export default async function WorkPage() {
               {consultingProjects
                 .filter((c: Consulting) => !c.featured)
                 .map((project: Consulting) => {
-                  const imageUrl =
-                    project.featuredImage &&
-                    typeof project.featuredImage === 'object' &&
-                    'url' in project.featuredImage
-                      ? project.featuredImage.url
-                      : placeholderImage
+                  const media =
+                    project.featuredImage && typeof project.featuredImage === 'object'
+                      ? project.featuredImage
+                      : null
+                  const imageUrl = media?.url || placeholderImage
 
                   const technologies = project.technologies
                     ? project.technologies
@@ -258,6 +263,7 @@ export default async function WorkPage() {
                       title={project.title}
                       slug={project.slug}
                       imageUrl={imageUrl || placeholderImage}
+                      imageAlt={media?.alt || undefined}
                       technologies={technologies}
                       subtitle={`Client: ${project.client}`}
                       linkPath="/consulting"
@@ -265,6 +271,12 @@ export default async function WorkPage() {
                     />
                   )
                 })}
+            </div>
+
+            <div className="section-footer">
+              <Link href="/consulting" className="btn btn-secondary">
+                View All Consulting
+              </Link>
             </div>
           </div>
         </section>

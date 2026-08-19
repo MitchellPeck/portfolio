@@ -51,7 +51,7 @@
   justify-content: center;
   font-weight: var(--font-bold);
   font-size: var(--text-base);
-  color: white;
+  color: var(--color-on-brand);
 }
 
 .footer-logo-images {
@@ -124,7 +124,7 @@
 .social-link:hover {
   background: var(--color-brand-primary);
   border-color: var(--color-brand-primary);
-  color: white;
+  color: var(--color-on-brand);
   transform: translateY(-4px);
 }
 

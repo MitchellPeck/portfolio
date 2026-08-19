@@ -4,7 +4,7 @@ import './contact.css'
 export const revalidate = 60
 
 export const metadata = {
-  title: 'Contact | Mitchell Peck Development',
+  title: 'Contact',
   description:
     'Get in touch with Mitchell Peck Development for software development, web applications, and professional installation services.',
 }
@@ -49,6 +49,7 @@ export default function ContactPage() {
                 className="btn btn-primary btn-lg inquiry-btn"
               >
                 Complete Inquiry Form
+                <span className="visually-hidden"> (opens in new tab)</span>
                 <svg
                   width="20"
                   height="20"

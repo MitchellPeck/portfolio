@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { cache } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
@@ -12,18 +12,14 @@ interface PostPageProps {
   params: Promise<{ slug: string }>
 }
 
-// Force dynamic rendering - required for dynamic routes without generateStaticParams
-export const dynamic = 'force-dynamic'
 // Enable ISR - revalidate every 60 seconds
 export const revalidate = 60
 
-// Generate metadata for the page
-export async function generateMetadata({ params }: PostPageProps): Promise<Metadata> {
-  const { slug } = await params
+// Fetch once per request — shared by generateMetadata and the page
+const getPost = cache(async (slug: string) => {
   const payloadConfig = await config
   const payload = await getPayload({ config: payloadConfig })
 
-  // Fetch the published post by slug
   const { docs: posts } = await payload.find({
     collection: 'posts',
     where: {
@@ -33,7 +29,13 @@ export async function generateMetadata({ params }: PostPageProps): Promise<Metad
     limit: 1,
   })
 
-  const post = posts[0]
+  return posts[0] ?? null
+})
+
+// Generate metadata for the page
+export async function generateMetadata({ params }: PostPageProps): Promise<Metadata> {
+  const { slug } = await params
+  const post = await getPost(slug)
 
   if (!post) {
     return {
@@ -44,17 +46,18 @@ export async function generateMetadata({ params }: PostPageProps): Promise<Metad
 
   // Get image URL safely
   let imageUrl = ''
+  let imageAlt = post.title
   if (
     post.featuredImage &&
     typeof post.featuredImage === 'object' &&
-    'url' in post.featuredImage &&
     post.featuredImage.url
   ) {
     imageUrl = post.featuredImage.url
+    imageAlt = post.featuredImage.alt || post.title
   }
 
   return {
-    title: `${post.title} | Mitchell Peck's Blog`,
+    title: post.title,
     description: post.excerpt,
     openGraph: {
       title: post.title,
@@ -65,7 +68,7 @@ export async function generateMetadata({ params }: PostPageProps): Promise<Metad
               url: imageUrl,
               width: 1200,
               height: 630,
-              alt: post.title,
+              alt: imageAlt,
             },
           ]
         : [],
@@ -76,20 +79,7 @@ export async function generateMetadata({ params }: PostPageProps): Promise<Metad
 
 export default async function PostPage({ params }: PostPageProps) {
   const { slug } = await params
-  const payloadConfig = await config
-  const payload = await getPayload({ config: payloadConfig })
-
-  // Fetch the published post by slug
-  const { docs: posts } = await payload.find({
-    collection: 'posts',
-    where: {
-      slug: { equals: slug },
-      published: { equals: true },
-    },
-    limit: 1,
-  })
-
-  const post = posts[0]
+  const post = await getPost(slug)
 
   // If post not found, show 404
   if (!post) {
@@ -104,14 +94,9 @@ export default async function PostPage({ params }: PostPageProps) {
     day: 'numeric',
   }).format(date)
 
-  // Safely get image URL
-  const imageUrl =
-    post.featuredImage &&
-    typeof post.featuredImage === 'object' &&
-    'url' in post.featuredImage &&
-    post.featuredImage.url
-      ? post.featuredImage.url
-      : '/placeholder-image.jpg'
+  // Safely get the featured image
+  const featuredImage =
+    post.featuredImage && typeof post.featuredImage === 'object' ? post.featuredImage : null
 
   return (
     <div className="post-detail-page">
@@ -141,8 +126,8 @@ export default async function PostPage({ params }: PostPageProps) {
         <div className="container">
           <div className="post-featured-image">
             <Image
-              src={imageUrl}
-              alt={post.title}
+              src={featuredImage?.url || '/placeholder-image.jpg'}
+              alt={featuredImage?.alt || post.title}
               width={250}
               height={250}
               priority

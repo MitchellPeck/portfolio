@@ -9,7 +9,7 @@ import type { Project } from '@/payload-types'
 export const revalidate = 60
 
 export const metadata = {
-  title: 'Projects | Mitchell Peck Development',
+  title: 'Projects',
   description: 'Browse through our development projects and case studies',
 }
 
@@ -47,14 +47,12 @@ export default async function ProjectsPage() {
         <div className="container">
           <div className="projects-grid">
             {sortedProjects.map((project: Project) => {
-              // Safely extract the image URL
-              const imageUrl =
-                project.featuredImage &&
-                typeof project.featuredImage === 'object' &&
-                'url' in project.featuredImage &&
-                project.featuredImage.url
-                  ? project.featuredImage.url
-                  : '/placeholder-image.jpg'
+              // Safely extract the image URL and alt text
+              const media =
+                project.featuredImage && typeof project.featuredImage === 'object'
+                  ? project.featuredImage
+                  : null
+              const imageUrl = media?.url || '/placeholder-image.jpg'
 
               // Safely extract technologies
               const technologies = project.technologies
@@ -72,11 +70,13 @@ export default async function ProjectsPage() {
                     title={project.title}
                     slug={project.slug}
                     imageUrl={imageUrl}
+                    imageAlt={media?.alt || undefined}
                     technologies={technologies}
                     featured={project.featured === true}
                     linkPath="/projects"
                     status={project.status}
                     overview={project.overview}
+                    headingLevel="h2"
                   />
                 </div>
               )
