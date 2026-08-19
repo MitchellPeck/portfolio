@@ -5,7 +5,7 @@ import './process.css'
 export const revalidate = 60
 
 export const metadata = {
-  title: 'Our Process | Mitchell Peck Development',
+  title: 'Our Process',
   description:
     'Learn about our proven development process, from initial consultation to deployment and support.',
 }

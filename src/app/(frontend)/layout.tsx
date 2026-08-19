@@ -1,4 +1,5 @@
-import React, { Suspense } from 'react'
+import React from 'react'
+import type { Metadata } from 'next'
 import { Analytics } from '@vercel/analytics/react'
 import { SpeedInsights } from '@vercel/speed-insights/next'
 import { getPayload } from 'payload'
@@ -7,11 +8,22 @@ import '../globals.css'
 import './main.css'
 import Header from './components/Header'
 import Footer from './components/Footer'
-import LoadingOverlay from './components/LoadingOverlay'
+import { SITE_URL } from '@/lib/site'
 
-export const metadata = {
-  title: 'Mitchell Peck Development',
+export const metadata: Metadata = {
+  metadataBase: new URL(SITE_URL),
+  title: {
+    default: 'Mitchell Peck Development',
+    template: '%s | Mitchell Peck Development',
+  },
   description: 'Delivering intelligent solutions—smarter tech, smarter timing, smarter outcomes.',
+  openGraph: {
+    siteName: 'Mitchell Peck Development',
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+  },
 }
 
 interface SocialLink {
@@ -36,8 +48,8 @@ export default async function RootLayout({ children }: { children: React.ReactNo
       logoAltUrl = siteSettings.branding.logoAlt.url || null
     }
     if (siteSettings?.socialLinks && Array.isArray(siteSettings.socialLinks)) {
-      socialLinks = siteSettings.socialLinks.filter(
-        (link): link is SocialLink => !!link?.platform && !!link?.url
+      socialLinks = siteSettings.socialLinks.flatMap((link) =>
+        link?.platform && link?.url ? [{ platform: link.platform, url: link.url }] : [],
       )
     }
   } catch (error) {
@@ -48,13 +60,20 @@ export default async function RootLayout({ children }: { children: React.ReactNo
   return (
     <html lang="en">
       <body className="antialiased">
+        <a href="#main-content" className="skip-link">
+          Skip to content
+        </a>
         <div className="site-wrapper">
           <Header logoUrl={logoUrl} logoAltUrl={logoAltUrl} />
-          <main className="main-content">
-            <Suspense fallback={<LoadingOverlay isLoading={true} />}/>
+          <main id="main-content" className="main-content" tabIndex={-1}>
             {children}
           </main>
-          <Footer logoUrl={logoUrl} logoAltUrl={logoAltUrl} socialLinks={socialLinks} />
+          <Footer
+            logoUrl={logoUrl}
+            logoAltUrl={logoAltUrl}
+            socialLinks={socialLinks}
+            currentYear={new Date().getFullYear()}
+          />
         </div>
         <Analytics />
         <SpeedInsights />

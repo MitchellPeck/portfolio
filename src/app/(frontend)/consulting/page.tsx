@@ -9,7 +9,7 @@ import type { Consulting } from '@/payload-types'
 export const revalidate = 60
 
 export const metadata = {
-  title: 'Consulting | Mitchell Peck Development',
+  title: 'Consulting',
   description: 'Browse through our consulting and professional services',
 }
 
@@ -51,14 +51,12 @@ export default async function ConsultingPage() {
         <div className="container">
           <div className="consulting-grid">
             {sortedProjects.map((project: Consulting) => {
-              // Safely extract the image URL
-              const imageUrl =
-                project.featuredImage &&
-                typeof project.featuredImage === 'object' &&
-                'url' in project.featuredImage &&
-                project.featuredImage.url
-                  ? project.featuredImage.url
-                  : '/placeholder-image.jpg'
+              // Safely extract the image URL and alt text
+              const media =
+                project.featuredImage && typeof project.featuredImage === 'object'
+                  ? project.featuredImage
+                  : null
+              const imageUrl = media?.url || '/placeholder-image.jpg'
 
               // Safely extract technologies
               const technologies = project.technologies
@@ -76,11 +74,13 @@ export default async function ConsultingPage() {
                     title={project.title}
                     slug={project.slug}
                     imageUrl={imageUrl}
+                    imageAlt={media?.alt || undefined}
                     technologies={technologies}
                     featured={project.featured === true}
                     subtitle={`Client: ${project.client}`}
                     linkPath="/consulting"
                     overview={project.overview}
+                    headingLevel="h2"
                   />
                 </div>
               )

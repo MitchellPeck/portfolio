@@ -5,7 +5,7 @@ import './industries.css'
 export const revalidate = 60
 
 export const metadata = {
-  title: 'Industries | Mitchell Peck Development',
+  title: 'Industries',
   description:
     'We serve businesses across various industries with custom software and installation services.',
 }

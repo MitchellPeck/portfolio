@@ -6,7 +6,7 @@ import image from "../../../public/me.png"
 export const revalidate = 60
 
 export const metadata = {
-  title: 'About | Mitchell Peck Development',
+  title: 'About',
   description:
     'Learn about Mitchell Peck Development, our mission, values, and the team behind our software and installation services.',
 }

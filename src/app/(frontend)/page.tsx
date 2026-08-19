@@ -4,7 +4,6 @@ import Image from 'next/image'
 import { getPayload } from 'payload'
 import { Project, Consulting } from '../../payload-types'
 import ProjectCard from './components/ProjectCard'
-import GridStabilizer from './components/GridStabilizer'
 import './page.css'
 import config from '@/payload.config'
 import heroImage from "../../public/me.png";
@@ -196,15 +195,14 @@ export default async function Home() {
             </div>
 
             <div className="work-grid-wrapper">
-              <GridStabilizer>
+              <div className="grid-stabilizer">
                 <div className="work-grid">
                   {projects.map((project: Project) => {
-                    const imageUrl =
-                      project.featuredImage &&
-                      typeof project.featuredImage === 'object' &&
-                      'url' in project.featuredImage
-                        ? project.featuredImage.url
-                        : placeholderImage
+                    const media =
+                      project.featuredImage && typeof project.featuredImage === 'object'
+                        ? project.featuredImage
+                        : null
+                    const imageUrl = media?.url || placeholderImage
 
                     const technologies = project.technologies
                       ? project.technologies
@@ -225,6 +223,7 @@ export default async function Home() {
                           title={project.title}
                           slug={project.slug}
                           imageUrl={imageUrl || placeholderImage}
+                          imageAlt={media?.alt || undefined}
                           technologies={technologies}
                           linkPath="/projects"
                           overview={project.overview}
@@ -234,12 +233,11 @@ export default async function Home() {
                   })}
 
                   {consultingProjects.map((project: Consulting) => {
-                    const imageUrl =
-                      project.featuredImage &&
-                      typeof project.featuredImage === 'object' &&
-                      'url' in project.featuredImage
-                        ? project.featuredImage.url
-                        : placeholderImage
+                    const media =
+                      project.featuredImage && typeof project.featuredImage === 'object'
+                        ? project.featuredImage
+                        : null
+                    const imageUrl = media?.url || placeholderImage
 
                     const technologies = project.technologies
                       ? project.technologies
@@ -259,6 +257,7 @@ export default async function Home() {
                           title={project.title}
                           slug={project.slug}
                           imageUrl={imageUrl || placeholderImage}
+                          imageAlt={media?.alt || undefined}
                           technologies={technologies}
                           subtitle={`Client: ${project.client}`}
                           linkPath="/consulting"
@@ -268,7 +267,7 @@ export default async function Home() {
                     )
                   })}
                 </div>
-              </GridStabilizer>
+              </div>
             </div>
 
             <div className="section-footer">
