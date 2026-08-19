@@ -10,7 +10,7 @@
 .breadcrumbs a {
   display: inline-flex;
   align-items: center;
-  color: var(--color-primary);
+  color: var(--color-brand-primary);
   font-size: 0.95rem;
   font-weight: 500;
   transition: color 0.2s ease;
@@ -65,27 +65,27 @@
 }
 
 .status-planned {
-  background-color: #3b82f6; /* Blue for planned projects */
+  background-color: #1d4ed8;
 }
 
 .status-in-progress {
-  background-color: #3b82f6; /* Blue for active projects */
+  background-color: #1d4ed8;
 }
 
 .status-paused {
-  background-color: #64748b; /* Slate 500 */
+  background-color: var(--color-muted);
 }
 
 .status-completed {
-  background-color: #1e293b; /* Slate 800 */
+  background-color: var(--color-success);
 }
 
 .status-maintained {
-  background-color: #334155; /* Slate 700 */
+  background-color: var(--color-success);
 }
 
 .status-sunset {
-  background-color: #64748b; /* Slate 500 */
+  background-color: var(--color-muted);
 }
 
 /* Status text styling in sidebar */
@@ -95,27 +95,27 @@
 }
 
 .status-text.status-in-progress {
-  color: #3b82f6; /* Blue for active projects */
+  color: var(--color-info);
 }
 
 .status-text.status-paused {
-  color: #64748b; /* Slate 500 */
+  color: var(--color-muted);
 }
 
 .status-text.status-completed {
-  color: #1e293b; /* Slate 800 */
+  color: var(--color-success);
 }
 
 .status-text.status-maintained {
-  color: #334155; /* Slate 700 */
+  color: var(--color-success);
 }
 
 .status-text.status-sunset {
-  color: #64748b; /* Slate 500 */
+  color: var(--color-muted);
 }
 
 .status-text.status-planned {
-  color: #3b82f6; /* Blue for planned projects */
+  color: var(--color-info);
 }
 
 .tech-group {
@@ -165,7 +165,7 @@
   padding: 0.35rem 0.75rem;
   border-radius: 50px;
   background-color: rgba(52, 144, 220, 0.15);
-  color: var(--color-primary);
+  color: var(--color-brand-primary);
   display: inline-block;
   text-decoration: none;
   transition: background-color 0.2s ease, color 0.2s ease;
@@ -174,37 +174,37 @@
 
 .project-badge.status-in-progress {
   background-color: rgba(59, 130, 246, 0.15);
-  color: #3b82f6; /* Blue for active projects */
+  color: var(--color-info);
 }
 
 .project-badge.status-planned {
   background-color: rgba(59, 130, 246, 0.15);
-  color: #3b82f6; /* Blue for planned projects */
+  color: var(--color-info);
 }
 
 .project-badge.status-paused {
   background-color: rgba(246, 153, 63, 0.15);
-  color: #64748b; /* Slate 500 */
+  color: var(--color-muted);
 }
 
 .project-badge.status-completed {
   background-color: rgba(56, 193, 114, 0.15);
-  color: #1e293b; /* Slate 800 */
+  color: var(--color-success);
 }
 
 .project-badge.status-maintained {
   background-color: rgba(77, 192, 181, 0.15);
-  color: #334155; /* Slate 700 */
+  color: var(--color-success);
 }
 
 .project-badge.status-sunset {
   background-color: rgba(149, 97, 226, 0.15);
-  color: #64748b; /* Slate 500 */
+  color: var(--color-muted);
 }
 
 .project-badge.featured {
   background-color: rgba(52, 144, 220, 0.15);
-  color: var(--color-primary);
+  color: var(--color-brand-primary);
 }
 
 .project-tech-tag {
@@ -212,7 +212,7 @@
   padding: 0.35rem 0.75rem;
   border-radius: 50px;
   background-color: rgba(52, 144, 220, 0.15);
-  color: var(--color-primary);
+  color: var(--color-brand-primary);
   display: inline-block;
   text-decoration: none;
   transition: background-color 0.2s ease, color 0.2s ease;
@@ -349,7 +349,7 @@
   padding: 0.75rem 1.25rem;
   border-radius: var(--border-radius);
   background-color: var(--color-primary);
-  color: white;
+  color: var(--color-on-brand);
   font-weight: 500;
   text-decoration: none;
   transition: background-color 0.2s ease;
@@ -368,7 +368,7 @@
 
 .project-link.github:hover {
   background-color: var(--color-primary);
-  color: white;
+  color: var(--color-on-brand);
 }
 
 .project-overview h2 {
@@ -522,7 +522,7 @@
   border-radius: 20px;
   text-transform: uppercase;
   letter-spacing: 0.5px;
-  color: #ffffff;
+  color: var(--color-on-brand);
   z-index: 2;
   border: none;
   text-decoration: none;

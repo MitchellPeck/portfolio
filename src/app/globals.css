@@ -13,15 +13,30 @@
      MIDNIGHT GOLD COLOR PALETTE
      ============================================ */
 
-  /* Brand Colors */
-  --color-brand-primary: #d4af37;      /* Classic gold - main brand */
-  --color-brand-secondary: #0ea5e9;    /* Sky blue - cool complement */
-  --color-brand-tertiary: #14b8a6;     /* Teal - accent */
+  /* Raw brand hues (for fills, glows, and tints — not for text) */
+  --brand-gold: #d4af37;               /* Classic gold - main brand */
+  --brand-sky: #0ea5e9;                /* Sky blue - cool complement */
+  --brand-teal: #14b8a6;               /* Teal - accent */
+
+  /* Brand colors as TEXT — theme-switched below so they meet WCAG AA on
+     each theme's background (the raw hues fail badly on white). */
+  --color-brand-primary: #8a6d1f;
+  --color-brand-secondary: #0369a1;
+  --color-brand-tertiary: #0f766e;
+
+  /* Text color used ON gold fills (buttons, badges, active pills) —
+     near-black passes on every stop of the gold gradients; white does not. */
+  --color-on-brand: #0a0a0f;
 
   /* Brand Gradients */
   --gradient-brand: linear-gradient(135deg, #d4af37 0%, #b8860b 100%);
   --gradient-brand-hover: linear-gradient(135deg, #e8c547 0%, #d4af37 100%);
   --gradient-accent: linear-gradient(135deg, #0ea5e9 0%, #14b8a6 100%);
+  /* Blue/teal fill that keeps white text readable (≥4.5:1 on both stops) */
+  --gradient-accent-strong: linear-gradient(135deg, #0369a1 0%, #0f766e 100%);
+  /* Gradients for TEXT (background-clip: text) — theme-switched below */
+  --gradient-brand-text: linear-gradient(135deg, #8a6d1f 0%, #b8860b 100%);
+  --gradient-accent-text: linear-gradient(135deg, #0369a1 0%, #0f766e 100%);
   --gradient-subtle: linear-gradient(135deg, rgba(212, 175, 55, 0.1) 0%, rgba(184, 134, 11, 0.1) 100%);
 
   /* Light Mode Colors */
@@ -33,7 +48,7 @@
   --accent-light: #0ea5e9;
   --muted-light: #71717a;
   --card-light: #ffffff;
-  --card-border-light: rgba(212, 175, 55, 0.1);
+  --card-border-light: rgba(138, 109, 31, 0.28);
   --header-light: rgba(255, 255, 255, 0.9);
 
   /* Dark Mode Colors */
@@ -48,11 +63,11 @@
   --card-border-dark: rgba(232, 197, 71, 0.15);
   --header-dark: rgba(10, 10, 15, 0.95);
 
-  /* Semantic Colors */
-  --color-success: #10b981;
-  --color-warning: #f59e0b;
-  --color-error: #ef4444;
-  --color-info: #3b82f6;
+  /* Semantic Colors (light values; dark overrides below) */
+  --color-success: #15803d;
+  --color-warning: #a16207;
+  --color-error: #b91c1c;
+  --color-info: #1d4ed8;
 
   /* Default theme colors (light) */
   --color-background: var(--background-light);
@@ -223,6 +238,15 @@ html[data-theme='dark'] {
   --color-card: var(--card-dark);
   --color-card-border: var(--card-border-dark);
   --color-header: var(--header-dark);
+  --color-brand-primary: var(--brand-gold);
+  --color-brand-secondary: var(--brand-sky);
+  --color-brand-tertiary: var(--brand-teal);
+  --gradient-brand-text: linear-gradient(135deg, #e8c547 0%, #d4af37 100%);
+  --gradient-accent-text: linear-gradient(135deg, #0ea5e9 0%, #14b8a6 100%);
+  --color-success: #10b981;
+  --color-warning: #f59e0b;
+  --color-error: #f87171;
+  --color-info: #60a5fa;
 }
 
 html[data-theme='light'] {
@@ -236,6 +260,15 @@ html[data-theme='light'] {
   --color-card: var(--card-light);
   --color-card-border: var(--card-border-light);
   --color-header: var(--header-light);
+  --color-brand-primary: #8a6d1f;
+  --color-brand-secondary: #0369a1;
+  --color-brand-tertiary: #0f766e;
+  --gradient-brand-text: linear-gradient(135deg, #8a6d1f 0%, #b8860b 100%);
+  --gradient-accent-text: linear-gradient(135deg, #0369a1 0%, #0f766e 100%);
+  --color-success: #15803d;
+  --color-warning: #a16207;
+  --color-error: #b91c1c;
+  --color-info: #1d4ed8;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -250,6 +283,14 @@ html[data-theme='light'] {
     --color-card: var(--card-dark);
     --color-card-border: var(--card-border-dark);
     --color-header: var(--header-dark);
+    --color-brand-primary: var(--brand-gold);
+    --color-brand-secondary: var(--brand-sky);
+    --color-brand-tertiary: var(--brand-teal);
+    --gradient-brand-text: linear-gradient(135deg, #e8c547 0%, #d4af37 100%);
+    --color-success: #10b981;
+    --color-warning: #f59e0b;
+    --color-error: #f87171;
+    --color-info: #60a5fa;
   }
 }
 
@@ -358,7 +399,7 @@ p {
 
 /* Gradient Text */
 .gradient-text {
-  background: var(--gradient-brand);
+  background: var(--gradient-brand-text);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -423,7 +464,7 @@ p {
 /* Primary Button - Gradient */
 .btn-primary {
   background: var(--gradient-brand);
-  color: white;
+  color: var(--color-on-brand);
   box-shadow: var(--shadow-brand-sm);
 }
 
@@ -517,7 +558,7 @@ p {
 
 .button-primary {
   background: var(--gradient-brand);
-  color: white;
+  color: var(--color-on-brand);
 }
 
 .button-primary:hover {
@@ -747,6 +788,10 @@ p {
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
   }
+
+  html {
+    scroll-behavior: auto;
+  }
 }
 
 /* ============================================
@@ -762,6 +807,32 @@ p {
   padding: 0;
   position: absolute;
   width: 1px;
+}
+
+/* Keyboard focus — visible on every interactive element */
+:focus-visible {
+  outline: 2px solid var(--color-brand-primary);
+  outline-offset: 2px;
+  border-radius: var(--radius-sm);
+}
+
+/* Skip link — hidden until focused */
+.skip-link {
+  position: fixed;
+  top: var(--spacing-2);
+  left: var(--spacing-2);
+  z-index: 2000;
+  padding: var(--spacing-2) var(--spacing-4);
+  background: var(--color-foreground);
+  color: var(--color-background);
+  border-radius: var(--radius-md);
+  font-weight: var(--font-semibold);
+  transform: translateY(-200%);
+  transition: transform var(--duration-fast) var(--ease-out);
+}
+
+.skip-link:focus-visible {
+  transform: translateY(0);
 }
 
 .text-center { text-align: center; }
