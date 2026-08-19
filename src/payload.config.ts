@@ -14,15 +14,10 @@ import Posts from './collections/Posts'
 import Projects from './collections/Projects'
 import { Users } from './collections/Users'
 
-// New collections (uncomment after running migrations)
-// import CaseStudies from './collections/CaseStudies'
-// import FAQ from './collections/FAQ'
-// import Industries from './collections/Industries'
-// import Pricing from './collections/Pricing'
-// import Process from './collections/Process'
-// import Services from './collections/Services'
-// import Team from './collections/Team'
-// import Testimonials from './collections/Testimonials'
+// Scaffolding for future collections lives in ./collections/unmounted/ (excluded
+// from type-checking until registered — see tsconfig.json). To activate one:
+// move it back into ./collections, import it here, add it to `collections`,
+// and create/run a migration.
 
 // Globals
 import SiteSettings from './globals/SiteSettings'
@@ -30,7 +25,22 @@ import SiteSettings from './globals/SiteSettings'
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
 
+const serverURL =
+  process.env.NEXT_PUBLIC_SITE_URL ||
+  (process.env.NODE_ENV === 'production' ? 'https://mitchellpeck.com' : 'http://localhost:3000')
+
+// Origins allowed to use cookie auth against the API (prod domain, Vercel
+// preview deployments, and localhost during development)
+const allowedOrigins = [
+  serverURL,
+  ...(process.env.VERCEL_URL ? [`https://${process.env.VERCEL_URL}`] : []),
+  ...(process.env.NODE_ENV !== 'production' ? ['http://localhost:3000'] : []),
+]
+
 export default buildConfig({
+  serverURL,
+  cors: allowedOrigins,
+  csrf: allowedOrigins,
   admin: {
     user: Users.slug,
     importMap: { baseDir: path.resolve(dirname) },
@@ -44,15 +54,6 @@ export default buildConfig({
     Consulting,
     // Core
     Projects,
-    // New collections - uncomment after running migrations:
-    // CaseStudies,
-    // Services,
-    // Pricing,
-    // Process,
-    // Team,
-    // Industries,
-    // Testimonials,
-    // FAQ,
   ],
   globals: [SiteSettings],
   editor: lexicalEditor(),

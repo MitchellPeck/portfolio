@@ -3,7 +3,10 @@ import type { CollectionConfig } from 'payload'
 const Projects: CollectionConfig = {
   slug: 'projects',
   admin: { useAsTitle: 'title', group: 'Content' },
-  access: { read: () => true },
+  access: {
+    // Public API readers only see published docs; logged-in admins see drafts too
+    read: ({ req }) => (req.user ? true : { published: { equals: true } }),
+  },
   fields: [
     {
       name: 'published',
