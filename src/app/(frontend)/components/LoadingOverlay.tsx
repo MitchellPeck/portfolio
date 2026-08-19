@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import { usePathname } from 'next/navigation'
 import './LoadingOverlay.css'
 
@@ -10,24 +10,18 @@ interface LoadingOverlayProps {
 
 export default function LoadingOverlay({ isLoading = true }: LoadingOverlayProps) {
   const pathname = usePathname()
-  const [currentRoute, setCurrentRoute] = useState('')
-
-  useEffect(() => {
-    // Format the pathname for display
-    const routeName = pathname === '/' ? 'Home' : pathname.split('/').pop() || pathname
-    setCurrentRoute("/" + routeName.toLowerCase())
-  }, [pathname])
+  const currentRoute = pathname === '/' ? 'Home' : pathname
 
   if (!isLoading) return null
 
   return (
-    <div className="loading-overlay">
+    <div className="loading-overlay" role="status" aria-live="polite">
       <div className="loading-content">
         <div className="loading-spinner">
-          <div className="spinner"></div>
+          <div className="spinner" aria-hidden="true"></div>
         </div>
         <div className="loading-text">
-          <h2>Loading...</h2>
+          <p className="loading-title">Loading...</p>
           {currentRoute && <p>Navigating to {currentRoute}</p>}
         </div>
       </div>

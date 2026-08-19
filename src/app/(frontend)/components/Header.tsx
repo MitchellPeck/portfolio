@@ -49,39 +49,53 @@ export const Header: React.FC<HeaderProps> = ({ logoUrl, logoAltUrl }) => {
   const pathname = usePathname()!
   const dropdownTimeoutRef = useRef<NodeJS.Timeout | null>(null)
 
-  useEffect(() => {
-    const setHeaderHeightVar = () => {
-      const headerEl = document.querySelector('.header') as HTMLElement | null
-      if (headerEl) {
-        const h = headerEl.offsetHeight
-        document.documentElement.style.setProperty('--site-header-height', `${h}px`)
-      }
-    }
+  // Close everything when the route changes (covers browser back/forward).
+  // State is adjusted during render per React's "you might not need an effect".
+  const [lastPathname, setLastPathname] = useState(pathname)
+  if (pathname !== lastPathname) {
+    setLastPathname(pathname)
+    setIsMenuOpen(false)
+    setActiveDropdown(null)
+    setMobileSubmenu(null)
+  }
 
+  useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 50)
-      setHeaderHeightVar()
     }
 
-    const handleResize = () => {
-      setHeaderHeightVar()
-    }
-
-    setHeaderHeightVar()
-    window.addEventListener('scroll', handleScroll)
-    window.addEventListener('resize', handleResize)
+    handleScroll()
+    window.addEventListener('scroll', handleScroll, { passive: true })
 
     return () => {
       window.removeEventListener('scroll', handleScroll)
-      window.removeEventListener('resize', handleResize)
+      if (dropdownTimeoutRef.current) {
+        clearTimeout(dropdownTimeoutRef.current)
+      }
     }
   }, [])
 
+  // Escape closes the mobile menu, submenu, and any open dropdown
   useEffect(() => {
-    const headerEl = document.querySelector('.header') as HTMLElement | null
-    if (headerEl) {
-      const h = headerEl.offsetHeight
-      document.documentElement.style.setProperty('--site-header-height', `${h}px`)
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        setIsMenuOpen(false)
+        setActiveDropdown(null)
+        setMobileSubmenu(null)
+      }
+    }
+    window.addEventListener('keydown', handleKeyDown)
+    return () => window.removeEventListener('keydown', handleKeyDown)
+  }, [])
+
+  // Lock page scroll behind the full-screen mobile menu
+  useEffect(() => {
+    if (isMenuOpen) {
+      const previous = document.body.style.overflow
+      document.body.style.overflow = 'hidden'
+      return () => {
+        document.body.style.overflow = previous
+      }
     }
   }, [isMenuOpen])
 
@@ -96,18 +110,18 @@ export const Header: React.FC<HeaderProps> = ({ logoUrl, logoAltUrl }) => {
     setMobileSubmenu(null)
   }
 
-  const handleDropdownEnter = (label: string) => {
-    // Only use hover on desktop
-    if (window.innerWidth <= 768) return
+  const isDesktop = () => window.innerWidth > 768
+
+  const openDropdown = (label: string) => {
+    if (!isDesktop()) return
     if (dropdownTimeoutRef.current) {
       clearTimeout(dropdownTimeoutRef.current)
     }
     setActiveDropdown(label)
   }
 
-  const handleDropdownLeave = () => {
-    // Only use hover on desktop
-    if (window.innerWidth <= 768) return
+  const scheduleDropdownClose = () => {
+    if (!isDesktop()) return
     dropdownTimeoutRef.current = setTimeout(() => {
       setActiveDropdown(null)
     }, 150)
@@ -125,13 +139,18 @@ export const Header: React.FC<HeaderProps> = ({ logoUrl, logoAltUrl }) => {
     <header className={`header ${isScrolled ? 'scrolled' : ''}`}>
       <div className="container">
         <div className="header-content">
-          <Link href="/" className="logo" onClick={closeMenu}>
+          <Link
+            href="/"
+            className="logo"
+            onClick={closeMenu}
+            aria-label="Mitchell Peck Development — home"
+          >
             {(logoAltUrl || logoUrl) ? (
               <span className="logo-images">
                 {/* Dark mode logo */}
                 <Image
                   src={logoAltUrl || logoUrl || ''}
-                  alt="Mitchell Peck Development"
+                  alt=""
                   width={40}
                   height={40}
                   className="logo-image logo-dark"
@@ -140,7 +159,7 @@ export const Header: React.FC<HeaderProps> = ({ logoUrl, logoAltUrl }) => {
                 {logoUrl && logoAltUrl && (
                   <Image
                     src={logoUrl}
-                    alt="Mitchell Peck Development"
+                    alt=""
                     width={40}
                     height={40}
                     className="logo-image logo-light"
@@ -148,33 +167,39 @@ export const Header: React.FC<HeaderProps> = ({ logoUrl, logoAltUrl }) => {
                 )}
               </span>
             ) : (
-              <span className="logo-mark">MP</span>
+              <span className="logo-mark" aria-hidden="true">MP</span>
             )}
-            <span className="logo-text">Mitchell Peck Development</span>
+            <span className="logo-text" aria-hidden="true">Mitchell Peck Development</span>
           </Link>
 
           <button
             className={`menu-toggle ${isMenuOpen ? 'active' : ''}`}
             onClick={toggleMenu}
             aria-label="Toggle menu"
+            aria-expanded={isMenuOpen}
+            aria-controls="site-nav"
           >
             <span className="hamburger-line"></span>
             <span className="hamburger-line"></span>
             <span className="hamburger-line"></span>
           </button>
 
-          <nav className={`main-nav ${isMenuOpen ? 'active' : ''}`}>
+          <nav id="site-nav" className={`main-nav ${isMenuOpen ? 'active' : ''}`}>
             <ul className="nav-list">
               {navItems.map((item) => (
                 <li
                   key={item.label}
                   className={`nav-item ${item.dropdown ? 'has-dropdown' : ''} ${item.dropdown && activeDropdown === item.label ? 'dropdown-open' : ''}`}
-                  onMouseEnter={() => item.dropdown && handleDropdownEnter(item.label)}
-                  onMouseLeave={handleDropdownLeave}
+                  onMouseEnter={() => item.dropdown && openDropdown(item.label)}
+                  onMouseLeave={scheduleDropdownClose}
+                  onFocus={() => item.dropdown && openDropdown(item.label)}
+                  onBlur={scheduleDropdownClose}
                 >
                   <Link
                     href={item.href}
                     className={`nav-link ${isActiveLink(item.href, item.dropdown) ? 'active' : ''}`}
+                    aria-haspopup={item.dropdown ? 'menu' : undefined}
+                    aria-expanded={item.dropdown ? activeDropdown === item.label : undefined}
                     onClick={(e) => {
                       // On mobile, open submenu instead of navigating
                       if (item.dropdown && window.innerWidth <= 768) {
@@ -193,6 +218,7 @@ export const Header: React.FC<HeaderProps> = ({ logoUrl, logoAltUrl }) => {
                         height="6"
                         viewBox="0 0 10 6"
                         fill="none"
+                        aria-hidden="true"
                       >
                         <path
                           d="M1 1L5 5L9 1"
@@ -241,6 +267,7 @@ export const Header: React.FC<HeaderProps> = ({ logoUrl, logoAltUrl }) => {
                 onClick={closeMenu}
               >
                 Client Portal
+                <span className="visually-hidden"> (opens in new tab)</span>
               </Link>
             </div>
           </nav>
@@ -251,7 +278,7 @@ export const Header: React.FC<HeaderProps> = ({ logoUrl, logoAltUrl }) => {
               className="mobile-submenu-back"
               onClick={() => setMobileSubmenu(null)}
             >
-              <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+              <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
                 <path d="M12 4L6 10L12 16" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
               </svg>
               Back
